@@ -1,0 +1,154 @@
+# =============================================================================
+# MkDocs 設定: Continue.dev オンプレミス・エアギャップ環境チュートリアル
+#
+# - エアギャップ環境を前提とする
+#   - Google Fonts、Google Analytics 等の外部リソース取得を無効化
+#   - プラグイン・テーマ・拡張は社内ミラーから事前にインストールする想定
+# - Foam 互換 (Frontmatter: title / type / tags) のドキュメント群を読み込む
+# =============================================================================
+
+site_name: Continue.dev オンプレミス・エアギャップ環境チュートリアル
+site_description: >-
+  VS Code 拡張 Continue.dev をオンプレミス・エアギャップ環境のローカル LLM と
+  組み合わせて利用するための、ソフトウェア開発者向けチュートリアル。
+site_author: Internal Documentation Team
+
+# 社内公開先に合わせて書き換えてください（未設定でもローカルビルドは可能）
+# site_url: https://<your-internal-host>/continue-tutorial/
+
+# リポジトリ情報（社内 Git に合わせて書き換え。不要なら丸ごと削除可）
+# repo_name: <internal-org>/continue-tutorial
+# repo_url: https://<your-internal-git>/<internal-org>/continue-tutorial
+# edit_uri: edit/main/docs/
+
+copyright: "Copyright (c) Internal Use Only"
+
+docs_dir: docs
+site_dir: site
+
+# -----------------------------------------------------------------------------
+# テーマ: Material for MkDocs
+# - エアギャップ前提のため Google Fonts を無効化 (font: false)
+# - 必要な拡張は markdown_extensions / plugins で個別に有効化する
+# -----------------------------------------------------------------------------
+theme:
+  name: material
+  language: ja
+  # Google Fonts を取得しない（エアギャップ前提）
+  font: false
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: ダークモードに切り替える
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: ライトモードに切り替える
+  # ファビコン・ロゴを差し替える場合は docs/images/ に配置して以下を有効化
+  # logo: images/logo.svg
+  # favicon: images/favicon.ico
+
+# -----------------------------------------------------------------------------
+# Markdown 拡張
+# -----------------------------------------------------------------------------
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.keys
+  - pymdownx.caret
+  - pymdownx.tilde
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+
+# -----------------------------------------------------------------------------
+# プラグイン
+# - 社内ミラーから事前に pip install しておく前提
+# - Foam の wikilink 形式 ([[page]]) を MkDocs リンクに変換したい場合は
+#   mkdocs-roamlinks-plugin か mkdocs-ezlinks-plugin の導入を検討し、
+#   下のコメントアウトを解除する。導入していない場合は標準 Markdown リンクで運用する。
+# -----------------------------------------------------------------------------
+plugins:
+  - search:
+      lang:
+        - ja
+        - en
+  # - roamlinks       # mkdocs-roamlinks-plugin
+  # - ezlinks         # mkdocs-ezlinks-plugin
+  # - awesome-pages   # ナビを自動生成したい場合
+
+# -----------------------------------------------------------------------------
+# 追加機能 (Material for MkDocs の extra)
+# - エアギャップ前提のため analytics は設定しない
+# -----------------------------------------------------------------------------
+extra:
+  generator: false   # 「Made with Material for MkDocs」の表示を抑制
+  # social リンク等は社内利用前提のため省略
+
+# -----------------------------------------------------------------------------
+# ナビゲーション
+# - 章ファイル名は AGENT_INSTRUCTIONS.md の「3.1 ファイル形式と配置」に従う
+# -----------------------------------------------------------------------------
+nav:
+  - はじめに: index.md
+  - 第1章 はじめに: 01-introduction.md
+  - 第2章 前提条件と環境確認: 02-prerequisites.md
+  - 第3章 VS Code 拡張のオフラインインストール: 03-offline-install.md
+  - 第4章 テレメトリと外部通信の遮断確認: 04-telemetry-airgap-verification.md
+  - 第5章 config.yaml の基本構造: 05-config-yaml-basics.md
+  - 第6章 Chat 機能の基本: 06-chat-basics.md
+  - 第7章 Autocomplete（タブ補完）: 07-autocomplete.md
+  - 第8章 Edit 機能でコードを書き換える: 08-edit.md
+  - 第9章 Agent 機能を理解する: 09-agent.md
+  - 第10章 社内モデルとコンテキスト管理: 10-internal-models-context.md
+  - 第11章 カスタマイズで開発フローに最適化する: 11-customization.md
+  - 第12章 MCP サーバの社内利用: 12-mcp-onprem.md
+  - 第13章 セキュリティと運用: 13-security-operations.md
+  - 第14章 トラブルシューティング: 14-troubleshooting.md
+  - 付録:
+      - config.yaml リファレンス: appendix/config-reference.md
+      - キーボードショートカット: appendix/shortcuts.md
+      - 用語集: appendix/glossary.md
