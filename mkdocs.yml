@@ -119,6 +119,8 @@ plugins:
       # 本文中から <glossary:用語名> の構文でリンク可能
       # inline_refs: none  = 各定義への参照ページ一覧を表示しない
       inline_refs: none
+      # tooltip: none（デフォルト）/ short（定義の1行目）/ full（定義全体）
+      tooltip: short
   # - roamlinks       # mkdocs-roamlinks-plugin
   # - ezlinks         # mkdocs-ezlinks-plugin
   # - awesome-pages   # ナビを自動生成したい場合
