@@ -114,6 +114,11 @@ plugins:
       lang:
         - ja
         - en
+  - ezglossary:
+      # 用語集セクション名: glossary
+      # 本文中から <glossary:用語名> の構文でリンク可能
+      # inline_refs: none  = 各定義への参照ページ一覧を表示しない
+      inline_refs: none
   # - roamlinks       # mkdocs-roamlinks-plugin
   # - ezlinks         # mkdocs-ezlinks-plugin
   # - awesome-pages   # ナビを自動生成したい場合

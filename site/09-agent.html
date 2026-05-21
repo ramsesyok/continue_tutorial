@@ -1,0 +1,1969 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="VS Code 拡張 Continue.dev をオンプレミス・エアギャップ環境のローカル LLM と 組み合わせて利用するための、ソフトウェア開発者向けチュートリアル。">
+      
+      
+        <meta name="author" content="Internal Documentation Team">
+      
+      
+      
+        <link rel="prev" href="08-edit.html">
+      
+      
+        <link rel="next" href="10-internal-models-context.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第9章 Agent 機能を理解する - Continue チュートリアル</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="index.html" title="Continue チュートリアル" class="md-header__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Continue チュートリアル
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第9章 Agent 機能を理解する
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ダークモードに切り替える"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替える" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ライトモードに切り替える"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替える" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Continue チュートリアル" class="md-nav__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Continue チュートリアル
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-introduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第1章 はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-prerequisites.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第2章 前提条件と環境確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-offline-install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第3章 VS Code 拡張のオフラインインストール
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-telemetry-airgap-verification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第4章 テレメトリと外部通信の遮断確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-config-yaml-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第5章 config.yaml の基本構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-chat-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第6章 Chat 機能の基本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-autocomplete.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第7章 Autocomplete（タブ補完）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-edit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第8章 Edit 機能でコードを書き換える
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第9章 Agent 機能を理解する
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="09-agent.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第9章 Agent 機能を理解する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この章で学ぶこと
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent 機能とは何か
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent 機能とは何か">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat / Edit との立ち位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent の動作ループ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent に向く仕事・向かない仕事
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent モードを起動する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent モードを起動する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        モード切替と画面構成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent に必要なモデル要件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ツール承認モデルを理解する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ツール承認モデルを理解する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 つの承認モード
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        承認ダイアログの読み方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推奨設定の例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エアギャップ環境で使えるツール・使えないツール
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="エアギャップ環境で使えるツール・使えないツール">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        組み込みツールの分類
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エアギャップで利用可能なもの
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        利用不可・要注意なツール
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ハンズオン：Agent に小さなタスクを任せる
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ハンズオン：Agent に小さなタスクを任せる">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        題材の準備
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        シナリオ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        実行と承認の流れ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        失敗時の中断・やり直し
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent を安全に使うためのガイドライン
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent を安全に使うためのガイドライン">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        破壊的操作への備え
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        機密ファイル・秘密情報の扱い
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ログと履歴の確認
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat-edit_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat / Edit へのフォールバック判断
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        次の章へ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="10-internal-models-context.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第10章 社内モデルとコンテキスト管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="11-customization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第11章 カスタマイズで開発フローに最適化する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="12-mcp-onprem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第12章 MCP サーバの社内利用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="13-security-operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第13章 セキュリティと運用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="14-troubleshooting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第14章 トラブルシューティング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    付録
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    付録
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/config-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.yaml リファレンス
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/shortcuts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    キーボードショートカット
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用語集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この章で学ぶこと
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent 機能とは何か
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent 機能とは何か">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat / Edit との立ち位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent の動作ループ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent に向く仕事・向かない仕事
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent モードを起動する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent モードを起動する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        モード切替と画面構成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent に必要なモデル要件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ツール承認モデルを理解する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ツール承認モデルを理解する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 つの承認モード
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        承認ダイアログの読み方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        推奨設定の例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エアギャップ環境で使えるツール・使えないツール
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="エアギャップ環境で使えるツール・使えないツール">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        組み込みツールの分類
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エアギャップで利用可能なもの
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        利用不可・要注意なツール
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ハンズオン：Agent に小さなタスクを任せる
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ハンズオン：Agent に小さなタスクを任せる">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        題材の準備
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        シナリオ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        実行と承認の流れ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        失敗時の中断・やり直し
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent を安全に使うためのガイドライン
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent を安全に使うためのガイドライン">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        破壊的操作への備え
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        機密ファイル・秘密情報の扱い
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ログと履歴の確認
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat-edit_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat / Edit へのフォールバック判断
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        次の章へ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>第9章 Agent 機能を理解する</h1>
+
+<h2 id="_1">この章で学ぶこと<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Agent モードのねらいと、Chat / Edit との役割の違い</li>
+<li>ツール承認モデル（自動承認 / 都度承認 / 拒否）の仕組みと安全な運用方針</li>
+<li>エアギャップ環境で使えるツールと、避けるべきツールの切り分け</li>
+<li>小さなタスクを Agent に任せて完了まで見届けるハンズオン</li>
+<li>Agent を業務で安全に使うためのガイドライン</li>
+</ul>
+<h2 id="agent">Agent 機能とは何か<a class="headerlink" href="#agent" title="Permanent link">&para;</a></h2>
+<h3 id="chat-edit">Chat / Edit との立ち位置<a class="headerlink" href="#chat-edit" title="Permanent link">&para;</a></h3>
+<p>ここまでの章で、コードについて質問する Chat（第 6 章）、コードを書き換える Edit（第 8 章）、コードを書くそばから補完する Autocomplete（第 7 章）を扱ってきました。Agent は、これらと並ぶ 4 つ目の機能であり、ひとことで言えば <strong>「ツールを呼び出して自律的に作業する AI」</strong> です。</p>
+<p>Chat は質問への回答を返すだけで、ファイルやコマンドを直接操作することはありません。Edit はユーザーが選択した範囲を 1 回だけ書き換えます。これに対して Agent は、ユーザーから受け取ったゴールを達成するために、ファイルを読み、コードを編集し、必要ならターミナルでコマンドを実行する、といった一連の作業を<strong>自分で判断しながら</strong>進めていきます。</p>
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>入力</th>
+<th>主な出力</th>
+<th>ファイル操作</th>
+<th>コマンド実行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chat</td>
+<td>質問・依頼</td>
+<td>回答テキスト</td>
+<td>しない</td>
+<td>しない</td>
+</tr>
+<tr>
+<td>Edit</td>
+<td>選択範囲＋指示</td>
+<td>1 回の差分提案</td>
+<td>する（差分提案）</td>
+<td>しない</td>
+</tr>
+<tr>
+<td>Agent</td>
+<td>ゴール（依頼）</td>
+<td>ツール呼び出しの連鎖と最終応答</td>
+<td>する（複数回）</td>
+<td>する（承認制）</td>
+</tr>
+</tbody>
+</table>
+<p>Agent が真価を発揮するのは、<strong>1 回の指示で 2 つ以上のステップを伴う作業</strong>です。「あるモジュールに関数を追加し、対応するテストも書き、テストを実行して通るまで直す」といった依頼を、人手による細かい操作なしに進められます。</p>
+<h3 id="agent_1">Agent の動作ループ<a class="headerlink" href="#agent_1" title="Permanent link">&para;</a></h3>
+<p>Agent は、内部で次のサイクルを繰り返しながらゴールに近づきます。</p>
+<ol>
+<li><strong>思考</strong>: 現在の状況を踏まえ、次に何をすべきかを考える</li>
+<li><strong>ツール呼び出し</strong>: ファイル読取、編集、コマンド実行などのツールを選び、引数を組み立てる</li>
+<li><strong>観測</strong>: ツールの実行結果（読んだファイルの中身、コマンドの標準出力など）を受け取る</li>
+<li><strong>判断</strong>: 結果を踏まえて、次のステップに進むか、ゴールに到達したかを判断する</li>
+</ol>
+<p>このループが目に見える形で動くため、Agent は単なる「自動化スクリプト」とは異なります。<strong>毎ステップで状況を再評価しながら、必要なら方針を変える</strong> という点が「自律実行」と呼ばれるゆえんです。</p>
+<div class="admonition note">
+<p class="admonition-title">Agent ＝ 全自動ではない</p>
+<p>Agent は自律的に判断しますが、エアギャップ環境での標準的な使い方では、ファイル編集やコマンド実行は<strong>ユーザーの承認を必要とします</strong>。Agent が暴走してリポジトリを壊す、といった事態は、後述するツール承認モデルによって防がれます。</p>
+</div>
+<h3 id="agent_2">Agent に向く仕事・向かない仕事<a class="headerlink" href="#agent_2" title="Permanent link">&para;</a></h3>
+<p>すべての作業を Agent で行うのが効率的なわけではありません。次のような切り分けが目安になります。</p>
+<ul>
+<li><strong>Agent が向く</strong>: 「コードを読む → 直す → テストを走らせる → 失敗を直す」のように、複数の手順や試行錯誤が必要な作業</li>
+<li><strong>Edit が向く</strong>: 範囲が明確で 1 回の書き換えで済む作業（変数名のリネーム、関数のシグネチャ変更など）</li>
+<li><strong>Autocomplete が向く</strong>: 入力中のコードに対する短い補完</li>
+<li><strong>Chat が向く</strong>: ファイルを変更しない調査や、設計の相談、レビュー</li>
+</ul>
+<p>迷ったら、まず Chat で相談し、修正範囲が見えたら Edit、複数ステップを任せたいときに Agent、と段階的に切り替える運用が安全です。</p>
+<h2 id="agent_3">Agent モードを起動する<a class="headerlink" href="#agent_3" title="Permanent link">&para;</a></h2>
+<h3 id="_2">モード切替と画面構成<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>Continue のサイドパネルには、入力欄の近くに <strong>モード切替</strong> のためのセレクタがあります。ここで <code>Agent</code> を選ぶと、入力欄が Agent モードに切り替わり、Chat とは別の挙動になります。</p>
+<p>操作手順は次のとおりです。</p>
+<ol>
+<li>VS Code 左側のアクティビティバーで Continue のアイコンをクリックし、サイドパネルを開く</li>
+<li>入力欄上部または近傍のモード切替セレクタで <code>Agent</code> を選ぶ</li>
+<li>入力欄に依頼を入力し、送信する</li>
+</ol>
+<p>Agent モードに切り替えると、サイドパネルに <strong>使用可能なツールの一覧</strong> が確認できます。ファイル読取、ファイル編集、ターミナル実行などのツールがリストアップされ、それぞれのツールが「自動承認」「都度承認」「拒否」のどの設定になっているかも見て取れます（詳細は後述）。</p>
+<div class="admonition tip">
+<p class="admonition-title">モード切替のショートカット</p>
+<p>Chat と Agent の切り替えはサイドパネルから行うのが基本ですが、キーボードショートカットも割り当てられている場合があります。各バージョンのショートカットは、付録 B のキーボードショートカット表を参照してください。</p>
+</div>
+<h3 id="agent_4">Agent に必要なモデル要件<a class="headerlink" href="#agent_4" title="Permanent link">&para;</a></h3>
+<p>Agent モードでは、モデルが <strong>Tool Calling（関数呼び出し、ツール呼び出し）</strong> に対応している必要があります。これは「モデルが、定義済みのツールから 1 つを選び、引数を JSON で組み立てて返す」能力のことで、対応していないモデルでは Agent は動作しません（または不安定になります）。</p>
+<p>ローカル LLM では、次のような確認をおすすめします。</p>
+<ul>
+<li>Ollama で動かす場合: モデルカード（<code>ollama show &lt;your-model-name&gt;</code> の出力など）に <code>tools</code> 対応の記載があるか、または公式ドキュメントで Tool Calling 対応とされているか</li>
+<li>vLLM で動かす場合: 起動時に <code>--enable-auto-tool-choice</code> などのフラグを付与し、OpenAI 互換 API の Tool Calling を有効化しているか</li>
+</ul>
+<p><code>config.yaml</code> 側は、Agent 用のチャットモデルとして <code>roles</code> に <code>chat</code> を含むモデルを 1 つ用意しておけば、通常はそのまま Agent からも利用できます。最小構成の例は次のとおりです。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">internal-llm-chat</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-model-name&gt;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://&lt;your-internal-llm-host&gt;:&lt;port&gt;/v1</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">apiKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-api-key-or-placeholder&gt;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Tool Calling 非対応モデルでの挙動</p>
+<p>Tool Calling に対応していないモデルを Agent モードで使うと、ツールを呼ばずに「テキストでこう変更してください」と提案するだけで止まったり、ツール呼び出しの JSON が壊れて失敗を繰り返したりします。Agent がうまく動かない場合は、まずモデルの Tool Calling 対応状況を疑ってください。</p>
+</div>
+<h2 id="_3">ツール承認モデルを理解する<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="3">3 つの承認モード<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>Agent が外の世界に働きかけるすべての操作（ファイルを開く、ファイルを書き換える、シェルでコマンドを動かす、など）は、それぞれが <strong>「ツール」</strong> として定義されています。Continue は、各ツールに対して次の 3 段階の承認モードを設定できます。</p>
+<ul>
+<li><strong>自動承認（Allow / Auto）</strong>: Agent がツールを呼ぶと、ユーザーへの確認なしに即座に実行されます。読取系の安全なツールに向きます。</li>
+<li><strong>都度承認（Ask）</strong>: Agent がツールを呼ぼうとするたびに、ユーザーに承認ダイアログが表示されます。何をどう実行するかを見てから承認・却下を選びます。<strong>初学者と業務利用での既定はこれです。</strong></li>
+<li><strong>拒否（Deny）</strong>: そのツールは利用不可になります。Agent はそのツールを呼べません。</li>
+</ul>
+<p>設定は、Agent モードのサイドパネルに表示されるツール一覧の各ツールから個別に変更できます。プロジェクト全体のポリシーは <code>config.yaml</code> でも管理できる場合があります。</p>
+<h3 id="_4">承認ダイアログの読み方<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>都度承認モードでは、Agent がツールを呼ぼうとすると、サイドパネル内に承認ダイアログが表示されます。ダイアログには、これから何が起こるかが具体的に示されます。</p>
+<ul>
+<li><strong>ファイル読取ツール</strong>: 読み取り対象のパス（例: <code>src/task_sorter.py</code>）</li>
+<li><strong>ファイル編集ツール</strong>: 編集対象のパスと、<strong>変更前後の差分（diff）</strong></li>
+<li><strong>ターミナル実行ツール</strong>: これから実行されるシェルコマンドの全文（例: <code>pytest tests/</code>）</li>
+</ul>
+<p>ダイアログには通常 <code>Accept</code>（承認）と <code>Reject</code>（却下）のボタンがあります。承認する前に、次の 3 点を確認する習慣をつけてください。</p>
+<ol>
+<li><strong>対象</strong>: 編集や読取の対象パスが想定どおりか（特に <code>..</code> で親ディレクトリへ出ようとしていないか）</li>
+<li><strong>内容</strong>: 編集差分やコマンドの中身が、依頼内容に対して妥当か</li>
+<li><strong>副作用</strong>: そのコマンドが取り消せる操作か、取り消せない操作か（<code>rm</code> や <code>git push</code> などは要注意）</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">迷ったら却下</p>
+<p>承認ダイアログの内容に少しでも違和感を覚えたら、まず却下してください。Agent には「期待と違ったので、こうしてほしい」と伝えれば、別の手段で進めようとします。承認は「Yes」だけの一方通行ではなく、対話のきっかけです。</p>
+</div>
+<h3 id="_5">推奨設定の例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>社内導入を想定した、現実的な推奨設定の例を示します。</p>
+<ul>
+<li><strong>読取系</strong>: ファイル読取、コードベース検索などは <strong>自動承認</strong> にしてよい。Agent の応答が速くなり、開発体験が向上する</li>
+<li><strong>編集系</strong>: ファイル編集は <strong>都度承認</strong> を既定にする。差分を必ず目で見てから承認する習慣を組織に定着させる</li>
+<li><strong>コマンド実行系</strong>: ターミナル実行は <strong>都度承認</strong> を既定にする。とくに <code>rm</code>、<code>mv</code>、<code>git push</code>、<code>git reset --hard</code>、データベースへの書き込みなど、取り消しが難しいコマンドは個別に <strong>拒否</strong> に設定するか、専用のラッパースクリプト経由でのみ実行する運用にする</li>
+<li><strong>外部通信を伴うツール</strong>: 後述のとおり、エアギャップ環境では <strong>拒否</strong> に固定する</li>
+</ul>
+<p><code>config.yaml</code> での記述例は次のとおりです（Continue のバージョンによりキー名が異なる場合があります。詳細は付録 A の <code>config.yaml</code> リファレンスを参照してください）。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">agent</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">tools</span><span class="p">:</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read_file</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="nt">approval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit_file</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="nt">approval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ask</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">run_terminal</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="nt">approval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ask</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web_fetch</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="nt">approval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deny</span>
+</span></code></pre></div>
+<h2 id="_6">エアギャップ環境で使えるツール・使えないツール<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">組み込みツールの分類<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>Continue が Agent 向けに提供する組み込みツールは、おおむね次の 5 カテゴリに整理できます。</p>
+<table>
+<thead>
+<tr>
+<th>カテゴリ</th>
+<th>主なツール</th>
+<th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ファイル読取</td>
+<td>ワークスペース内のファイル参照、ディレクトリ一覧</td>
+<td>コードを読んで状況を把握する</td>
+</tr>
+<tr>
+<td>ファイル編集</td>
+<td>ファイル新規作成、既存ファイルの書き換え</td>
+<td>コードを変更する</td>
+</tr>
+<tr>
+<td>コードベース検索</td>
+<td>コードベース全体に対する検索、シンボル検索</td>
+<td>関連箇所を探す</td>
+</tr>
+<tr>
+<td>ターミナル実行</td>
+<td>シェルコマンドの実行</td>
+<td>テスト、ビルド、リンタなどを動かす</td>
+</tr>
+<tr>
+<td>外部 API・Web 取得</td>
+<td>Web ページ取得、外部検索 API 呼び出し</td>
+<td>インターネット上の情報を参照する</td>
+</tr>
+</tbody>
+</table>
+<p>このうち、上 4 カテゴリは原理的にローカル完結で動きますが、5 番目のカテゴリは外部ネットワークを前提とするため、エアギャップ環境では別扱いになります。</p>
+<h3 id="_8">エアギャップで利用可能なもの<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>次のツールは、エアギャップ環境でもそのまま利用できます。</p>
+<ul>
+<li><strong>ファイル読取</strong>: ワークスペース内のファイル参照、ディレクトリ一覧</li>
+<li><strong>ファイル編集</strong>: ファイルの新規作成・上書き</li>
+<li><strong>コードベース検索</strong>: ローカルでインデックス化された検索（第 10 章で扱う Embedding を含む）</li>
+<li><strong>ターミナル実行</strong>: ローカルにインストール済みのコマンド（<code>pytest</code>、<code>make</code>、<code>git</code> など）</li>
+</ul>
+<p>ただし、ターミナル実行を介して <strong>間接的に外部通信が発生する</strong> ケースには注意が必要です。代表例は次のとおりです。</p>
+<ul>
+<li><code>pip install &lt;package&gt;</code> のような、ネットからパッケージを取得しようとするコマンド</li>
+<li><code>git clone https://...</code> や <code>git pull</code> のような、外部リポジトリへのアクセス</li>
+<li><code>curl</code> / <code>wget</code> を含むコマンド</li>
+</ul>
+<p>これらは、エアギャップ環境では到達できず失敗するか、社内ミラーへの向き先が必要です。Agent がこうしたコマンドを実行しようとしたら、<strong>承認ダイアログで止めて Agent に方針変更を伝えてください</strong>（例: 「<code>pip install</code> は使わず、社内ミラーから事前に入れた前提で進めて」）。</p>
+<h3 id="_9">利用不可・要注意なツール<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>次のツールは、エアギャップ環境では <strong>本構成では使用しません</strong>。</p>
+<ul>
+<li><strong>Web ページ取得ツール</strong>: 任意の URL を取得しに行く動作のため、到達不可</li>
+<li><strong>外部検索 API ツール</strong>: クラウド検索エンジン API を呼ぶ動作のため、到達不可</li>
+<li><strong>クラウド埋め込みモデル</strong>: 外部の埋め込み API を呼ぶ用途のもの（第 10 章で扱うローカル Embedding と置き換える）</li>
+</ul>
+<p>これらのツールは、Agent モードのツール一覧で <strong>拒否</strong> に設定してください。意図せず有効化されたままだと、Agent が「Web で検索する」「外部ドキュメントを取得する」といったツール呼び出しを試み、毎回失敗してループに陥る原因になります。</p>
+<div class="admonition note">
+<p class="admonition-title">保証ではなく確認</p>
+<p>本書はツールを拒否設定にすることを推奨しますが、これだけで「外部通信が起きないことを保証する」と断定はしません。実際の遮断は、第 4 章で扱ったネットワーク層・プロセス層の通信遮断と組み合わせて確認してください。</p>
+</div>
+<h2 id="agent_5">ハンズオン：Agent に小さなタスクを任せる<a class="headerlink" href="#agent_5" title="Permanent link">&para;</a></h2>
+<p>ここまでの内容を、実際に Agent を動かして体験します。題材は <strong>「既存の Python モジュールに新しい関数を追加し、テストを書き、テストが通るまで直す」</strong> という、Agent らしい複数ステップの作業です。</p>
+<h3 id="_10">題材の準備<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>ワークスペース直下に、次の 2 つのファイルがある状態を出発点とします。手元で空のリポジトリを用意し、そのまま作成してください。</p>
+<p><code>src/task_sorter.py</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="sd">&quot;&quot;&quot;タスクの並び替えユーティリティ。&quot;&quot;&quot;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">sort_by_due_date</span><span class="p">(</span><span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;due_date キー（ISO 形式の日付文字列）で昇順に並べ替える。&quot;&quot;&quot;</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="s2">&quot;due_date&quot;</span><span class="p">])</span>
+</span></code></pre></div>
+<p><code>tests/test_task_sorter.py</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">src.task_sorter</span><span class="w"> </span><span class="kn">import</span> <span class="n">sort_by_due_date</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_sort_by_due_date</span><span class="p">():</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;due_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2026-06-10&quot;</span><span class="p">},</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;due_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2026-05-01&quot;</span><span class="p">},</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;due_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2026-07-15&quot;</span><span class="p">},</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="p">]</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">sort_by_due_date</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="k">assert</span> <span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span></code></pre></div>
+<p>エアギャップ環境では、<code>pytest</code> が事前に社内配布物としてインストール済みであることを前提とします。<code>pytest --version</code> で実行できることを確認しておいてください。</p>
+<h3 id="_11">シナリオ<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>Agent に次の依頼を出します。</p>
+<blockquote>
+<p><code>src/task_sorter.py</code> に、<code>priority</code> キー（整数、小さいほど優先度が高い）で昇順にソートする <code>sort_by_priority</code> 関数を追加してください。あわせて <code>tests/test_task_sorter.py</code> に対応するテストケースを追加し、<code>pytest tests/</code> を実行して通ることを確認してください。</p>
+</blockquote>
+<h3 id="_12">実行と承認の流れ<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>依頼を送信すると、Agent は概ね次のような順序でツール呼び出しを試みます。承認ダイアログが表示されるたびに、ダイアログの中身を読み、<code>Accept</code> を押すか <code>Reject</code> を押すかを判断します。</p>
+<ol>
+<li><strong>ファイル読取</strong>: <code>src/task_sorter.py</code> を読みに来る。読取は安全なので承認する（自動承認に設定済みなら確認は出ない）</li>
+<li><strong>ファイル読取</strong>: <code>tests/test_task_sorter.py</code> を読みに来る。同様に承認する</li>
+<li><strong>ファイル編集</strong>: <code>src/task_sorter.py</code> への差分が表示される。期待は <code>sort_by_priority</code> 関数の追加のみで、既存の <code>sort_by_due_date</code> を壊さないこと。差分を確認して承認する</li>
+<li><strong>ファイル編集</strong>: <code>tests/test_task_sorter.py</code> への差分が表示される。新しいテストケースが追加されているだけで、既存テストが書き換えられていないことを確認して承認する</li>
+<li><strong>ターミナル実行</strong>: <code>pytest tests/</code> の実行が提案される。コマンド全文を確認して承認する</li>
+<li><strong>観測と判断</strong>: テストが通れば Agent はゴール到達と判断し、結果を要約して応答を返します</li>
+</ol>
+<p>各ステップで、次のような <strong>読み方のコツ</strong> が役立ちます。</p>
+<ul>
+<li><strong>差分の <code>-</code> 行を必ず見る</strong>: 追加（<code>+</code>）だけでなく、既存コードの削除（<code>-</code>）が含まれていないかを確認する。意図しない削除は事故のもと</li>
+<li><strong>コマンドの引数を端まで読む</strong>: <code>pytest tests/ -x</code> のような追加オプションが意図したものか確認する</li>
+<li><strong>作業対象パスを確認する</strong>: 想定外のディレクトリ（<code>/etc/</code> など、ワークスペース外）への参照がないか確認する</li>
+</ul>
+<h3 id="_13">失敗時の中断・やり直し<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>ハンズオンでは、Agent が次のような「ハマり方」をすることがあります。これも Agent との付き合い方を学ぶ良い機会です。</p>
+<ul>
+<li><strong>テストが失敗する</strong>: 比較対象の順序を間違えるなど。Agent は失敗ログを読み取り、自分で <code>src/task_sorter.py</code> を修正しようとします。差分を見て妥当なら承認します</li>
+<li><strong>想定外のファイルを編集しようとする</strong>: 例えば既存の <code>sort_by_due_date</code> を「ついでにリファクタする」差分を提案してきた場合は、<code>Reject</code> を押し、入力欄で「既存関数には触らないでください」と方針を伝えます</li>
+<li><strong><code>pip install</code> を実行しようとする</strong>: エアギャップ環境では成功しません。<code>Reject</code> し、「環境には必要なパッケージは入っている前提で進めてください」と伝えます</li>
+<li><strong>何度も同じ失敗を繰り返す</strong>: 入力欄で <strong>「ここで止めてください」</strong> と伝え、サイドパネルから会話を新規に開始（リセット）して、より具体的な指示でやり直します</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">途中で止める</p>
+<p>Agent の応答中でも、サイドパネルの停止ボタン（多くの場合、四角の停止アイコン）で実行を中断できます。承認ダイアログを長く放置せず、止めるべきところで止めるのも、安全運用の一部です。</p>
+</div>
+<h2 id="agent_6">Agent を安全に使うためのガイドライン<a class="headerlink" href="#agent_6" title="Permanent link">&para;</a></h2>
+<p>ハンズオンを通して、Agent の挙動と承認ダイアログの読み方に触れました。最後に、業務利用で押さえておきたい運用上のガイドラインを整理します。</p>
+<h3 id="_14">破壊的操作への備え<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Git 管理下で作業する</strong>: Agent に任せる作業は、常に Git でバージョン管理されたディレクトリで行います。直前にコミットしてから Agent を動かすと、失敗した場合に <code>git checkout</code> や <code>git restore</code> で容易に巻き戻せます</li>
+<li><strong>ブランチを切る</strong>: 既存の作業ブランチで直接動かさず、Agent 専用のブランチを切ってから依頼を出すと、影響範囲が局所化されます</li>
+<li><strong>危険なコマンドはツール単位で拒否</strong>: <code>rm -rf</code>、<code>git reset --hard</code>、データベース削除コマンドなどは、ツールの承認モードを <strong>拒否</strong> に設定するか、専用のラッパースクリプト経由でのみ実行する運用にします</li>
+<li><strong>対象ディレクトリを限定する</strong>: Agent のワークスペースを、機密度の低いリポジトリに限定して開きます。ホームディレクトリ全体を開いて Agent を起動するのは避けます</li>
+</ul>
+<h3 id="_15">機密ファイル・秘密情報の扱い<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>.env</code> や鍵ファイルの読取要求は警戒する</strong>: Agent が「環境設定を確認するため <code>.env</code> を読みたい」と要求してきたら、承認ダイアログで一度立ち止まり、本当に必要かを判断します。多くの場合、依頼に対して <code>.env</code> の内容は不要です</li>
+<li><strong>対象から除外する</strong>: <code>.gitignore</code> に近い形で、Continue が Agent のファイルアクセスから除外するパターンを設定できる場合があります。利用可能な設定は付録 A を参照してください</li>
+<li><strong>コードベース検索の結果も対象</strong>: ファイル読取だけでなく、コードベース検索の結果として秘密情報がモデルに渡る可能性もあります。秘密情報はそもそもリポジトリに含めない、という基本ルールを守ってください</li>
+</ul>
+<h3 id="_16">ログと履歴の確認<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>会話履歴</strong>: Agent との会話は、Continue のサイドパネルから過去のセッションを呼び出して確認できます。何を依頼し、どんなツール呼び出しが行われたかを後から振り返れる状態にしておきます</li>
+<li><strong>ツール呼び出し履歴</strong>: 各ツールの呼び出しと結果は、サイドパネル内で展開して確認できます。事故が起きた際の原因究明に役立ちます</li>
+<li><strong>ログの保管</strong>: 業務利用では、組織のポリシーに合わせて、これらのログを一定期間保管する運用を検討してください。具体的なログの場所や保管設計は、第 13 章のセキュリティと運用で扱います</li>
+</ul>
+<h3 id="chat-edit_1">Chat / Edit へのフォールバック判断<a class="headerlink" href="#chat-edit_1" title="Permanent link">&para;</a></h3>
+<p>Agent は便利ですが、万能ではありません。次のようなときは、Agent をいったん止め、Chat や Edit に切り替える判断が有効です。</p>
+<ul>
+<li><strong>Agent が同じ失敗を繰り返している</strong>: 一度 Chat に切り替え、エラーログを貼り付けて方針を相談する。方針が決まったら Edit で 1 箇所だけ手を入れる、という細かい運用に戻す</li>
+<li><strong>コンテキストが大きくなりすぎている</strong>: 会話が長くなると、Agent の判断精度は落ちていきます。区切りのよいところで新規セッションを開始する</li>
+<li><strong>修正範囲が明確で 1 回で済む</strong>: わざわざ Agent に任せる必要がなく、Edit のほうが速く・安全に終わります</li>
+</ul>
+<p>「Agent で全部やる」ではなく、<strong>作業の性質に合わせて Chat / Edit / Agent を選び分ける</strong> ことが、エアギャップ環境で Continue を安全に使いこなす鍵になります。</p>
+<h2 id="_17">まとめ<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Agent は「ツールを呼び出して自律的に作業する AI」であり、複数ステップを伴うタスクに向きます</li>
+<li>Agent の操作はすべてツール呼び出しとして表現され、各ツールには自動承認 / 都度承認 / 拒否の 3 段階の承認モードを設定できます</li>
+<li>エアギャップ環境では、ファイル読取・編集・コードベース検索・ローカルのターミナル実行は利用可能ですが、Web 取得や外部検索 API は本構成では使用しません</li>
+<li>ハンズオンを通じて、関数追加・テスト追加・テスト実行までを Agent に任せ、承認ダイアログの読み方と中断・やり直しを体験しました</li>
+<li>業務利用では、Git とブランチでの保護、危険コマンドの拒否設定、機密ファイルへの警戒、Chat / Edit へのフォールバック判断が安全運用の柱になります</li>
+</ul>
+<h2 id="_18">次の章へ<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<p>次は <a href="10-internal-models-context.html">第 10 章 社内モデルとコンテキスト管理</a> で、Agent や Chat に渡すコンテキストの作り方と、<code>@docs</code> / <code>@codebase</code> の使い分け、ローカル Embedding の設定を扱います。Agent の精度を実用レベルに引き上げるための要となる章です。</p>
+<h2 id="_19">参考リンク<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Continue 公式ドキュメント「Agent」セクション（執筆時点の最新版を社内ミラー経由で参照してください）</li>
+<li>Continue 公式ドキュメント「Tools」セクション</li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/reference/admonitions/">Material for MkDocs Admonitions</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright (c) Internal Use Only
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

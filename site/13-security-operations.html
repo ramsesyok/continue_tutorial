@@ -1,0 +1,1887 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="VS Code 拡張 Continue.dev をオンプレミス・エアギャップ環境のローカル LLM と 組み合わせて利用するための、ソフトウェア開発者向けチュートリアル。">
+      
+      
+        <meta name="author" content="Internal Documentation Team">
+      
+      
+      
+        <link rel="prev" href="12-mcp-onprem.html">
+      
+      
+        <link rel="next" href="14-troubleshooting.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第13章 セキュリティと運用 - Continue チュートリアル</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="index.html" title="Continue チュートリアル" class="md-header__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Continue チュートリアル
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第13章 セキュリティと運用
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ダークモードに切り替える"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替える" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ライトモードに切り替える"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替える" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Continue チュートリアル" class="md-nav__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Continue チュートリアル
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-introduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第1章 はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-prerequisites.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第2章 前提条件と環境確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-offline-install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第3章 VS Code 拡張のオフラインインストール
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-telemetry-airgap-verification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第4章 テレメトリと外部通信の遮断確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-config-yaml-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第5章 config.yaml の基本構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-chat-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第6章 Chat 機能の基本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-autocomplete.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第7章 Autocomplete（タブ補完）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-edit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第8章 Edit 機能でコードを書き換える
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="09-agent.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第9章 Agent 機能を理解する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="10-internal-models-context.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第10章 社内モデルとコンテキスト管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="11-customization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第11章 カスタマイズで開発フローに最適化する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="12-mcp-onprem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第12章 MCP サーバの社内利用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第13章 セキュリティと運用
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="13-security-operations.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第13章 セキュリティと運用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この章で学ぶこと
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continue を使う際のセキュリティモデル
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Continue を使う際のセキュリティモデル">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        データフローの全体像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        送信されるデータの種類
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        機密コードの取り扱いポリシー
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="機密コードの取り扱いポリシー">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        送信範囲を理解する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continueignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .continueignore でファイルを除外する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        入力してよいコード・してはいけないコードの指針
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ログの場所と管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ログの場所と管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continue_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continue が出力するログの種類
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ログの保持期間と削除ポリシー
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        監査証跡としての活用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配布と更新の運用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配布と更新の運用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VS Code 拡張のバージョン管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.yaml の組織展開
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        更新時の検証フロー
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ユーザー教育と利用ガイドラインの整備
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ユーザー教育と利用ガイドラインの整備">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        社内向け利用ガイドラインのテンプレート
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        よくある誤用パターンと対策
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フィードバックループの構築
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        次の章へ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="14-troubleshooting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第14章 トラブルシューティング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    付録
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    付録
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/config-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.yaml リファレンス
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/shortcuts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    キーボードショートカット
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用語集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この章で学ぶこと
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continue を使う際のセキュリティモデル
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Continue を使う際のセキュリティモデル">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        データフローの全体像
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        送信されるデータの種類
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        機密コードの取り扱いポリシー
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="機密コードの取り扱いポリシー">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        送信範囲を理解する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continueignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .continueignore でファイルを除外する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        入力してよいコード・してはいけないコードの指針
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ログの場所と管理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ログの場所と管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continue_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continue が出力するログの種類
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ログの保持期間と削除ポリシー
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        監査証跡としての活用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配布と更新の運用
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配布と更新の運用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VS Code 拡張のバージョン管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.yaml の組織展開
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        更新時の検証フロー
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ユーザー教育と利用ガイドラインの整備
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ユーザー教育と利用ガイドラインの整備">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        社内向け利用ガイドラインのテンプレート
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        よくある誤用パターンと対策
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フィードバックループの構築
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        次の章へ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>第13章 セキュリティと運用</h1>
+
+<h2 id="_1">この章で学ぶこと<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Continue を使う際のデータフローを理解し、エアギャップ環境での安全性の根拠を把握する</li>
+<li>機密コードを誤って LLM に送信しないための設定・ポリシーを整備する</li>
+<li>Continue が出力するログの種類・場所・管理方法を習得する</li>
+<li>VS Code 拡張と config.yaml の配布・更新を組織的に運用する手順を学ぶ</li>
+<li>ユーザー教育と利用ガイドラインの整備によって、組織全体でのリスクを低減する</li>
+</ul>
+<hr />
+<h2 id="continue">Continue を使う際のセキュリティモデル<a class="headerlink" href="#continue" title="Permanent link">&para;</a></h2>
+<p>Continue は、ユーザーが入力したプロンプトや選択したコードを LLM に送信することで動作します。ここでは「何がどこに送られるのか」を整理し、エアギャップ環境でのセキュリティ上の根拠を確認します。</p>
+<h3 id="_2">データフローの全体像<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>Continue は VS Code の拡張として動作し、以下の経路でデータを送受信します。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>VS Code 上のコード・プロンプト
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        ↓
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Continue 拡張（ローカルプロセス）
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        ↓
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>ローカル LLM エンドポイント（例: http://localhost:11434）
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        ↓
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>LLM による推論結果
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        ↓
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Continue 拡張 → VS Code 上に表示
+</span></code></pre></div>
+<p>ローカル LLM（Ollama・vLLM・LM Studio など）を使用している場合、コードとプロンプトはすべてイントラネット内で完結します。インターネット上の外部 API には一切送信されません。</p>
+<div class="admonition note">
+<p class="admonition-title">エアギャップ環境における確認済みの前提</p>
+<p>本チュートリアルは「Continue からローカル LLM への接続設定が完了しており、外部通信が遮断されている」ことを前提にしています。外部通信の遮断確認については <a href="04-telemetry-airgap-verification.html">第 4 章</a> を参照してください。</p>
+</div>
+<h3 id="_3">送信されるデータの種類<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>LLM に送信される情報は、主に以下の 3 種類です。</p>
+<ul>
+<li><strong>プロンプトテキスト</strong>: ユーザーがチャットや Edit で入力したテキスト</li>
+<li><strong>コードコンテキスト</strong>: 選択したコード、<code>@file</code> で指定したファイル、<code>@codebase</code> による検索結果など</li>
+<li><strong>システムプロンプト</strong>: Rules（フォルダ内の <code>.continue/rules/</code> 配下のファイル）の内容</li>
+</ul>
+<p>いずれもローカル LLM エンドポイントにのみ送信されます。ただし、<strong>contextLength の設定値まで自動的にコードが含まれる</strong>点に注意が必要です。次節でこの点を詳しく説明します。</p>
+<hr />
+<h2 id="_4">機密コードの取り扱いポリシー<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>エアギャップ環境でも、ローカル LLM サーバを共有している場合や、LLM のプロンプトログが記録される環境では、機密情報が意図せず記録・参照されるリスクがあります。組織としてのポリシーを整備し、設定で補強することが重要です。</p>
+<h3 id="_5">送信範囲を理解する<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Continue は、ユーザーが明示的に選択したコード以外にも、周辺コードを自動的にコンテキストとして LLM に送ります。この範囲は <code>config.yaml</code> の <code>defaultCompletionOptions.contextLength</code> で制御されます。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># config.yaml の例（Ollama 接続）</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-local-llama</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-model-name&gt;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://&lt;your-internal-llm-host&gt;:11434</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">defaultCompletionOptions</span><span class="p">:</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="nt">contextLength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4096</span><span class="w">   </span><span class="c1"># ← この値のトークン数まで周辺コードが含まれる</span>
+</span></code></pre></div>
+<p><code>contextLength</code> を大きくすると補完精度は向上しますが、その分だけ多くのコードが LLM に渡ります。機密性の高いリポジトリでは、<strong>必要最小限の値（2048〜4096 程度）に抑える</strong>ことを推奨します。</p>
+<div class="admonition warning">
+<p class="admonition-title">Autocomplete のコンテキストについて</p>
+<p>Autocomplete（タブ補完）では、カーソル前後のコードが自動的にコンテキストとして使われます。機密性の高いファイルを編集する際は、Autocomplete を一時的に無効化することも検討してください（<code>Ctrl+Shift+P</code> → <code>Continue: Toggle Autocomplete</code>）。</p>
+</div>
+<h3 id="continueignore">.continueignore でファイルを除外する<a class="headerlink" href="#continueignore" title="Permanent link">&para;</a></h3>
+<p><code>.continueignore</code> ファイルを使うと、特定のファイルやディレクトリを Continue の補完・インデックス・コンテキスト検索から除外できます。書式は <code>.gitignore</code> と同一です。</p>
+<p><code>.continueignore</code> はリポジトリルートまたはユーザーのホームディレクトリ（<code>~/.continue/.continueignore</code>）に配置します。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># .continueignore の例
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a># 秘密鍵・証明書
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>*.pem
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>*.key
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>secrets/
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a># 個人情報を含むファイル
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>**/personal_data/
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>**/pii/
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a># ライセンス制約のある外部ライブラリのソースコード
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>vendor/proprietary/
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a># 環境変数ファイル
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>.env
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>.env.*
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">リポジトリ共通設定として配布する</p>
+<p><code>.continueignore</code> をリポジトリに含めて Git 管理することで、チーム全員に同じ除外ルールを適用できます。組織の社内 Git サーバを通じて配布するのがおすすめです。</p>
+</div>
+<h3 id="_6">入力してよいコード・してはいけないコードの指針<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>組織ごとの状況に応じて、利用ガイドラインに以下のような記載を加えることを推奨します。次の表はたたき台として参照してください。</p>
+<table>
+<thead>
+<tr>
+<th>分類</th>
+<th>例</th>
+<th>Continue への入力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一般ロジック・アルゴリズム</td>
+<td>ソートアルゴリズム、ユーティリティ関数</td>
+<td>✅ 可</td>
+</tr>
+<tr>
+<td>社内 API クライアントコード</td>
+<td>内製ライブラリの実装</td>
+<td>✅ 可（ポリシー確認の上）</td>
+</tr>
+<tr>
+<td>認証情報・秘密鍵</td>
+<td>API キー、パスワード、トークン</td>
+<td>❌ 不可</td>
+</tr>
+<tr>
+<td>個人を特定できる情報（PII）</td>
+<td>氏名・住所・マイナンバーを含むコード</td>
+<td>❌ 不可</td>
+</tr>
+<tr>
+<td>特定顧客との契約に基づく機密コード</td>
+<td>NDA 締結プロジェクトのコア実装</td>
+<td>⚠️ 要確認（法務・情報管理部門に相談）</td>
+</tr>
+<tr>
+<td>ライセンス制約のある外部コード</td>
+<td>商用ライブラリのソース</td>
+<td>⚠️ 要確認（ライセンス担当に相談）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_7">ログの場所と管理<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="continue_1">Continue が出力するログの種類<a class="headerlink" href="#continue_1" title="Permanent link">&para;</a></h3>
+<p>Continue は動作中にさまざまなログを出力します。主なログファイルの場所は以下のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>ログの種類</th>
+<th>場所</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>メインログ</td>
+<td><code>~/.continue/logs/core.log</code></td>
+<td>Continue コアプロセスの動作ログ（エラー・警告・イベント）</td>
+</tr>
+<tr>
+<td>デバッグログ</td>
+<td>VS Code 出力パネル → <code>Continue - LLM Prompts/Completions</code></td>
+<td>LLM に実際に送信されたプロンプトと受信したレスポンス</td>
+</tr>
+<tr>
+<td>インデックスログ</td>
+<td><code>~/.continue/index/</code> 配下</td>
+<td><code>@codebase</code> 向けのコードインデックスキャッシュ</td>
+</tr>
+</tbody>
+</table>
+<p>VS Code の出力パネルは <code>Ctrl+Shift+U</code>（macOS: <code>Cmd+Shift+U</code>）で開き、右上のドロップダウンから <code>Continue - LLM Prompts/Completions</code> を選択すると、送受信内容をリアルタイムで確認できます。</p>
+<div class="admonition tip">
+<p class="admonition-title">プロンプトログはデバッグに有用</p>
+<p>補完精度の確認や、誤った応答の原因調査に、プロンプトログは非常に役立ちます。一方で、<strong>プロンプトログには入力したコードがそのまま記録される</strong>ため、取り扱いには注意が必要です。</p>
+</div>
+<h3 id="_8">ログの保持期間と削除ポリシー<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><code>core.log</code> はローリング形式で自動的に更新されますが、インデックスキャッシュは明示的に削除しない限り蓄積されます。組織のポリシーに応じて定期的な削除を検討してください。</p>
+<p>以下は、90 日以上前のログを削除するスクリプトの例です。OS のタスクスケジューラ（Windows: タスクスケジューラ、Linux/macOS: cron）に登録して定期実行できます。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># continue-log-cleanup.sh</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># ~/.continue/logs/ 配下の 90 日以上前のファイルを削除する</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nv">LOG_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.continue/logs&quot;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nv">RETENTION_DAYS</span><span class="o">=</span><span class="m">90</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$LOG_DIR</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+<span class="s2">&quot;</span><span class="nv">$RETENTION_DAYS</span><span class="s2">&quot;</span><span class="w"> </span>-exec<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[</span><span class="k">$(</span>date<span class="w"> </span><span class="s1">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span class="k">)</span><span class="s2">] ログクリーンアップ完了（保持期間: </span><span class="si">${</span><span class="nv">RETENTION_DAYS</span><span class="si">}</span><span class="s2"> 日）&quot;</span>
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c"># continue-log-cleanup.ps1（Windows 用）</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c"># ~/.continue/logs/ 配下の 90 日以上前のファイルを削除する</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nv">$LogDir</span> <span class="p">=</span> <span class="s2">&quot;$env:USERPROFILE\.continue\logs&quot;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nv">$RetentionDays</span> <span class="p">=</span> <span class="n">90</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nv">$Cutoff</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">AddDays</span><span class="p">(-</span><span class="nv">$RetentionDays</span><span class="p">)</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$LogDir</span> <span class="o">-File</span> <span class="p">|</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">LastWriteTime</span> <span class="o">-lt</span> <span class="nv">$Cutoff</span> <span class="p">}</span> <span class="p">|</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="nb">Remove-Item</span> <span class="n">-Force</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="nb">Write-Host</span> <span class="s2">&quot;</span><span class="p">$(</span><span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s1">&#39;yyyy-MM-dd HH:mm:ss&#39;</span><span class="p">)</span><span class="s2"> ログクリーンアップ完了（保持期間: $RetentionDays 日）&quot;</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">ログ削除前の確認</p>
+<p>削除前に、組織のセキュリティポリシーやコンプライアンス要件でログの保存期間が定められていないか確認してください。要件がある場合は、削除前にログを安全なストレージへアーカイブしてください。</p>
+</div>
+<h3 id="_9">監査証跡としての活用<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>セキュリティ審査やインシデント対応の場面では、Continue のログが証跡資料として役立つことがあります。以下の手順を参考にしてください。</p>
+<ol>
+<li><strong>ログを収集する</strong>: <code>~/.continue/logs/core.log</code> と VS Code の出力パネルのログを取得します。出力パネルのログは、パネルを右クリック →「出力のコピー」でクリップボードへコピーできます。</li>
+<li><strong>対象期間を絞り込む</strong>: タイムスタンプで対象のイベントを特定します。</li>
+<li><strong>提出前に機密情報を除去する</strong>: ログにはプロンプト内容が含まれる場合があります。提出前に個人情報・秘密鍵等が含まれていないか確認し、必要に応じてマスキングを行います。</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">ログに含まれる情報の取り扱い</p>
+<p>VS Code の <code>Continue - LLM Prompts/Completions</code> ログには、LLM に送信したコードやプロンプトが平文で記録されます。このログファイルを外部に提出する際は、必ず内容を事前に確認してください。</p>
+</div>
+<hr />
+<h2 id="_10">配布と更新の運用<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="vs-code">VS Code 拡張のバージョン管理<a class="headerlink" href="#vs-code" title="Permanent link">&para;</a></h3>
+<p>エアギャップ環境では、VS Code Marketplace から自動更新することができません。社内で以下の運用フローを整備することを推奨します。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>① 担当者が公式サイトから VSIX ファイルを入手（インターネット環境で実施）
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>        ↓
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>② 社内セキュリティチェック（ウイルススキャン、ライセンス確認）
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        ↓
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>③ 社内ファイルサーバ・パッケージリポジトリへの格納
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        ↓
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>④ 各開発者が社内リポジトリから VSIX を取得してインストール
+</span></code></pre></div>
+<p>特定バージョンを固定して全社配布するには、VSIX ファイルを社内 Web サーバや共有ドライブに置き、バージョンごとにディレクトリを分けて管理する方法が簡単です。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/share/vscode-extensions/
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  continue/
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    v1.0.0/
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>      continue-1.0.0.vsix
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    v1.1.0/
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>      continue-1.1.0.vsix
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    latest -&gt; v1.1.0/   ← シンボリックリンクで最新バージョンを示す
+</span></code></pre></div>
+<p>インストール手順については <a href="03-offline-install.html">第 3 章</a> を参照してください。</p>
+<h3 id="configyaml">config.yaml の組織展開<a class="headerlink" href="#configyaml" title="Permanent link">&para;</a></h3>
+<p>Continue の設定ファイル（<code>config.yaml</code>）には、個人レベルの設定と組織共有の設定の 2 種類があります。</p>
+<table>
+<thead>
+<tr>
+<th>スコープ</th>
+<th>ファイルの場所</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ユーザー設定</td>
+<td><code>~/.continue/config.yaml</code></td>
+<td>個人の LLM エンドポイント・モデル選択など</td>
+</tr>
+<tr>
+<td>ワークスペース設定</td>
+<td><code>&lt;リポジトリルート&gt;/.continue/config.yaml</code></td>
+<td>プロジェクト共通の Rules・ツール設定など</td>
+</tr>
+</tbody>
+</table>
+<p>組織展開では、以下のアプローチが有効です。</p>
+<p><strong>ベースラインテンプレートを配布する方法</strong></p>
+<p>組織標準の <code>config.yaml</code> テンプレートを社内 Wiki やファイルサーバに公開し、新規参加者がそこからコピーして利用する運用です。LLM エンドポイントのプレースホルダを入れておくことで、個人が簡単にカスタマイズできます。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># config.yaml テンプレート（組織配布用）</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># ＜＞ のプレースホルダを自分の環境に合わせて書き換えてください</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">org-continue-config</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">社内 LLM（Chat）</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-model-name&gt;</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://&lt;your-internal-llm-host&gt;:11434</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">社内 LLM（Autocomplete）</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-autocomplete-model-name&gt;</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://&lt;your-internal-llm-host&gt;:11434</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autocomplete</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">テレメトリの設定について</p>
+<p>テレメトリは <code>config.yaml</code> の <code>allowAnonymousTelemetry</code> キーではなく、VS Code の設定（<code>Ctrl+,</code> → "Continue: Telemetry Enabled" のチェックを外す）または Continue 拡張の設定画面のトグルで制御します。</p>
+</div>
+<p><strong>ワークスペース設定をリポジトリ管理する方法</strong></p>
+<p>プロジェクト固有の Rules やツール設定は <code>.continue/config.yaml</code> としてリポジトリに含め、Git で管理します。こうすることで、プロジェクトメンバー全員が同じ設定を自動的に利用できます。</p>
+<div class="admonition note">
+<p class="admonition-title">ユーザー設定とワークスペース設定の優先順位</p>
+<p>ワークスペース設定はユーザー設定とマージされます。同じキーが両方にある場合、ワークスペース設定が優先されます。</p>
+</div>
+<h3 id="_11">更新時の検証フロー<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>新バージョンの Continue をリリースする際は、以下の 3 ステップで検証することを推奨します。</p>
+<p><strong>ステップ 1: テスト環境での動作確認</strong></p>
+<p>テスト用の開発機に新バージョンをインストールし、以下を確認します。</p>
+<ul>
+<li>Chat・Edit・Autocomplete・Agent の各機能が正常に動作するか</li>
+<li>ローカル LLM エンドポイントへの接続が維持されているか</li>
+<li>テレメトリ無効化設定（<code>continue.telemetryEnabled: false</code>）が有効か（<a href="04-telemetry-airgap-verification.html">第 4 章</a> の検証手順を参照）</li>
+<li>既存の <code>config.yaml</code> が引き続き正しく読み込まれるか</li>
+</ul>
+<p><strong>ステップ 2: 段階的な展開</strong></p>
+<p>問題がなければ、少数の先行ユーザー（5〜10 名程度）に展開し、数日間の試用期間を設けます。フィードバックを収集し、問題がなければ全社展開に進みます。</p>
+<p><strong>ステップ 3: 全社展開とアナウンス</strong></p>
+<p>社内の通知チャネルを通じて、更新内容・インストール手順・問い合わせ窓口を案内します。古いバージョンの VSIX は一定期間保持し、問題発生時にロールバックできるようにしておきます。</p>
+<hr />
+<h2 id="_12">ユーザー教育と利用ガイドラインの整備<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>ツールの設定だけでなく、組織内のユーザーが正しく安全に Continue を使えるよう、教育と仕組みの両面から支援することが重要です。</p>
+<h3 id="_13">社内向け利用ガイドラインのテンプレート<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>以下は、社内の Confluence・Wiki・ポータルサイトに掲載する利用ガイドラインのたたき台です。組織の実情に合わせて編集してください。</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gu">## Continue 利用ガイドライン（社内向け）</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="gu">### やってよいこと</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">-</span><span class="w"> </span>一般的なロジックやアルゴリズムのコード補完・説明
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">-</span><span class="w"> </span>単体テストの自動生成
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="k">-</span><span class="w"> </span>コードの可読性向上（変数名変更、コメント追加）
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="k">-</span><span class="w"> </span>エラーメッセージの解釈と修正案の検討
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="k">-</span><span class="w"> </span>設計パターンの相談
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="gu">### やってはいけないこと</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="k">-</span><span class="w"> </span>秘密鍵・API キー・パスワードをプロンプトに含める
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="k">-</span><span class="w"> </span>個人情報（氏名・住所・マイナンバー等）を含むコードをそのまま入力する
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="k">-</span><span class="w"> </span>NDA を締結しているプロジェクトの機密実装を入力する（法務確認が必要）
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="k">-</span><span class="w"> </span>LLM の提案コードを確認せずにそのままマージする
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="gu">### 不明な点・問題が発生した場合</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="k">-</span><span class="w"> </span>担当窓口: &lt;社内問い合わせ先を記載&gt;
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="k">-</span><span class="w"> </span>報告フォーム: &lt;リンクを記載&gt;
+</span></code></pre></div>
+<h3 id="_14">よくある誤用パターンと対策<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>現場で発生しやすいリスクと、その対策を以下に示します。</p>
+<p><strong>パターン 1: 機密情報を含む環境変数ファイルを <code>@file</code> で指定してしまう</strong></p>
+<p><code>.env</code> ファイルに API キーや接続文字列が記載されていると、それが LLM に送信されます。</p>
+<p>対策: <code>.continueignore</code> に <code>.env</code> と <code>.env.*</code> を追加する（前述の設定例を参照）。</p>
+<p><strong>パターン 2: LLM の提案コードを検証せずにマージする</strong></p>
+<p>LLM は誤ったコードや、古い API を使ったコードを返すことがあります（ハルシネーション）。</p>
+<p>対策: Continue の提案は「叩き台」として扱い、コードレビューのプロセスを省略しないよう、チームのルールに明記する。</p>
+<p><strong>パターン 3: 共有端末で Continue を使い、ログが残る</strong></p>
+<p>共有 PC で使用すると、プロンプトログが他のユーザーに参照される可能性があります。</p>
+<p>対策: Continue の使用は個人アカウントが割り当てられた端末に限定し、共有端末での使用を禁止するポリシーを設ける。</p>
+<p><strong>パターン 4: VS Code の自動更新で非承認バージョンがインストールされる</strong></p>
+<p>エアギャップ環境では起きにくいですが、プロキシ経由で Marketplace にアクセスできる場合は注意が必要です。</p>
+<p>対策: <code>settings.json</code> で VS Code 拡張の自動更新を無効化する。</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">// VS Code の settings.json</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;extensions.autoUpdate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;extensions.autoCheckUpdates&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="_15">フィードバックループの構築<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>組織全体で Continue を安全かつ効果的に使い続けるには、現場からのフィードバックを運用チームに届ける仕組みが必要です。</p>
+<p><strong>Issue テンプレートの整備</strong></p>
+<p>社内 Git サーバや問題管理ツールに、次のような Issue テンプレートを用意しておくと、報告の質と速度が上がります。</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="gu">## Continue 利用報告</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="gu">### 報告種別</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">- [ ]</span> セキュリティ懸念
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">- [ ]</span> 動作不具合
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="k">- [ ]</span> 改善要望
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="k">- [ ]</span> その他
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="gu">### 発生環境</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="k">-</span><span class="w"> </span>Continue バージョン: 
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="k">-</span><span class="w"> </span>VS Code バージョン: 
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="k">-</span><span class="w"> </span>OS: 
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="gu">### 状況の説明</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>（何をしていたときに、何が起きたかを記載してください）
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="gu">### 再現手順</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>1. 
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>2. 
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>3. 
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="gu">### 関連ファイル・ログ</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>（ログを添付する場合は、機密情報が含まれていないことを確認の上、添付してください）
+</span></code></pre></div>
+<p><strong>定期的な勉強会の実施</strong></p>
+<p>月 1 回程度の社内勉強会を通じて、新機能の紹介・活用事例の共有・よくある質問への回答を行うことで、ユーザーのリテラシーを継続的に高めることができます。勉強会の内容は社内 Wiki に議事録として残し、参加できなかったメンバーも後から参照できるようにしてください。</p>
+<hr />
+<h2 id="_16">まとめ<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Continue のデータはローカル LLM エンドポイントにのみ送信される。エアギャップ環境では外部への漏洩リスクは低いが、LLM サーバのログ設定やアクセス権限の管理も併せて確認する</li>
+<li><code>.continueignore</code> と <code>contextLength</code> の設定により、機密コードの意図しない送信を防止できる</li>
+<li>Continue のログ（<code>~/.continue/logs/core.log</code> および VS Code 出力パネル）は定期的に削除・アーカイブし、機密情報が長期間残存しないよう管理する</li>
+<li>VS Code 拡張と <code>config.yaml</code> の配布・更新は、テスト環境での検証 → 段階展開 → 全社展開の 3 ステップで運用する</li>
+<li>利用ガイドライン・Issue テンプレート・定期勉強会を整備し、技術的な設定とユーザー教育の両輪でセキュリティリスクを低減する</li>
+</ul>
+<h2 id="_17">次の章へ<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<p>次は <a href="14-troubleshooting.html">第 14 章 トラブルシューティング</a> で、Continue の動作に問題が発生した際のログの確認方法・代表的な症状と切り分け手順・品質チューニングを扱います。</p>
+<h2 id="_18">参考リンク<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.continue.dev/security">Continue 公式ドキュメント - Security</a></li>
+<li><a href="https://docs.continue.dev/reference/continueignore">Continue 公式ドキュメント - .continueignore</a></li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/reference/admonitions/">MkDocs Material - Admonitions</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright (c) Internal Use Only
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2386 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="VS Code 拡張 Continue.dev をオンプレミス・エアギャップ環境のローカル LLM と 組み合わせて利用するための、ソフトウェア開発者向けチュートリアル。">
+      
+      
+        <meta name="author" content="Internal Documentation Team">
+      
+      
+      
+        <link rel="prev" href="../14-troubleshooting.html">
+      
+      
+        <link rel="next" href="shortcuts.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>付録A config.yaml リファレンス - Continue チュートリアル</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../index.html" title="Continue チュートリアル" class="md-header__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Continue チュートリアル
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              付録A config.yaml リファレンス
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ダークモードに切り替える"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替える" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ライトモードに切り替える"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替える" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Continue チュートリアル" class="md-nav__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Continue チュートリアル
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第1章 はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-prerequisites.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第2章 前提条件と環境確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-offline-install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第3章 VS Code 拡張のオフラインインストール
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-telemetry-airgap-verification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第4章 テレメトリと外部通信の遮断確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-config-yaml-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第5章 config.yaml の基本構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-chat-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第6章 Chat 機能の基本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-autocomplete.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第7章 Autocomplete（タブ補完）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-edit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第8章 Edit 機能でコードを書き換える
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-agent.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第9章 Agent 機能を理解する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-internal-models-context.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第10章 社内モデルとコンテキスト管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-customization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第11章 カスタマイズで開発フローに最適化する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-mcp-onprem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第12章 MCP サーバの社内利用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-security-operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第13章 セキュリティと運用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-troubleshooting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第14章 トラブルシューティング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    付録
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    付録
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.yaml リファレンス
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="config-reference.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.yaml リファレンス
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        このリファレンスの使い方
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トップレベルキー早見表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        共通フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        roles フィールド
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        プロバイダ別設定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複数モデルの登録と切り替え
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autocomplete-roles-autocomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autocomplete モデルの設定（roles: [autocomplete]）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autocomplete モデルの設定（roles: [autocomplete]）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autocompleteoptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        autocompleteOptions フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        組み込みコンテキストプロバイダ一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各プロバイダの設定フィールド
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prompts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="prompts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フォーマット
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embedding-roles-embed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding モデルの設定（roles: [embed]）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Embedding モデルの設定（roles: [embed]）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ローカル Embedding 対応プロバイダ
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcpservers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mcpServers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="mcpServers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完全な config.yaml 設定例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="完全な config.yaml 設定例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-autocomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最小構成（Chat + Autocomplete のみ）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フル構成（全機能有効テンプレート）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="shortcuts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    キーボードショートカット
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用語集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        このリファレンスの使い方
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        トップレベルキー早見表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        共通フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        roles フィールド
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        プロバイダ別設定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複数モデルの登録と切り替え
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autocomplete-roles-autocomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autocomplete モデルの設定（roles: [autocomplete]）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Autocomplete モデルの設定（roles: [autocomplete]）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autocompleteoptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        autocompleteOptions フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        組み込みコンテキストプロバイダ一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各プロバイダの設定フィールド
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        prompts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="prompts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フォーマット
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embedding-roles-embed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding モデルの設定（roles: [embed]）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Embedding モデルの設定（roles: [embed]）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ローカル Embedding 対応プロバイダ
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcpservers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mcpServers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="mcpServers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フィールド一覧
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        完全な config.yaml 設定例
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="完全な config.yaml 設定例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-autocomplete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        最小構成（Chat + Autocomplete のみ）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        フル構成（全機能有効テンプレート）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        関連リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>config.yaml リファレンス</h1>
+
+<h2 id="_1">このリファレンスの使い方<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>本付録は、Continue の設定ファイル <code>config.yaml</code> に記述できる全キー・全オプションを網羅した辞書的リファレンスです。チュートリアル形式で最小構成を学ぶ <a href="../05-config-yaml-basics.html">第5章</a> の補足として、手元に置いて引くことを想定しています。</p>
+<p>各節には「詳細は第 N 章」という相互参照を記載しており、設定の背景や操作手順は対応する章を参照してください。エアギャップ環境では使用できない機能には「<strong>本構成では使用しません</strong>」と明示しています。</p>
+<hr />
+<h2 id="_2">トップレベルキー早見表<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><code>config.yaml</code> に記述できる全トップレベルキーを以下に示します。</p>
+<table>
+<thead>
+<tr>
+<th>キー</th>
+<th>型</th>
+<th>必須</th>
+<th>概要</th>
+<th>詳細</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>設定の名前</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>設定のバージョン（例: <code>1.0.0</code>）</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>schema</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>スキーマバージョン（<code>v1</code> 固定）</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>models</code></td>
+<td>リスト</td>
+<td>✓</td>
+<td>Chat・Edit・Agent・Autocomplete・Embedding で使うモデルの一覧（<code>roles:</code> フィールドで用途を指定）</td>
+<td><a href="#models">models</a> / 第5・6・7・10章</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td>リスト</td>
+<td>—</td>
+<td><code>@file</code> / <code>@codebase</code> などの参照機能</td>
+<td><a href="#context">context</a> / 第6・10章</td>
+</tr>
+<tr>
+<td><code>rules</code></td>
+<td>リスト</td>
+<td>—</td>
+<td>モデルへの共通指示（コーディング規約など）</td>
+<td><a href="#rules">rules</a> / 第11章</td>
+</tr>
+<tr>
+<td><code>prompts</code></td>
+<td>リスト</td>
+<td>—</td>
+<td>ユーザー定義のカスタムプロンプト（旧 <code>customCommands</code>）</td>
+<td><a href="#prompts">prompts</a> / 第11章</td>
+</tr>
+<tr>
+<td><code>mcpServers</code></td>
+<td>リスト</td>
+<td>—</td>
+<td>MCP サーバの接続設定</td>
+<td><a href="#mcpservers">mcpServers</a> / 第12章</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">テレメトリ設定について</p>
+<p>旧バージョンの <code>allowAnonymousTelemetry:</code> キーは現在の <code>config.yaml</code> では使用しません。テレメトリの有効・無効は VS Code の設定（<strong>継続 › テレメトリ</strong>）または <code>settings.json</code> の <code>"continue.telemetryEnabled"</code> で制御してください（→ 詳細は <a href="../04-telemetry-airgap-verification.html">第4章</a>）。</p>
+</div>
+<hr />
+<h2 id="models">models<a class="headerlink" href="#models" title="Permanent link">&para;</a></h2>
+<p>Chat・Edit・Agent・Autocomplete・Embedding で使うモデルをすべてこのリストに登録します。各エントリの <code>roles:</code> フィールドで用途を指定します。</p>
+<h3 id="_3">共通フィールド一覧<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>型</th>
+<th>必須</th>
+<th>デフォルト</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>—</td>
+<td>VS Code の UI に表示されるモデルの表示名。任意の文字列を指定できます</td>
+</tr>
+<tr>
+<td><code>provider</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>—</td>
+<td>接続するバックエンドの種別。<code>ollama</code> / <code>openai</code> / <code>lmstudio</code> など</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>—</td>
+<td>バックエンドに登録されているモデル名。プロバイダ側の識別子と一致させます</td>
+</tr>
+<tr>
+<td><code>apiBase</code></td>
+<td>文字列</td>
+<td>—</td>
+<td>プロバイダ依存</td>
+<td>LLM サーバのエンドポイント URL。プロバイダのデフォルトから変更する場合に指定します</td>
+</tr>
+<tr>
+<td><code>apiKey</code></td>
+<td>文字列</td>
+<td>—</td>
+<td>—</td>
+<td>認証トークン。社内サーバで認証が不要でも、プロバイダによっては任意の文字列が必要な場合があります</td>
+</tr>
+<tr>
+<td><code>roles</code></td>
+<td>リスト</td>
+<td>—</td>
+<td>プロバイダ依存</td>
+<td>このモデルが担う役割。<code>chat</code>・<code>edit</code>・<code>autocomplete</code>・<code>embed</code>・<code>rerank</code> を指定できます</td>
+</tr>
+<tr>
+<td><code>autocompleteOptions</code></td>
+<td>オブジェクト</td>
+<td>—</td>
+<td>—</td>
+<td><code>roles</code> に <code>autocomplete</code> を含む場合の補完チューニングオプション</td>
+</tr>
+<tr>
+<td><code>contextLength</code></td>
+<td>整数</td>
+<td>—</td>
+<td>プロバイダ依存</td>
+<td>モデルが受け付ける最大コンテキスト長（トークン数）。指定しない場合はプロバイダのデフォルト値が適用されます</td>
+</tr>
+<tr>
+<td><code>promptTemplates</code></td>
+<td>オブジェクト</td>
+<td>—</td>
+<td>—</td>
+<td><code>chat</code> / <code>edit</code> などのプロンプトテンプレートを上書きする場合に指定します</td>
+</tr>
+</tbody>
+</table>
+<h3 id="roles">roles フィールド<a class="headerlink" href="#roles" title="Permanent link">&para;</a></h3>
+<p><code>roles:</code> に指定できる値は以下の通りです。</p>
+<table>
+<thead>
+<tr>
+<th>値</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chat</code></td>
+<td>チャット・質問応答（メインの会話）</td>
+</tr>
+<tr>
+<td><code>edit</code></td>
+<td>インラインエディット（コードの書き換え）</td>
+</tr>
+<tr>
+<td><code>autocomplete</code></td>
+<td>タブ補完（Autocomplete）</td>
+</tr>
+<tr>
+<td><code>embed</code></td>
+<td>ベクトル Embedding（<code>@codebase</code> / <code>@docs</code> 向け）</td>
+</tr>
+<tr>
+<td><code>rerank</code></td>
+<td>検索結果のリランキング</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">プロバイダ別設定<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h4 id="ollama">ollama<a class="headerlink" href="#ollama" title="Permanent link">&para;</a></h4>
+<p>Ollama のデフォルトポートは <code>11434</code>、<code>apiBase</code> を省略すると <code>http://localhost:11434</code> が使われます。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Llama 3（Ollama）</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-model-name&gt;</span><span class="w">         </span><span class="c1"># 例: llama3、qwen2.5:7b</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>固有フィールド</th>
+<th>型</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apiBase</code></td>
+<td>文字列</td>
+<td>Ollama サーバの URL。別ホストで動かす場合に指定します</td>
+</tr>
+</tbody>
+</table>
+<h4 id="openaivllm-lm-studio-openai">openai（vLLM / LM Studio OpenAI 互換モード含む）<a class="headerlink" href="#openaivllm-lm-studio-openai" title="Permanent link">&para;</a></h4>
+<p>vLLM や LM Studio の OpenAI 互換 API にも <code>provider: openai</code> を使います。<code>apiBase</code> でエンドポイントを社内サーバに向けてください。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Qwen 2.5 72B（vLLM）</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-model-name&gt;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:&lt;port&gt;/v1&quot;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dummy&quot;</span><span class="w">                 </span><span class="c1"># 認証不要でもフィールドが必要な場合があります</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>固有フィールド</th>
+<th>型</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>apiBase</code></td>
+<td>文字列</td>
+<td>OpenAI 互換サーバの URL。末尾 <code>/v1</code> まで含めて指定します</td>
+</tr>
+<tr>
+<td><code>apiKey</code></td>
+<td>文字列</td>
+<td>API キー。認証不要な構成でも空白以外の文字列が必要な場合があります</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">vLLM の apiKey</p>
+<p>vLLM を認証なしで運用している場合でも、<code>apiKey</code> フィールドに <code>"dummy"</code> など任意の文字列を設定しないとエラーになる構成があります。社内サーバの設定に合わせて調整してください。</p>
+</div>
+<h4 id="lmstudio">lmstudio<a class="headerlink" href="#lmstudio" title="Permanent link">&para;</a></h4>
+<p>LM Studio 専用プロバイダです。デフォルトポート <code>1234</code> が自動で適用されるため、同一マシンで動かす場合は <code>apiBase</code> を省略できます。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Llama 3（LM Studio）</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lmstudio</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-model-name&gt;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="c1"># apiBase を省略すると http://localhost:1234 が使われます</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="c1"># 別ホストで動かす場合は明示してください</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:1234&quot;</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span></code></pre></div>
+<h3 id="_5">複数モデルの登録と切り替え<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><code>models</code> リストに複数エントリを並べると、VS Code の Continue パネルのドロップダウンで切り替えられます。用途（高精度タスク・軽量タスク）に応じてモデルを使い分けるのが実用的です。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Llama 3 70B（高精度）</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llama3:70b</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Qwen 2.5 7B（軽量）</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qwen2.5:7b</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span></code></pre></div>
+<hr />
+<h2 id="autocomplete-roles-autocomplete">Autocomplete モデルの設定（roles: [autocomplete]）<a class="headerlink" href="#autocomplete-roles-autocomplete" title="Permanent link">&para;</a></h2>
+<p>Autocomplete（タブ補完）専用モデルは、<code>models</code> リストにエントリを追加し、<code>roles</code> フィールドに <code>autocomplete</code> を指定して登録します。補完チューニングのオプションは同じエントリ内の <code>autocompleteOptions:</code> に記述します（→ 詳細は <a href="../07-autocomplete.html">第7章</a>）。</p>
+<h3 id="autocompleteoptions">autocompleteOptions フィールド一覧<a class="headerlink" href="#autocompleteoptions" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>型</th>
+<th>デフォルト</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>useCopyBuffer</code></td>
+<td>真偽値</td>
+<td><code>false</code></td>
+<td>コピーバッファの内容をコンテキストに含めるかどうか</td>
+</tr>
+<tr>
+<td><code>useFileSuffix</code></td>
+<td>真偽値</td>
+<td><code>true</code></td>
+<td>カーソル後方のコードをコンテキストに含めるかどうか（FIM 対応モデル向け）</td>
+</tr>
+<tr>
+<td><code>maxPromptTokens</code></td>
+<td>整数</td>
+<td><code>1024</code></td>
+<td>プロンプトに含める最大トークン数。増やすと精度が上がる場合がありますが、レイテンシも増加します</td>
+</tr>
+<tr>
+<td><code>prefixPercentage</code></td>
+<td>数値</td>
+<td><code>0.85</code></td>
+<td>プロンプトのうちカーソル前方に割り当てる割合（0〜1）</td>
+</tr>
+<tr>
+<td><code>maxSuffixPercentage</code></td>
+<td>数値</td>
+<td><code>0.25</code></td>
+<td>プロンプトのうちカーソル後方に割り当てる最大割合（0〜1）</td>
+</tr>
+<tr>
+<td><code>debounceDelay</code></td>
+<td>整数（ms）</td>
+<td><code>350</code></td>
+<td>キー入力から補完リクエスト送信までの待機時間。低速なモデルでは大きくするとリクエストが減ります</td>
+</tr>
+<tr>
+<td><code>multilineCompletions</code></td>
+<td>文字列</td>
+<td><code>"auto"</code></td>
+<td>複数行補完の動作。<code>"always"</code> / <code>"never"</code> / <code>"auto"</code> のいずれか</td>
+</tr>
+<tr>
+<td><code>disableInFiles</code></td>
+<td>リスト</td>
+<td><code>[]</code></td>
+<td>補完を無効にするファイルのグロブパターン一覧（例: <code>["*.md", "*.txt"]</code>）</td>
+</tr>
+</tbody>
+</table>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">補完モデル（Qwen 2.5 Coder 1.5B）</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qwen2.5-coder:1.5b</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autocomplete</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">autocompleteOptions</span><span class="p">:</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">      </span><span class="nt">maxPromptTokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span><span class="w">       </span><span class="c1"># 低速環境ではトークン数を減らしてレイテンシを改善</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">      </span><span class="nt">debounceDelay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">      </span><span class="nt">multilineCompletions</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;auto&quot;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">      </span><span class="nt">disableInFiles</span><span class="p">:</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;*.md&quot;</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;*.txt&quot;</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">レイテンシが気になる場合</p>
+<p><code>debounceDelay</code> を増やす・<code>maxPromptTokens</code> を減らす・<code>multilineCompletions: "never"</code> にする、の 3 つがレイテンシ改善の基本アプローチです。詳細は <a href="../07-autocomplete.html">第7章</a> を参照してください。</p>
+</div>
+<hr />
+<h2 id="context">context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p><code>@file</code>・<code>@codebase</code> などの参照機能（コンテキストプロバイダ）を有効化するリストです（→ 詳細は <a href="../06-chat-basics.html">第6章</a> / <a href="../10-internal-models-context.html">第10章</a>）。各エントリには <code>name:</code> ではなく <code>provider:</code> キーを使用します。</p>
+<h3 id="_6">組み込みコンテキストプロバイダ一覧<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>provider</th>
+<th>呼び出し方</th>
+<th>概要</th>
+<th>エアギャップ対応</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code</code></td>
+<td><code>@code</code></td>
+<td>関数・クラス等のシンボルを検索して参照</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>codebase</code></td>
+<td><code>@codebase</code></td>
+<td>コードベース全体をインデックスして参照</td>
+<td>✓（ローカル Embedding 必須）</td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td><code>@docs</code></td>
+<td>ドキュメントサイトをインデックスして参照</td>
+<td>✓（ローカルで事前取得が必要）</td>
+</tr>
+<tr>
+<td><code>diff</code></td>
+<td><code>@diff</code></td>
+<td>現在の Git diff を参照</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>terminal</code></td>
+<td><code>@terminal</code></td>
+<td>ターミナルの出力を参照</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>problems</code></td>
+<td><code>@problems</code></td>
+<td>VS Code の「問題」パネルの内容を参照</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>folder</code></td>
+<td><code>@folder</code></td>
+<td>指定フォルダ内のファイルを参照</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>file</code></td>
+<td><code>@file</code></td>
+<td>特定のファイルを参照</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>open</code></td>
+<td><code>@open</code></td>
+<td>VS Code で開いているファイル一覧を参照</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>search</code></td>
+<td><code>@search</code></td>
+<td>リポジトリ内をキーワード検索して参照</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td><code>@url</code></td>
+<td>指定 URL の内容を参照</td>
+<td>△（社内 URL のみ可）</td>
+</tr>
+<tr>
+<td><code>tree</code></td>
+<td><code>@tree</code></td>
+<td>ディレクトリツリーを参照</td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">各プロバイダの設定フィールド<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<h4 id="codebase">codebase<a class="headerlink" href="#codebase" title="Permanent link">&para;</a></h4>
+<p>コードベース全体をベクトル検索で参照します。<code>models</code> リストにローカル Embedding モデル（<code>roles: [embed]</code>）の設定が必須です。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">context</span><span class="p">:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">codebase</span>
+</span></code></pre></div>
+<p>設定フィールドはなく、<code>provider: codebase</code> を追加するだけで有効になります。インデックス構築時間はリポジトリの規模に依存します。</p>
+<h4 id="docs">docs<a class="headerlink" href="#docs" title="Permanent link">&para;</a></h4>
+<p>ドキュメントサイトをクローリングしてインデックス化します。エアギャップ環境では、外部 URL はアクセスできないため、<strong>社内で配信しているドキュメントサイトの URL のみ</strong>指定してください。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">context</span><span class="p">:</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs</span>
+</span></code></pre></div>
+<p>初回利用時に VS Code の Continue パネルから「Add Doc」でサイト URL を登録します。</p>
+<div class="admonition warning">
+<p class="admonition-title">エアギャップ環境での制限</p>
+<p>外部のドキュメントサイト（例: 公式ドキュメントサイト）は、エアギャップ環境からアクセスできないため <code>@docs</code> でインデックス化できません。社内イントラネットで配信しているサイトのみ対象となります。</p>
+</div>
+<h4 id="folder">folder<a class="headerlink" href="#folder" title="Permanent link">&para;</a></h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">context</span><span class="p">:</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">folder</span>
+</span></code></pre></div>
+<p>チャット入力で <code>@folder</code> と入力すると、参照したいフォルダをインタラクティブに選択できます。</p>
+<h4 id="file">file<a class="headerlink" href="#file" title="Permanent link">&para;</a></h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">context</span><span class="p">:</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span>
+</span></code></pre></div>
+<p><code>@file</code> と入力するとファイル名のオートコンプリートが起動します。</p>
+<h4 id="url">url<a class="headerlink" href="#url" title="Permanent link">&para;</a></h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">context</span><span class="p">:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">url</span>
+</span></code></pre></div>
+<p><code>@url</code> に続けて URL を指定すると、そのページの内容が取得されてコンテキストに含まれます。エアギャップ環境では、ファイアウォール等で許可された社内 URL にのみ使用してください。</p>
+<hr />
+<h2 id="prompts">prompts<a class="headerlink" href="#prompts" title="Permanent link">&para;</a></h2>
+<p><code>/</code> コマンドからプロンプト本文を直接 <code>config.yaml</code> に記述して独自コマンドを定義します（旧称: <code>customCommands</code>、→ 詳細は <a href="../11-customization.html">第11章</a>）。</p>
+<h3 id="_8">フィールド一覧<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>型</th>
+<th>必須</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>コマンド名。<code>/</code> に続けて入力する識別子</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>コマンド一覧に表示される説明文</td>
+</tr>
+<tr>
+<td><code>prompt</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>モデルに送信するプロンプト本文。<code>{{{ input }}}</code> で追加の入力を受け取れます</td>
+</tr>
+</tbody>
+</table>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">prompts</span><span class="p">:</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;コードをセキュリティ観点でレビューする&quot;</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">      </span><span class="no">次のコードについて、セキュリティ上の問題点を日本語で指摘してください。</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">      </span><span class="no">問題がない場合は「問題なし」と答えてください。</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">      </span><span class="no">{{{ input }}}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">旧 slashCommands について</p>
+<p>旧バージョンの <code>slashCommands:</code> キーは現在の <code>config.yaml</code> では使用しません（<code>/edit</code>・<code>/comment</code> などの組み込みコマンドは引き続き UI から使用できます）。カスタムコマンドを定義する場合は <code>prompts:</code> を使用してください。</p>
+</div>
+<hr />
+<h2 id="rules">rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h2>
+<p>モデルへの共通指示を記述するリストです。すべての会話・編集・エージェント操作に自動的に付与されます。社内コーディング規約や回答フォーマットの指定に活用してください（→ 詳細は <a href="../11-customization.html">第11章</a>）。</p>
+<h3 id="_9">フォーマット<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><code>rules:</code> には文字列、またはファイル参照（<code>uses: file://...</code>）を指定します。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">rules</span><span class="p">:</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;回答は必ず日本語で行ってください。コードのコメントも日本語で記述してください。&quot;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file://./.continue/rules/python-style.md&quot;</span>
+</span></code></pre></div>
+<p>ルールをファイルに分離して管理する場合は、プロジェクトフォルダ内の <code>.continue/rules/</code> ディレクトリに <code>.md</code> ファイルを置き、<code>uses: file://...</code> で参照します。</p>
+<div class="admonition tip">
+<p class="admonition-title">ルールファイルの管理</p>
+<p><code>.continue/rules/</code> ディレクトリ（プロジェクトルートのフォルダ内）にルールファイルを置くと、プロジェクトメンバー間で共有しやすくなります。チームのコーディング規約をファイルとして管理することで、バージョン管理の対象にもなります。</p>
+</div>
+<hr />
+<h2 id="embedding-roles-embed">Embedding モデルの設定（roles: [embed]）<a class="headerlink" href="#embedding-roles-embed" title="Permanent link">&para;</a></h2>
+<p><code>@codebase</code> や <code>@docs</code> 機能でコードベースをベクトル検索するために使うローカル Embedding モデルは、<code>models</code> リストにエントリを追加し、<code>roles</code> フィールドに <code>embed</code> を指定して登録します（→ 詳細は <a href="../10-internal-models-context.html">第10章</a>）。</p>
+<h3 id="_10">フィールド一覧<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p><code>models</code> の共通フィールド（<code>name</code>・<code>provider</code>・<code>model</code>・<code>apiBase</code> など）に加え、次のフィールドを指定します。</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>型</th>
+<th>必須</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>roles</code></td>
+<td>リスト</td>
+<td>✓</td>
+<td><code>[embed]</code> を指定。Embedding 専用として登録されます</td>
+</tr>
+</tbody>
+</table>
+<h3 id="embedding">ローカル Embedding 対応プロバイダ<a class="headerlink" href="#embedding" title="Permanent link">&para;</a></h3>
+<h4 id="ollama_1">ollama<a class="headerlink" href="#ollama_1" title="Permanent link">&para;</a></h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Embeddings（nomic-embed-text）</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nomic-embed-text</span><span class="w">     </span><span class="c1"># Ollama にプルされている Embedding モデル名</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+</span></code></pre></div>
+<p>Ollama で利用できる Embedding モデルの例として <code>nomic-embed-text</code>・<code>mxbai-embed-large</code> などがあります。社内 Ollama サーバに用意されているモデルを管理者に確認してください。</p>
+<h4 id="openai-vllm">openai 互換（vLLM など）<a class="headerlink" href="#openai-vllm" title="Permanent link">&para;</a></h4>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Embeddings（bge-m3 on vLLM）</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-embedding-model-name&gt;</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:&lt;port&gt;/v1&quot;</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nt">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dummy&quot;</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">本構成では使用しません</p>
+<p>クラウドの OpenAI Embeddings API（<code>text-embedding-ada-002</code> など）はエアギャップ環境では使用できません。必ずローカルで動作する Embedding モデルを指定してください。</p>
+</div>
+<hr />
+<h2 id="mcpservers">mcpServers<a class="headerlink" href="#mcpservers" title="Permanent link">&para;</a></h2>
+<p>MCP（Model Context Protocol）サーバへの接続を設定するリストです（→ 詳細は <a href="../12-mcp-onprem.html">第12章</a>）。ローカルまたは社内で動作する MCP サーバのみ接続してください。</p>
+<h3 id="_11">フィールド一覧<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>型</th>
+<th>必須</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>文字列</td>
+<td>✓</td>
+<td>サーバの識別名。Continue 内での表示名として使われます</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td>文字列</td>
+<td>△</td>
+<td>MCP サーバを起動するコマンド（stdio 方式の場合）</td>
+</tr>
+<tr>
+<td><code>args</code></td>
+<td>リスト</td>
+<td>—</td>
+<td>コマンドに渡す引数</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>オブジェクト</td>
+<td>—</td>
+<td>環境変数のキー・バリューペア</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>文字列</td>
+<td>△</td>
+<td>MCP サーバの SSE エンドポイント URL（SSE 方式の場合）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="stdio">stdio 方式<a class="headerlink" href="#stdio" title="Permanent link">&para;</a></h4>
+<p>ローカルプロセスとして MCP サーバを起動する方式です。エアギャップ環境では最も一般的な接続方式です。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">mcpServers</span><span class="p">:</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesystem</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="nt">args</span><span class="p">:</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;/opt/mcp-servers/filesystem/index.js&quot;</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;--root&quot;</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;/home/&lt;your-username&gt;/projects&quot;</span>
+</span></code></pre></div>
+<h4 id="sse">SSE 方式<a class="headerlink" href="#sse" title="Permanent link">&para;</a></h4>
+<p>HTTP SSE（Server-Sent Events）で接続する方式です。別ホストで動作する MCP サーバに接続する場合に使います。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">mcpServers</span><span class="p">:</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">internal-git</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-mcp-host&gt;:&lt;port&gt;/sse&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="configyaml">完全な config.yaml 設定例<a class="headerlink" href="#configyaml" title="Permanent link">&para;</a></h2>
+<h3 id="chat-autocomplete">最小構成（Chat + Autocomplete のみ）<a class="headerlink" href="#chat-autocomplete" title="Permanent link">&para;</a></h3>
+<p>Ollama でモデルを 1 つずつ用意している場合の最小限の設定です。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># .continue/config.yaml  ——  最小構成</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-continue-config</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Chat Model</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-model-name&gt;</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Autocomplete Model</span>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-autocomplete-model-name&gt;</span>
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autocomplete</span>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a><span class="nt">context</span><span class="p">:</span>
+</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code</span>
+</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">diff</span>
+</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">terminal</span>
+</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">problems</span>
+</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">folder</span>
+</span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span>
+</span></code></pre></div>
+<h3 id="_12">フル構成（全機能有効テンプレート）<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>すべての主要機能を有効にした完全テンプレートです。プレースホルダを実際の値に置き換えて使用してください。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># .continue/config.yaml  ——  フル構成テンプレート</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-continue-config</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="c1"># モデル設定（Chat / Edit / Agent / Autocomplete / Embedding）</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Large Model（高精度）</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-large-model-name&gt;</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Small Model（軽量）</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-small-model-name&gt;</span>
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>
+</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a><span class="w">  </span><span class="c1"># ── Autocomplete ──</span>
+</span><span id="__span-17-28"><a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Autocomplete Model</span>
+</span><span id="__span-17-29"><a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-17-30"><a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-autocomplete-model-name&gt;</span>
+</span><span id="__span-17-31"><a id="__codelineno-17-31" name="__codelineno-17-31" href="#__codelineno-17-31"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-17-32"><a id="__codelineno-17-32" name="__codelineno-17-32" href="#__codelineno-17-32"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-17-33"><a id="__codelineno-17-33" name="__codelineno-17-33" href="#__codelineno-17-33"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autocomplete</span>
+</span><span id="__span-17-34"><a id="__codelineno-17-34" name="__codelineno-17-34" href="#__codelineno-17-34"></a><span class="w">    </span><span class="nt">autocompleteOptions</span><span class="p">:</span>
+</span><span id="__span-17-35"><a id="__codelineno-17-35" name="__codelineno-17-35" href="#__codelineno-17-35"></a><span class="w">      </span><span class="nt">maxPromptTokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
+</span><span id="__span-17-36"><a id="__codelineno-17-36" name="__codelineno-17-36" href="#__codelineno-17-36"></a><span class="w">      </span><span class="nt">debounceDelay</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">350</span>
+</span><span id="__span-17-37"><a id="__codelineno-17-37" name="__codelineno-17-37" href="#__codelineno-17-37"></a><span class="w">      </span><span class="nt">multilineCompletions</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;auto&quot;</span>
+</span><span id="__span-17-38"><a id="__codelineno-17-38" name="__codelineno-17-38" href="#__codelineno-17-38"></a><span class="w">      </span><span class="nt">disableInFiles</span><span class="p">:</span>
+</span><span id="__span-17-39"><a id="__codelineno-17-39" name="__codelineno-17-39" href="#__codelineno-17-39"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;*.md&quot;</span>
+</span><span id="__span-17-40"><a id="__codelineno-17-40" name="__codelineno-17-40" href="#__codelineno-17-40"></a>
+</span><span id="__span-17-41"><a id="__codelineno-17-41" name="__codelineno-17-41" href="#__codelineno-17-41"></a><span class="w">  </span><span class="c1"># ── Embedding（@codebase / @docs 向け）──</span>
+</span><span id="__span-17-42"><a id="__codelineno-17-42" name="__codelineno-17-42" href="#__codelineno-17-42"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Embeddings</span>
+</span><span id="__span-17-43"><a id="__codelineno-17-43" name="__codelineno-17-43" href="#__codelineno-17-43"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-17-44"><a id="__codelineno-17-44" name="__codelineno-17-44" href="#__codelineno-17-44"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-embedding-model-name&gt;</span>
+</span><span id="__span-17-45"><a id="__codelineno-17-45" name="__codelineno-17-45" href="#__codelineno-17-45"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-17-46"><a id="__codelineno-17-46" name="__codelineno-17-46" href="#__codelineno-17-46"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-17-47"><a id="__codelineno-17-47" name="__codelineno-17-47" href="#__codelineno-17-47"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+</span><span id="__span-17-48"><a id="__codelineno-17-48" name="__codelineno-17-48" href="#__codelineno-17-48"></a>
+</span><span id="__span-17-49"><a id="__codelineno-17-49" name="__codelineno-17-49" href="#__codelineno-17-49"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-50"><a id="__codelineno-17-50" name="__codelineno-17-50" href="#__codelineno-17-50"></a><span class="c1"># コンテキストプロバイダ</span>
+</span><span id="__span-17-51"><a id="__codelineno-17-51" name="__codelineno-17-51" href="#__codelineno-17-51"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-52"><a id="__codelineno-17-52" name="__codelineno-17-52" href="#__codelineno-17-52"></a><span class="nt">context</span><span class="p">:</span>
+</span><span id="__span-17-53"><a id="__codelineno-17-53" name="__codelineno-17-53" href="#__codelineno-17-53"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code</span>
+</span><span id="__span-17-54"><a id="__codelineno-17-54" name="__codelineno-17-54" href="#__codelineno-17-54"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">codebase</span>
+</span><span id="__span-17-55"><a id="__codelineno-17-55" name="__codelineno-17-55" href="#__codelineno-17-55"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs</span>
+</span><span id="__span-17-56"><a id="__codelineno-17-56" name="__codelineno-17-56" href="#__codelineno-17-56"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">diff</span>
+</span><span id="__span-17-57"><a id="__codelineno-17-57" name="__codelineno-17-57" href="#__codelineno-17-57"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">terminal</span>
+</span><span id="__span-17-58"><a id="__codelineno-17-58" name="__codelineno-17-58" href="#__codelineno-17-58"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">problems</span>
+</span><span id="__span-17-59"><a id="__codelineno-17-59" name="__codelineno-17-59" href="#__codelineno-17-59"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">folder</span>
+</span><span id="__span-17-60"><a id="__codelineno-17-60" name="__codelineno-17-60" href="#__codelineno-17-60"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">file</span>
+</span><span id="__span-17-61"><a id="__codelineno-17-61" name="__codelineno-17-61" href="#__codelineno-17-61"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">open</span>
+</span><span id="__span-17-62"><a id="__codelineno-17-62" name="__codelineno-17-62" href="#__codelineno-17-62"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span>
+</span><span id="__span-17-63"><a id="__codelineno-17-63" name="__codelineno-17-63" href="#__codelineno-17-63"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tree</span>
+</span><span id="__span-17-64"><a id="__codelineno-17-64" name="__codelineno-17-64" href="#__codelineno-17-64"></a>
+</span><span id="__span-17-65"><a id="__codelineno-17-65" name="__codelineno-17-65" href="#__codelineno-17-65"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-66"><a id="__codelineno-17-66" name="__codelineno-17-66" href="#__codelineno-17-66"></a><span class="c1"># カスタムプロンプト（旧 customCommands）</span>
+</span><span id="__span-17-67"><a id="__codelineno-17-67" name="__codelineno-17-67" href="#__codelineno-17-67"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-68"><a id="__codelineno-17-68" name="__codelineno-17-68" href="#__codelineno-17-68"></a><span class="nt">prompts</span><span class="p">:</span>
+</span><span id="__span-17-69"><a id="__codelineno-17-69" name="__codelineno-17-69" href="#__codelineno-17-69"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">review</span>
+</span><span id="__span-17-70"><a id="__codelineno-17-70" name="__codelineno-17-70" href="#__codelineno-17-70"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;コードをセキュリティ観点でレビューする&quot;</span>
+</span><span id="__span-17-71"><a id="__codelineno-17-71" name="__codelineno-17-71" href="#__codelineno-17-71"></a><span class="w">    </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;-</span>
+</span><span id="__span-17-72"><a id="__codelineno-17-72" name="__codelineno-17-72" href="#__codelineno-17-72"></a><span class="w">      </span><span class="no">次のコードについて、セキュリティ上の問題点を日本語で指摘してください。</span>
+</span><span id="__span-17-73"><a id="__codelineno-17-73" name="__codelineno-17-73" href="#__codelineno-17-73"></a><span class="w">      </span><span class="no">問題がない場合は「問題なし」と答えてください。</span>
+</span><span id="__span-17-74"><a id="__codelineno-17-74" name="__codelineno-17-74" href="#__codelineno-17-74"></a>
+</span><span id="__span-17-75"><a id="__codelineno-17-75" name="__codelineno-17-75" href="#__codelineno-17-75"></a><span class="w">      </span><span class="no">{{{ input }}}</span>
+</span><span id="__span-17-76"><a id="__codelineno-17-76" name="__codelineno-17-76" href="#__codelineno-17-76"></a>
+</span><span id="__span-17-77"><a id="__codelineno-17-77" name="__codelineno-17-77" href="#__codelineno-17-77"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-78"><a id="__codelineno-17-78" name="__codelineno-17-78" href="#__codelineno-17-78"></a><span class="c1"># ルール（共通指示）</span>
+</span><span id="__span-17-79"><a id="__codelineno-17-79" name="__codelineno-17-79" href="#__codelineno-17-79"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-80"><a id="__codelineno-17-80" name="__codelineno-17-80" href="#__codelineno-17-80"></a><span class="nt">rules</span><span class="p">:</span>
+</span><span id="__span-17-81"><a id="__codelineno-17-81" name="__codelineno-17-81" href="#__codelineno-17-81"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;回答は必ず日本語で行ってください。&quot;</span>
+</span><span id="__span-17-82"><a id="__codelineno-17-82" name="__codelineno-17-82" href="#__codelineno-17-82"></a>
+</span><span id="__span-17-83"><a id="__codelineno-17-83" name="__codelineno-17-83" href="#__codelineno-17-83"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-84"><a id="__codelineno-17-84" name="__codelineno-17-84" href="#__codelineno-17-84"></a><span class="c1"># MCP サーバ</span>
+</span><span id="__span-17-85"><a id="__codelineno-17-85" name="__codelineno-17-85" href="#__codelineno-17-85"></a><span class="c1"># ─────────────────────────────────</span>
+</span><span id="__span-17-86"><a id="__codelineno-17-86" name="__codelineno-17-86" href="#__codelineno-17-86"></a><span class="nt">mcpServers</span><span class="p">:</span>
+</span><span id="__span-17-87"><a id="__codelineno-17-87" name="__codelineno-17-87" href="#__codelineno-17-87"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filesystem</span>
+</span><span id="__span-17-88"><a id="__codelineno-17-88" name="__codelineno-17-88" href="#__codelineno-17-88"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node</span>
+</span><span id="__span-17-89"><a id="__codelineno-17-89" name="__codelineno-17-89" href="#__codelineno-17-89"></a><span class="w">    </span><span class="nt">args</span><span class="p">:</span>
+</span><span id="__span-17-90"><a id="__codelineno-17-90" name="__codelineno-17-90" href="#__codelineno-17-90"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;/opt/mcp-servers/filesystem/index.js&quot;</span>
+</span><span id="__span-17-91"><a id="__codelineno-17-91" name="__codelineno-17-91" href="#__codelineno-17-91"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;--root&quot;</span>
+</span><span id="__span-17-92"><a id="__codelineno-17-92" name="__codelineno-17-92" href="#__codelineno-17-92"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;/home/&lt;your-username&gt;/projects&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="_13">関連リンク<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.continue.dev/reference/config">Continue 公式ドキュメント — Configuration Reference</a></li>
+<li><a href="https://docs.continue.dev/reference/context-providers">Continue 公式ドキュメント — Context Providers</a></li>
+<li><a href="https://docs.continue.dev/reference/model-providers/ollama">Continue 公式ドキュメント — Model Providers</a></li>
+<li><a href="https://yaml.org/spec/1.2.2/">YAML 公式仕様 1.2.2</a></li>
+<li><a href="../05-config-yaml-basics.html">第5章 config.yaml の基本構造</a></li>
+<li><a href="../07-autocomplete.html">第7章 Autocomplete（タブ補完）を使いこなす</a></li>
+<li><a href="../10-internal-models-context.html">第10章 社内モデルとコンテキスト管理</a></li>
+<li><a href="../11-customization.html">第11章 カスタマイズで開発フローに最適化する</a></li>
+<li><a href="../12-mcp-onprem.html">第12章 MCP サーバの社内利用</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright (c) Internal Use Only
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

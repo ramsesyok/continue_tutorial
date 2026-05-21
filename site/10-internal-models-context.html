@@ -1,0 +1,2634 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="VS Code 拡張 Continue.dev をオンプレミス・エアギャップ環境のローカル LLM と 組み合わせて利用するための、ソフトウェア開発者向けチュートリアル。">
+      
+      
+        <meta name="author" content="Internal Documentation Team">
+      
+      
+      
+        <link rel="prev" href="09-agent.html">
+      
+      
+        <link rel="next" href="11-customization.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第10章 社内モデルとコンテキスト管理 - Continue チュートリアル</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="index.html" title="Continue チュートリアル" class="md-header__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Continue チュートリアル
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第10章 社内モデルとコンテキスト管理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ダークモードに切り替える"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替える" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ライトモードに切り替える"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替える" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Continue チュートリアル" class="md-nav__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Continue チュートリアル
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-introduction.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第1章 はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-prerequisites.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第2章 前提条件と環境確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-offline-install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第3章 VS Code 拡張のオフラインインストール
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-telemetry-airgap-verification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第4章 テレメトリと外部通信の遮断確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-config-yaml-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第5章 config.yaml の基本構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-chat-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第6章 Chat 機能の基本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-autocomplete.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第7章 Autocomplete（タブ補完）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-edit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第8章 Edit 機能でコードを書き換える
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="09-agent.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第9章 Agent 機能を理解する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第10章 社内モデルとコンテキスト管理
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="10-internal-models-context.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第10章 社内モデルとコンテキスト管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この章で学ぶこと
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        「社内モデル」と「コンテキスト管理」の関係
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="「社内モデル」と「コンテキスト管理」の関係">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エアギャップ環境ではコンテキスト管理が特に効く
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ロール別モデル構成を運用視点で設計する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ロール別モデル構成を運用視点で設計する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ロールごとの要件を整理する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        実運用向けの config.yaml 例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        モデルサイズ・VRAM・同時実行数のバランス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複数モデルの共存とフォールバック
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @codebase でコードベース全体をコンテキスト化する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@codebase でコードベース全体をコンテキスト化する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codebase_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @codebase の仕組み
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        インデックスの保存場所
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        大規模リポジトリでの注意点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        インデックスを再構築するタイミング
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @docs で社内ドキュメントをコンテキスト化する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@docs で社内ドキュメントをコンテキスト化する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @docs の仕組み
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エアギャップ環境で @docs のソースをどう指定するか
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.yaml の docs 設定例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @docs を Chat から使う
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        インデックスの管理と更新運用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embedding-reranker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ローカル Embedding / Reranker モデルを設定する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ローカル Embedding / Reranker モデルを設定する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding モデルの役割
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding モデルの選び方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.yaml への登録例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reranker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reranker モデルとは
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reranker_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reranker を導入するかの判断基準
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reranker-configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reranker の config.yaml 例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codebase-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @codebase と @docs の使い分け
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@codebase と @docs の使い分け">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        判断フロー
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型的なユースケース
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        併用のコツ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使い分けのアンチパターン
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        カスタムコンテキストプロバイダを作る
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="カスタムコンテキストプロバイダを作る">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        コンテキストプロバイダの位置づけ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ハンズオン: 社内 Issue を取り込むコンテキストプロバイダを作る
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        カスタムプロバイダ運用時の留意点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        次の章へ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="11-customization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第11章 カスタマイズで開発フローに最適化する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="12-mcp-onprem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第12章 MCP サーバの社内利用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="13-security-operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第13章 セキュリティと運用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="14-troubleshooting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第14章 トラブルシューティング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    付録
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    付録
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/config-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.yaml リファレンス
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/shortcuts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    キーボードショートカット
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用語集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この章で学ぶこと
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        「社内モデル」と「コンテキスト管理」の関係
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="「社内モデル」と「コンテキスト管理」の関係">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エアギャップ環境ではコンテキスト管理が特に効く
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ロール別モデル構成を運用視点で設計する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ロール別モデル構成を運用視点で設計する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ロールごとの要件を整理する
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        実運用向けの config.yaml 例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        モデルサイズ・VRAM・同時実行数のバランス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        複数モデルの共存とフォールバック
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @codebase でコードベース全体をコンテキスト化する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@codebase でコードベース全体をコンテキスト化する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codebase_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @codebase の仕組み
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        インデックスの保存場所
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        大規模リポジトリでの注意点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        インデックスを再構築するタイミング
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @docs で社内ドキュメントをコンテキスト化する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@docs で社内ドキュメントをコンテキスト化する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @docs の仕組み
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        エアギャップ環境で @docs のソースをどう指定するか
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.yaml の docs 設定例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @docs を Chat から使う
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        インデックスの管理と更新運用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#embedding-reranker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ローカル Embedding / Reranker モデルを設定する
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ローカル Embedding / Reranker モデルを設定する">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding モデルの役割
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedding_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding モデルの選び方
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configyaml_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        config.yaml への登録例
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reranker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reranker モデルとは
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reranker_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reranker を導入するかの判断基準
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reranker-configyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reranker の config.yaml 例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codebase-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        @codebase と @docs の使い分け
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="@codebase と @docs の使い分け">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        判断フロー
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        典型的なユースケース
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        併用のコツ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使い分けのアンチパターン
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        カスタムコンテキストプロバイダを作る
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="カスタムコンテキストプロバイダを作る">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        コンテキストプロバイダの位置づけ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ハンズオン: 社内 Issue を取り込むコンテキストプロバイダを作る
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        カスタムプロバイダ運用時の留意点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        次の章へ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>第10章 社内モデルとコンテキスト管理</h1>
+
+<h2 id="_1">この章で学ぶこと<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>社内向けに複数の LLM をロール別へ割り当てる、実運用視点での設計指針</li>
+<li><code>@codebase</code> と <code>@docs</code> の仕組みと、エアギャップ環境でのインデックス運用</li>
+<li>ローカル Embedding モデル・Reranker モデルを <code>config.yaml</code> に組み込む方法</li>
+<li>用途に応じた <code>@codebase</code> と <code>@docs</code> の使い分け</li>
+<li>カスタムコンテキストプロバイダを作って社内独自の情報源を取り込む手順（ハンズオン）</li>
+</ul>
+<hr />
+<h2 id="_2">「社内モデル」と「コンテキスト管理」の関係<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>ここまでの章では、Chat（<a href="06-chat-basics.html">第 6 章</a>）、Autocomplete（<a href="07-autocomplete.html">第 7 章</a>）、Edit（<a href="08-edit.html">第 8 章</a>）、Agent（<a href="09-agent.html">第 9 章</a>）という、Continue の機能を 1 つずつ扱ってきました。これらに共通するのは、LLM への入力が <strong>「どのモデルを使うか」</strong> と <strong>「どんなコンテキスト（情報）をモデルに渡すか」</strong> の 2 つの軸で決まる、という事実です。</p>
+<table>
+<thead>
+<tr>
+<th>軸</th>
+<th>何を決めるか</th>
+<th>主に扱う章</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>モデルの選定</td>
+<td>速度・精度・VRAM のバランス、用途別の使い分け</td>
+<td>第 5 章・本章 10.2</td>
+</tr>
+<tr>
+<td>コンテキストの設計</td>
+<td>コードベース・社内文書・現在の編集状態を、どこまでモデルに見せるか</td>
+<td>第 6 章・本章 10.3〜10.7</td>
+</tr>
+</tbody>
+</table>
+<p>この 2 つは独立しているように見えて、実運用では切っても切り離せません。高性能なモデルを用意しても、コンテキストとして渡される情報が貧しければ「自社の事情を知らない汎用回答」しか返ってきません。逆に豊富なコンテキストを渡せても、ロール別にモデルが適切に振り分けられていないと、補完が遅すぎたり、Chat の応答品質が足りなかったりします。</p>
+<h3 id="_3">エアギャップ環境ではコンテキスト管理が特に効く<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>クラウド型の AI コーディング支援サービスでは、公開リポジトリや一般公開ドキュメントの巨大な学習データに頼って「それなりの回答」を返せます。しかしオンプレミス・エアギャップ環境では、モデルが学習しているのは公開データだけです。社内独自のフレームワーク、社内 API、社内ライブラリの命名規則、社内のコーディング規約は、<strong>コンテキストとして明示的に渡さない限り、モデルには見えません</strong>。</p>
+<p>つまり、エアギャップ環境で Continue を活用する鍵は「社内特有の情報をいかに効率よくモデルに渡すか」にあります。本章ではそのための仕組み（<code>@codebase</code>、<code>@docs</code>、ローカル Embedding、カスタムコンテキストプロバイダ）を順に扱います。</p>
+<div class="admonition note">
+<p class="admonition-title">本章の位置づけ</p>
+<p>第 5 章で <code>config.yaml</code> の最小構成を扱い、第 6 章で <code>@file</code> や <code>@codebase</code> の基本的な使い方を紹介しました。本章では、これらを <strong>実運用に耐える形に拡張する</strong>ことに焦点を当てます。最小構成からの「次の一歩」が本章の到達点です。</p>
+</div>
+<hr />
+<h2 id="_4">ロール別モデル構成を運用視点で設計する<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>第 5 章では、Chat 用の <code>models</code> と Autocomplete 用の <code>tabAutocompleteModel</code> を分けて指定する最小構成を扱いました。実運用では、ここからもう一段踏み込み、<strong>用途（ロール）ごとに最適なモデルを割り当てる</strong>設計が必要になります。</p>
+<h3 id="_5">ロールごとの要件を整理する<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>Continue が扱うロールと、それぞれに求められる典型的な要件を以下にまとめます。</p>
+<table>
+<thead>
+<tr>
+<th>ロール</th>
+<th>主な役割</th>
+<th>レイテンシ要件</th>
+<th>品質要件</th>
+<th>適したモデルサイズの目安</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chat</td>
+<td>対話・調査・設計議論</td>
+<td>数秒許容</td>
+<td>高い</td>
+<td>中〜大型（7B〜70B クラス）</td>
+</tr>
+<tr>
+<td>Edit</td>
+<td>選択範囲の書き換え・リファクタリング</td>
+<td>数秒許容</td>
+<td>高い</td>
+<td>中〜大型（7B〜70B クラス）</td>
+</tr>
+<tr>
+<td>Apply</td>
+<td>Edit/Chat の出力を実ファイルへ適用</td>
+<td>速い方が良い</td>
+<td>中〜高</td>
+<td>中型（7B〜14B）</td>
+</tr>
+<tr>
+<td>Autocomplete</td>
+<td>入力中のタブ補完</td>
+<td>数百ミリ秒以内</td>
+<td>補完特化</td>
+<td>小型（1B〜3B、Coder 系）</td>
+</tr>
+<tr>
+<td>Embed</td>
+<td><code>@codebase</code> <code>@docs</code> のベクトル検索</td>
+<td>バッチ処理向け</td>
+<td>検索精度重視</td>
+<td>専用 Embedding モデル</td>
+</tr>
+<tr>
+<td>Rerank</td>
+<td>検索結果の再並べ替え（任意）</td>
+<td>数百ミリ秒以内</td>
+<td>関連度判定</td>
+<td>専用 Reranker モデル</td>
+</tr>
+</tbody>
+</table>
+<p>ここで重要なのは、<strong>1 つの巨大モデルですべてのロールを兼任させない</strong>ことです。仮に 70B クラスのモデルを Autocomplete に充ててしまうと、推論が遅すぎて補完がまったく実用にならず、開発者は補完機能を切ってしまいます。逆に、補完用の 1.5B モデルで Chat を運用すると、説明の品質が物足りなくなります。</p>
+<h3 id="configyaml">実運用向けの <code>config.yaml</code> 例<a class="headerlink" href="#configyaml" title="Permanent link">&para;</a></h3>
+<p>以下は、Chat / Edit / Apply / Autocomplete / Embed の各ロールに別々のモデルを割り当てた、典型的な実運用構成です。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># ~/.continue/config.yaml  ——  実運用向けの構成例</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="c1"># --- Chat / Edit 用の大型モデル ---</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Chat（大型・高品質）</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-large-chat-model&gt;</span><span class="w">          </span><span class="c1"># 例: qwen2.5-coder-32b</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:&lt;port&gt;/v1&quot;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nt">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dummy&quot;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="c1"># --- Apply 用の中型モデル ---</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Apply（中型・高速）</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-mid-model&gt;</span><span class="w">                 </span><span class="c1"># 例: qwen2.5-coder-7b</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:&lt;port&gt;/v1&quot;</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="nt">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dummy&quot;</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apply</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">  </span><span class="c1"># --- Autocomplete 専用モデル（roles: [autocomplete] で指定）---</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Autocomplete（小型・低レイテンシ）</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-autocomplete-model&gt;</span><span class="w">          </span><span class="c1"># 例: qwen2.5-coder:1.5b</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autocomplete</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">  </span><span class="c1"># --- Embedding 専用モデル（10.5 で詳細）---</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Embeddings</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-embedding-model&gt;</span><span class="w">           </span><span class="c1"># 例: nomic-embed-text</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+</span></code></pre></div>
+<p>ポイントは次の 3 点です。</p>
+<ol>
+<li><strong><code>models</code> の各エントリに <code>roles</code> を明示する</strong> — 1 つのモデルを複数ロールで兼任させる場合は、リストで列挙します（例: <code>chat</code> と <code>edit</code>）。Embedding 専用モデルのように 1 ロール限定の場合は単独で書きます。</li>
+<li><strong>Apply ロールを意識的に分離する</strong> — Chat や Edit の応答を実際のファイルに反映させる「Apply」ロールは、書き換え量が多くなる傾向があり、大型モデルだと適用に時間がかかります。中型モデルへ割り振ると体感が大きく改善します。</li>
+<li><strong>Autocomplete も <code>models</code> リストで管理</strong> — <code>roles: [autocomplete]</code> を指定したエントリを <code>models</code> リストに追加します。</li>
+</ol>
+<h3 id="vram">モデルサイズ・VRAM・同時実行数のバランス<a class="headerlink" href="#vram" title="Permanent link">&para;</a></h3>
+<p>社内 GPU サーバのリソースは有限です。「いくつのモデルを同時にホストできるか」は VRAM 容量と量子化レベルで決まります。代表的な目安を示します。</p>
+<table>
+<thead>
+<tr>
+<th>モデル規模</th>
+<th>量子化</th>
+<th>おおよその VRAM</th>
+<th>想定ロール</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.5B〜3B</td>
+<td>INT4 (Q4)</td>
+<td>2〜4 GB</td>
+<td>Autocomplete</td>
+</tr>
+<tr>
+<td>7B</td>
+<td>INT4 (Q4)</td>
+<td>5〜7 GB</td>
+<td>Apply、軽量 Chat</td>
+</tr>
+<tr>
+<td>14B〜32B</td>
+<td>INT4 (Q4)</td>
+<td>10〜20 GB</td>
+<td>Chat、Edit</td>
+</tr>
+<tr>
+<td>70B</td>
+<td>INT4 (Q4)</td>
+<td>40〜45 GB</td>
+<td>大規模 Chat、Edit</td>
+</tr>
+<tr>
+<td>Embedding（〜500M）</td>
+<td>FP16</td>
+<td>1〜2 GB</td>
+<td>Embed</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">1 台のサーバに詰め込みすぎない</p>
+<p>Chat 用の大型モデルと Autocomplete 用の小型モデルを同じ GPU 1 枚に同居させると、Chat の推論中に補完がブロックされる事象がしばしば起こります。サーバを物理的に分けるか、少なくとも別プロセス（別ポート）で起動し、Continue 側からは別エンドポイントとして見えるようにすると、運用が安定します。</p>
+</div>
+<h3 id="_6">複数モデルの共存とフォールバック<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>複数の Chat モデルを <code>models</code> に登録しておくと、Continue のチャットパネル上部のドロップダウンから切り替えられます。社内では「日常用の中型モデル」と「難しい質問用の大型モデル」を併存させて、用途に応じて使い分けるパターンがよく見られます。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">日常用（軽量・高速）</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-mid-chat-model&gt;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:&lt;port&gt;/v1&quot;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dummy&quot;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">難しい質問用（大型・高品質）</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-large-chat-model&gt;</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:&lt;port&gt;/v1&quot;</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="nt">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dummy&quot;</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chat</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">本構成では使用しません</p>
+<p>クラウド LLM をフォールバック先として登録する構成もありますが、エアギャップ環境では使用しません。すべてのモデルは社内 LLM サーバ上で動作するものに限定してください。</p>
+</div>
+<hr />
+<h2 id="codebase"><code>@codebase</code> でコードベース全体をコンテキスト化する<a class="headerlink" href="#codebase" title="Permanent link">&para;</a></h2>
+<p><code>@codebase</code> は、現在 VS Code で開いているワークスペース全体を検索し、質問に関連するコードを自動でコンテキストとして抽出する機能です。第 6 章で使い方の概要に触れましたが、本節では仕組みと運用面を掘り下げます。</p>
+<h3 id="codebase_1"><code>@codebase</code> の仕組み<a class="headerlink" href="#codebase_1" title="Permanent link">&para;</a></h3>
+<p><code>@codebase</code> の内部処理は、大きく次のステップに分かれます。</p>
+<ol>
+<li><strong>チャンク分割</strong>: リポジトリ内のソースファイルを、関数や構文単位で適度な大きさ（典型的には数百トークン）に分割します</li>
+<li><strong>Embedding 生成</strong>: 各チャンクを Embedding モデル（10.5 で詳述）に通し、意味を表す高次元ベクトルへ変換します</li>
+<li><strong>インデックス保存</strong>: 生成されたベクトルをローカルのベクトルデータベースに保存します（ファイルパス、行範囲、ハッシュとセットで）</li>
+<li><strong>検索</strong>: 質問文も同じ Embedding モデルでベクトル化し、ベクトル類似度の高いチャンクを上位 N 件取得します</li>
+<li><strong>（任意で）再ランキング</strong>: Reranker モデルで関連度を再評価し、より精度の高い順序へ並べ替えます</li>
+<li><strong>コンテキスト注入</strong>: 取得したチャンクを <code>@codebase</code> の参照内容として LLM のプロンプトに添えます</li>
+</ol>
+<p>このフローはすべてローカルで完結します。<strong>エアギャップ環境でもコードが外部に送信されることはありません</strong>（第 4 章で扱った通り、テレメトリ無効化と組み合わせて初めて保証されます）。</p>
+<h3 id="_7">インデックスの保存場所<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>Continue は <code>@codebase</code> のインデックスをユーザーごとのキャッシュディレクトリに保存します。</p>
+<table>
+<thead>
+<tr>
+<th>OS</th>
+<th>デフォルトの保存場所</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux / macOS</td>
+<td><code>~/.continue/index/</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>%USERPROFILE%\.continue\index\</code></td>
+</tr>
+</tbody>
+</table>
+<p>中身はワークスペース単位のサブディレクトリと、SQLite ベースのインデックスファイル、ベクトルデータベースのファイルで構成されます。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Linux / macOS でインデックスのサイズを確認する例</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>du<span class="w"> </span>-sh<span class="w"> </span>~/.continue/index/
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Windows PowerShell の場合</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Get-ChildItem<span class="w"> </span><span class="nv">$env</span>:USERPROFILE<span class="se">\.</span><span class="k">continue</span><span class="se">\i</span>ndex<span class="w"> </span>-Recurse<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span>Measure-Object<span class="w"> </span>-Property<span class="w"> </span>Length<span class="w"> </span>-Sum
+</span></code></pre></div>
+<p>ワークスペースを VS Code で初めて開いた直後、または <code>config.yaml</code> の Embedding モデル設定を変更した直後は、インデックスがバックグラウンドで構築されます。初回の構築には、リポジトリの規模に応じて数分〜数十分かかることがあります。</p>
+<div class="admonition tip">
+<p class="admonition-title">インデックス構築の進捗を確認する</p>
+<p>VS Code のステータスバーにある Continue のアイコンにマウスオーバーすると、インデックス構築の進捗が表示されます。「Indexing: 45%」のような形で進行率が見え、完了するまで <code>@codebase</code> の精度が低い状態が続きます。</p>
+</div>
+<h3 id="_8">大規模リポジトリでの注意点<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>社内のモノレポは数十万ファイル規模になることがあります。すべてをインデックス対象にすると、構築時間・ディスク使用量・検索ノイズの 3 拍子で実用性が下がります。次の対処を組み合わせてください。</p>
+<p><strong>1. <code>.continueignore</code> で対象を絞る</strong></p>
+<p>ワークスペースのルートに <code>.continueignore</code> ファイルを置くと、<code>.gitignore</code> と同じ書式で対象外パターンを指定できます。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># .continueignore  ——  インデックスから除外するパターン
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># 自動生成ファイル
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>**/*.generated.*
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>**/__generated__/**
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>**/proto/**/*.pb.go
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a># 依存ライブラリのソース
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>node_modules/
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>vendor/
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>.venv/
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>build/
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>dist/
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a># 大きすぎるテストデータ
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>test/fixtures/large/
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>**/*.snapshot
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a># バイナリ・メディア
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>**/*.bin
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>**/*.pdf
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>**/*.png
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>**/*.jpg
+</span></code></pre></div>
+<p><code>.gitignore</code> に書かれているパターンも Continue は基本的に尊重しますが、<strong><code>.continueignore</code> は「インデックスからのみ除外したい」追加パターン</strong>を明示するのに使います。たとえば、Git では追跡したいが <code>@codebase</code> の検索対象には含めたくない自動生成ファイルなどに有効です。</p>
+<p><strong>2. ワークスペースを分割する</strong></p>
+<p>1 つの VS Code ウィンドウで巨大モノレポをすべて開くのではなく、関心領域ごとにワークスペースを分割するのも有効です。Continue のインデックスはワークスペース単位で作られるため、必要な範囲だけを対象にできます。</p>
+<p><strong>3. ファイル拡張子で大胆に絞る</strong></p>
+<p><code>config.yaml</code> の補完設定で <code>disableInFiles</code> を使ったように、<code>@codebase</code> のインデックス対象も <code>.continueignore</code> で拡張子レベルから絞れます。社内のサーバサイドリポジトリで「Java と SQL だけインデックスしたい」のような場合は、それ以外を <code>.continueignore</code> で除外する方針が現実的です。</p>
+<h3 id="_9">インデックスを再構築するタイミング<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>次の変化があったときは、インデックスを破棄して再構築する方が安全です。</p>
+<ul>
+<li>Embedding モデルを別のものに切り替えた</li>
+<li><code>.continueignore</code> を大幅に変更した</li>
+<li>リポジトリの構造を大規模に変更した（ディレクトリ全面再編、サブツリーの追加など）</li>
+</ul>
+<p>再構築は、インデックスのキャッシュディレクトリを削除して VS Code を再起動するのが確実です。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Linux / macOS の場合（必要なワークスペースのインデックスのみ削除する）</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.continue/index/
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Windows PowerShell の場合</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Remove-Item<span class="w"> </span>-Recurse<span class="w"> </span>-Force<span class="w"> </span><span class="nv">$env</span>:USERPROFILE<span class="se">\.</span><span class="k">continue</span><span class="se">\i</span>ndex
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">全社共通の運用ルールを決めておく</p>
+<p>インデックスはローカルキャッシュのため、各開発者のマシンで状態が異なります。Embedding モデル変更や <code>.continueignore</code> の改定は、社内の共通連絡経路（チャット・ポータル）で周知し、各自にインデックス再構築を依頼する運用にしておくと、品質のばらつきを抑えられます。</p>
+</div>
+<hr />
+<h2 id="docs"><code>@docs</code> で社内ドキュメントをコンテキスト化する<a class="headerlink" href="#docs" title="Permanent link">&para;</a></h2>
+<p><code>@codebase</code> がソースコードを対象にするのに対し、<code>@docs</code> は <strong>ドキュメントサイトやマニュアル類</strong> を対象にする機能です。社内 Wiki、社内フレームワークの API リファレンス、運用手順書などをインデックスしておくと、Chat で「この社内 API の使い方を教えて」と聞いたときに、実際の社内ドキュメントを根拠にした回答を得られます。</p>
+<h3 id="docs_1"><code>@docs</code> の仕組み<a class="headerlink" href="#docs_1" title="Permanent link">&para;</a></h3>
+<p><code>@docs</code> の処理フローは <code>@codebase</code> に似ていますが、入力ソースが異なります。</p>
+<ol>
+<li><strong>ソースの取得</strong>: <code>config.yaml</code> の <code>docs</code> エントリで指定された URL またはパスから、HTML / Markdown / テキストファイルを取得します</li>
+<li><strong>テキスト抽出</strong>: HTML の場合はナビゲーション・ヘッダ・フッタを除去して本文だけを取り出します</li>
+<li><strong>チャンク分割と Embedding</strong>: <code>@codebase</code> と同じ要領でチャンクに分割し、Embedding モデルでベクトル化します</li>
+<li><strong>インデックス保存</strong>: 専用のインデックス領域に保存します（コードのインデックスとは分離されます）</li>
+<li><strong>検索</strong>: 質問に対して、登録済みの全 <code>docs</code> エントリを横断して類似度検索します</li>
+<li><strong>コンテキスト注入</strong>: 関連ドキュメントの本文と元 URL をプロンプトに添えます</li>
+</ol>
+<h3 id="docs_2">エアギャップ環境で <code>@docs</code> のソースをどう指定するか<a class="headerlink" href="#docs_2" title="Permanent link">&para;</a></h3>
+<p><code>@docs</code> は本来クラウド型サービスのドキュメントサイト（公式の API リファレンスなど）を想定した機能ですが、エアギャップ環境では <strong>社内 HTTP サーバ・ローカルパス・事前にエクスポートしたファイル</strong> のいずれかから取り込みます。</p>
+<table>
+<thead>
+<tr>
+<th>ソース形態</th>
+<th>指定例</th>
+<th>向いている用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>社内 HTTP サーバ</td>
+<td><code>http://&lt;your-internal-docs-host&gt;/api-reference/</code></td>
+<td>社内ポータルにホスティングされた API リファレンス・Wiki エクスポート</td>
+</tr>
+<tr>
+<td>ローカルファイル（HTML）</td>
+<td><code>file:///srv/docs/internal-framework/index.html</code></td>
+<td>サイトとしてビルド済みのドキュメントを社内配布した場合</td>
+</tr>
+<tr>
+<td>ローカルファイル（Markdown 群）</td>
+<td><code>file:///srv/docs/handbook/</code></td>
+<td>リポジトリからエクスポートした Markdown 集</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">外部 URL は指定しない</p>
+<p><code>@docs</code> は URL を見ると自動的にクロールを試みます。インターネット上のドキュメントサイト（外部公式サイトなど）を <code>docs</code> エントリへ記述すると、エアギャップ前提が崩れます。<strong>必ず社内ホストかローカルパスのみを指定</strong>してください。指定先のホスト名・パスは、社内のレビューを経たものに限定する運用が望ましいです。</p>
+</div>
+<h3 id="configyaml-docs"><code>config.yaml</code> の <code>docs</code> 設定例<a class="headerlink" href="#configyaml-docs" title="Permanent link">&para;</a></h3>
+<p><code>docs</code> は <code>config.yaml</code> のトップレベルに、エントリ単位で配列として記述します。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># ~/.continue/config.yaml  ——  @docs の設定例</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nt">docs</span><span class="p">:</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="c1"># 社内フレームワーク InternalFw の API リファレンス</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InternalFw API Reference</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="nt">startUrl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-docs-host&gt;/internalfw/api/&quot;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="nt">rootUrl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-docs-host&gt;/internalfw/api/&quot;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="c1"># 社内コーディング規約（社内 HTTP サーバにビルド済みサイトを配置）</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">社内コーディング規約</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="nt">startUrl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-docs-host&gt;/coding-standards/&quot;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="nt">rootUrl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-docs-host&gt;/coding-standards/&quot;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">  </span><span class="c1"># ローカルにダンプ済みの運用手順書（Markdown 群）</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">運用手順書</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="nt">startUrl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file:///srv/docs/runbooks/index.md&quot;</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="nt">rootUrl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file:///srv/docs/runbooks/&quot;</span>
+</span></code></pre></div>
+<p>各キーの意味は次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>キー</th>
+<th>役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>@docs</code> で選択する際に表示される名前。日本語可。一意であること</td>
+</tr>
+<tr>
+<td><code>startUrl</code></td>
+<td>クロールの起点となる URL またはローカルパス</td>
+</tr>
+<tr>
+<td><code>rootUrl</code></td>
+<td>クロール範囲の上限。<code>startUrl</code> と同じドメイン・サブツリーに限定するために指定</td>
+</tr>
+</tbody>
+</table>
+<p><code>rootUrl</code> を指定することで、<code>@docs</code> が <code>startUrl</code> の階層から外に出てクロールするのを防げます。エアギャップ環境では特に、想定外の URL を辿らないように <strong><code>rootUrl</code> を明示する習慣</strong>を付けておくと安全です。</p>
+<h3 id="docs-chat"><code>@docs</code> を Chat から使う<a class="headerlink" href="#docs-chat" title="Permanent link">&para;</a></h3>
+<p>設定後、Chat の入力欄で <code>@docs</code> と入力すると、登録済みのドキュメント名が一覧表示されます。対象を選択して質問を続けます。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>@docs InternalFw API Reference
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>InternalFw の RetryPolicy クラスでバックオフ間隔をジッタ付きで設定する方法を教えてください。
+</span></code></pre></div>
+<p>複数の <code>docs</code> エントリを同時に参照させたい場合は、<code>@docs</code> を続けて指定します。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>@docs InternalFw API Reference
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>@docs 社内コーディング規約
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>InternalFw の RetryPolicy を使う際に、社内規約に沿った命名と例外処理の書き方の例を示してください。
+</span></code></pre></div>
+<h3 id="_10">インデックスの管理と更新運用<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p><code>@docs</code> のインデックスも <code>~/.continue/index/</code> 配下に保存されます。ドキュメントの内容が更新された場合は、Continue がいつ再クロールするかを把握しておく必要があります。</p>
+<ul>
+<li><strong>初回</strong>: <code>config.yaml</code> に新しい <code>docs</code> エントリを追加して保存した直後に、バックグラウンドでクロールとインデックス構築が走ります</li>
+<li><strong>更新時の挙動</strong>: デフォルトでは自動的な定期再クロールは行われません。ドキュメントが更新されたら、ユーザーが明示的に再クロールを促す必要があります</li>
+<li><strong>再クロール方法</strong>: VS Code のコマンドパレット（<code>Ctrl+Shift+P</code> / <code>Cmd+Shift+P</code>）から <code>Continue: Reindex Docs</code> を実行するか、対象 <code>docs</code> エントリの設定を一度削除して保存→再追加することで再構築されます</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">ドキュメント更新の運用フロー</p>
+<p>社内ドキュメントを集約管理しているチームがある場合、ドキュメント更新時に「再クロールを推奨」とアナウンスする運用にしておくと、開発者全員のローカルインデックスが古いままになるのを防げます。バージョン番号（例: v2024.05.21）を <code>name</code> に含めるルールにしておくと、古いインデックスが残っていることに気付きやすくなります。</p>
+</div>
+<hr />
+<h2 id="embedding-reranker">ローカル Embedding / Reranker モデルを設定する<a class="headerlink" href="#embedding-reranker" title="Permanent link">&para;</a></h2>
+<p><code>@codebase</code> と <code>@docs</code> の検索品質は、Embedding モデル（意味ベクトル化）と Reranker モデル（再ランキング）の選定に強く依存します。本節では、エアギャップ環境で両者をローカル運用する方法を扱います。</p>
+<h3 id="embedding">Embedding モデルの役割<a class="headerlink" href="#embedding" title="Permanent link">&para;</a></h3>
+<p>Embedding モデルは、テキスト（コードチャンクやドキュメント本文）を <strong>数百〜数千次元のベクトル</strong> に変換する専用モデルです。Chat モデルと違って文章を生成することはなく、入力されたテキストの「意味」を空間上の位置として返すだけの軽量なモデルです。</p>
+<p>Continue はこのベクトルを使って、質問と類似度の高いチャンクを検索します。つまり、Embedding モデルの品質が <code>@codebase</code> と <code>@docs</code> の精度の土台になります。</p>
+<h3 id="embedding_1">Embedding モデルの選び方<a class="headerlink" href="#embedding_1" title="Permanent link">&para;</a></h3>
+<p>エアギャップ環境で使える、代表的なオープン Embedding モデルを示します。いずれもオフライン入手・ローカル実行が可能です。</p>
+<table>
+<thead>
+<tr>
+<th>モデル</th>
+<th>パラメータ規模</th>
+<th>主な特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nomic-embed-text</code></td>
+<td>約 137M</td>
+<td>軽量・高速。汎用テキストに強い。Ollama で標準的に動作</td>
+</tr>
+<tr>
+<td><code>bge-m3</code></td>
+<td>約 568M</td>
+<td>多言語対応。日本語ドキュメントが多い社内環境で有利</td>
+</tr>
+<tr>
+<td><code>e5-mistral-7b-instruct</code></td>
+<td>約 7B</td>
+<td>大型・高精度。VRAM に余裕がある場合</td>
+</tr>
+</tbody>
+</table>
+<p>選定の指針は次のとおりです。</p>
+<ul>
+<li><strong>社内ドキュメントが日本語中心</strong>: <code>bge-m3</code> のような多言語対応モデルが無難</li>
+<li><strong>コードが中心で英語コメントが多い</strong>: <code>nomic-embed-text</code> で十分な精度が出ることが多い</li>
+<li><strong>検索精度を最優先する</strong>: 大型モデルを試す価値はあるが、インデックス構築時間と VRAM 消費とのトレードオフを評価する</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">モデルの入手はオフラインで</p>
+<p>上記モデルは公開モデルですが、エアギャップ環境では事前にミラー／オフライン配布した上で社内 Ollama や vLLM 上にロードしておく必要があります。インターネット経由でのモデルダウンロードは行いません。</p>
+</div>
+<h3 id="configyaml_1"><code>config.yaml</code> への登録例<a class="headerlink" href="#configyaml_1" title="Permanent link">&para;</a></h3>
+<p>10.2 で示した実運用構成の <code>models</code> リストには、すでに <code>roles: [embed]</code> で Embedding モデルを 1 つ登録していました。改めて Embedding 登録部分だけを切り出すと、次のようになります。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="c1"># ...（chat, edit, apply, autocomplete のモデルは省略）...</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Embeddings (nomic-embed-text)</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nomic-embed-text</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:11434&quot;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+</span></code></pre></div>
+<p>vLLM 上で Embedding モデルをホストしている場合は、OpenAI 互換の Embedding エンドポイント（<code>/v1/embeddings</code>）を <code>provider: openai</code> で指定します。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Embeddings (bge-m3 on vLLM)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-embedding-model&gt;</span><span class="w">          </span><span class="c1"># 例: bge-m3</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:&lt;port&gt;/v1&quot;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="nt">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dummy&quot;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">embed</span>
+</span></code></pre></div>
+<p>保存すると Continue は新しい Embedding モデルを認識し、インデックスを自動再構築します。<strong>Embedding モデルを切り替えると、それ以前に作られたインデックスは原則無効</strong>になります（次元数や意味空間が変わるため）。再構築の進捗はステータスバーのアイコンで確認できます。</p>
+<h3 id="reranker">Reranker モデルとは<a class="headerlink" href="#reranker" title="Permanent link">&para;</a></h3>
+<p>Reranker は、Embedding ベースの検索で得られた候補（例: 上位 30 件）を、より精度の高い別モデルで <strong>関連度の高い順に並べ替える</strong> ためのモデルです。Embedding は「ベクトル距離」しか見ませんが、Reranker は質問とチャンクのペアをまとめて読み込み、文脈に応じた関連度スコアを返します。</p>
+<p>検索ステップは以下のように 2 段構えになります。</p>
+<ol>
+<li><strong>粗い絞り込み</strong>（Embedding）: 数十万チャンクから類似度上位 30 件を素早く取得</li>
+<li><strong>精緻な並べ替え</strong>（Reranker）: 30 件を Reranker に通し、上位 5〜10 件を最終的なコンテキストとして使用</li>
+</ol>
+<h3 id="reranker_1">Reranker を導入するかの判断基準<a class="headerlink" href="#reranker_1" title="Permanent link">&para;</a></h3>
+<p>Reranker は追加の VRAM とレイテンシを消費します。次の条件に当てはまる場合は導入を検討する価値があります。</p>
+<ul>
+<li><code>@codebase</code> や <code>@docs</code> の回答で「関連が薄いコードや文書が混ざる」と感じる場面が多い</li>
+<li>インデックス対象のリポジトリが大規模で、Embedding 単独では候補のノイズが大きい</li>
+<li>Chat の応答速度より、回答の正確性を優先したい</li>
+</ul>
+<p>逆に、次のような場合は Reranker なしで運用する方が現実的です。</p>
+<ul>
+<li>補完中心の使い方で、Chat の <code>@codebase</code> 利用頻度が低い</li>
+<li>社内 GPU リソースに余裕がない</li>
+<li>ドキュメント数・コード規模が小さく、Embedding 単独でも十分絞り込めている</li>
+</ul>
+<h3 id="reranker-configyaml">Reranker の <code>config.yaml</code> 例<a class="headerlink" href="#reranker-configyaml" title="Permanent link">&para;</a></h3>
+<p>エアギャップ環境で動かしやすい Reranker としては、<code>bge-reranker</code> シリーズなどが知られています。<code>roles: [rerank]</code> を指定して <code>models</code> リストに追加します。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">models</span><span class="p">:</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="c1"># ...（chat, edit, apply, autocomplete, embed のモデルは省略）...</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reranker (bge-reranker)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openai</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-reranker-model&gt;</span><span class="w">           </span><span class="c1"># 例: bge-reranker-v2-m3</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://&lt;your-internal-llm-host&gt;:&lt;port&gt;/v1&quot;</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="nt">apiKey</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dummy&quot;</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rerank</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Reranker は任意機能</p>
+<p>Reranker を登録していなくても <code>@codebase</code> と <code>@docs</code> は機能します。まず Embedding のみで運用してみて、ノイズが許容範囲を超えたと感じた段階で Reranker を追加する、という二段階アプローチが現実的です。</p>
+</div>
+<hr />
+<h2 id="codebase-docs"><code>@codebase</code> と <code>@docs</code> の使い分け<a class="headerlink" href="#codebase-docs" title="Permanent link">&para;</a></h2>
+<p>仕組みを押さえたところで、実際の質問でどちらを使えばよいかを整理します。両者は対立する機能ではなく、<strong>「コードを根拠にしたいか、文書を根拠にしたいか」</strong> の違いです。</p>
+<h3 id="_11">判断フロー<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>質問を受けたときに、次の順で判断するとぶれにくくなります。</p>
+<ol>
+<li><strong>質問の答えが、社内のソースコードに「実装として書かれている」か？</strong><ul>
+<li>はい → <code>@codebase</code>（または <code>@file</code> で対象ファイルを絞る）</li>
+<li>いいえ → 次へ</li>
+</ul>
+</li>
+<li><strong>質問の答えが、社内のドキュメント（API リファレンス、運用手順、規約）に「説明として書かれている」か？</strong><ul>
+<li>はい → <code>@docs</code></li>
+<li>いいえ → 次へ</li>
+</ul>
+</li>
+<li><strong>コードと文書の両方を見ないと答えが出ない質問か？</strong><ul>
+<li>はい → <code>@codebase</code> と <code>@docs</code> を併用</li>
+<li>いいえ → <code>@file</code> でピンポイントに対象を指定するか、コンテキストなしでまず質問してみる</li>
+</ul>
+</li>
+</ol>
+<h3 id="_12">典型的なユースケース<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>質問のタイプ</th>
+<th>推奨コンテキスト</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>既存実装の挙動を知りたい</td>
+<td><code>@codebase</code></td>
+<td>「決済処理で例外をキャッチしているのはどのファイル？」</td>
+</tr>
+<tr>
+<td>既存実装に変更を加えたい</td>
+<td><code>@file</code> または <code>@codebase</code></td>
+<td>「<code>PaymentService.process()</code> をリトライ対応に書き換えたい」</td>
+</tr>
+<tr>
+<td>API の正しい呼び出し方を知りたい</td>
+<td><code>@docs</code></td>
+<td>「InternalFw の RetryPolicy のオプションを教えて」</td>
+</tr>
+<tr>
+<td>社内規約に沿った書き方を知りたい</td>
+<td><code>@docs</code></td>
+<td>「社内コーディング規約での命名ルールは？」</td>
+</tr>
+<tr>
+<td>規約に沿って実装を直したい</td>
+<td><code>@codebase</code> ＋ <code>@docs</code></td>
+<td>「このサービスのリトライ実装を社内規約の RetryPolicy に置き換えて」</td>
+</tr>
+<tr>
+<td>障害対応・運用手順を知りたい</td>
+<td><code>@docs</code></td>
+<td>「DB レプリカ昇格の手順を教えて」</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_13">併用のコツ<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p><code>@codebase</code> と <code>@docs</code> を同時に使う場合は、<strong>「両方の検索結果を LLM のコンテキストに詰め込む」</strong>ことになります。コンテキスト長には上限があるため、いずれかが大量に取られると他方が削られます。以下を意識すると無駄が減ります。</p>
+<ul>
+<li>質問は「コード側の対象」と「文書側の対象」を明示する。例: 「<code>PaymentService</code> のリトライ実装を、<code>@docs InternalFw API Reference</code> の RetryPolicy に置き換えて」</li>
+<li>不要な <code>docs</code> エントリを <code>@docs</code> 指定から外す。Continue は指定された <code>docs</code> のみを検索対象にする</li>
+<li>一度の質問で 3 つも 4 つも <code>@docs</code> を並べない。多すぎるとノイズが増える</li>
+</ul>
+<h3 id="_14">使い分けのアンチパターン<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>次のような使い方は、よい結果を生みにくい傾向があります。</p>
+<ul>
+<li><strong><code>@codebase</code> の万能視</strong>: 「ドキュメントに書いてあること」をコードから推定させようとすると、ハルシネーションが増えます。文書ベースの質問は <code>@docs</code> を使う方が安全です（第 6 章でも触れたとおり、ハルシネーション抑止にはコンテキストの質が重要です）</li>
+<li><strong>常に全部入り</strong>: 「どんな質問でも <code>@codebase</code> ＋ <code>@docs</code> を全エントリ指定」とすると、検索ノイズが増え、応答も遅くなります。質問ごとに必要なコンテキストだけを選ぶ習慣をつけます</li>
+<li><strong>巨大ファイルを <code>@file</code> で丸ごと</strong>: 1 ファイル数千行を <code>@file</code> で渡すよりも、<code>@codebase</code> に任せて関連部分だけ抽出してもらう方が、コンテキスト効率が良いことがあります</li>
+</ul>
+<hr />
+<h2 id="_15">カスタムコンテキストプロバイダを作る<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<p><code>@codebase</code> や <code>@docs</code> で取り込めない情報源を Chat に渡したい場面があります。たとえば、社内 Issue トラッカーからエクスポートした JSON、社内 CI のビルドログ、社内データベースのスキーマ定義などです。Continue は <strong>カスタムコンテキストプロバイダ</strong> という仕組みを提供しており、<code>@&lt;任意の名前&gt;</code> で参照できる情報源を自作できます。</p>
+<h3 id="_16">コンテキストプロバイダの位置づけ<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<p><code>@file</code> <code>@codebase</code> <code>@docs</code> <code>@terminal</code> などは、すべて「コンテキストプロバイダ」の実装の 1 つです。<code>config.yaml</code> の <code>context</code> リストへの記述で有効化／無効化されます。カスタムコンテキストプロバイダは、ここに <strong>自作のプロバイダ</strong> を追加するイメージです。</p>
+<p>実装方法はいくつかありますが、本節ではエアギャップ環境で扱いやすい <strong>HTTP コンテキストプロバイダ</strong> を例にします。これは Continue が指定の URL に HTTP リクエストを送り、返ってきた JSON をコンテキストとしてプロンプトへ添える仕組みです。社内 LAN 内に小さな HTTP サーバを立てれば、社内独自の情報源を <code>@&lt;好きな名前&gt;</code> から呼び出せます。</p>
+<div class="admonition note">
+<p class="admonition-title">外部 API は使用しません</p>
+<p>HTTP コンテキストプロバイダの参照先 URL は、<strong>必ず社内 LAN 内のホストに限定</strong> してください。インターネット上のサービスを参照すると、エアギャップ前提が崩れます。</p>
+</div>
+<h3 id="issue">ハンズオン: 社内 Issue を取り込むコンテキストプロバイダを作る<a class="headerlink" href="#issue" title="Permanent link">&para;</a></h3>
+<p>ここでは、社内 Issue 一覧の JSON エクスポートを返す、最小限の社内 HTTP サーバを Python で立て、Continue から <code>@issues</code> で呼び出すまでを体験します。</p>
+<h4 id="1-issue-json">ステップ 1: 社内 Issue の JSON ダンプを用意する<a class="headerlink" href="#1-issue-json" title="Permanent link">&para;</a></h4>
+<p>開発マシン上で、社内 Issue から抜粋した JSON ファイルを用意します（実運用では社内 Issue トラッカーから定期エクスポートしてください）。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># 作業用ディレクトリ</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/continue-context-demo<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/tmp/continue-context-demo
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>issues.json<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="s">[</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="s">  {</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="s">    &quot;id&quot;: &quot;INT-1042&quot;,</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="s">    &quot;title&quot;: &quot;決済リトライ時にロックが解放されないことがある&quot;,</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="s">    &quot;status&quot;: &quot;open&quot;,</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="s">    &quot;owner&quot;: &quot;&lt;your-team-member&gt;&quot;,</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="s">    &quot;summary&quot;: &quot;PaymentService.process() で例外発生時にロックの finally 解放漏れの可能性あり&quot;</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="s">  },</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="s">  {</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="s">    &quot;id&quot;: &quot;INT-1051&quot;,</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="s">    &quot;title&quot;: &quot;InternalFw のリトライ実装を全社で統一&quot;,</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="s">    &quot;status&quot;: &quot;in-progress&quot;,</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="s">    &quot;owner&quot;: &quot;&lt;your-team-member&gt;&quot;,</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="s">    &quot;summary&quot;: &quot;ad-hoc な while-retry を InternalFw RetryPolicy へ統一する全社タスク&quot;</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="s">  }</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="s">]</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h4 id="2-http-python">ステップ 2: コンテキスト用 HTTP サーバを Python で立てる<a class="headerlink" href="#2-http-python" title="Permanent link">&para;</a></h4>
+<p>Continue の HTTP コンテキストプロバイダは、<code>POST</code> で <code>query</code>（ユーザーがコンテキストに添える検索キーワード）を受け取り、<code>name</code> と <code>content</code> を含む配列を JSON で返すサーバを期待します。最小実装は次のとおりです。</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># /tmp/continue-context-demo/server.py</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">http.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseHTTPRequestHandler</span><span class="p">,</span> <span class="n">HTTPServer</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">ISSUES_PATH</span> <span class="o">=</span> <span class="s2">&quot;/tmp/continue-context-demo/issues.json&quot;</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">IssueHandler</span><span class="p">(</span><span class="n">BaseHTTPRequestHandler</span><span class="p">):</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">do_POST</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># noqa: N802</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>        <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Content-Length&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">))</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>        <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rfile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">length</span> <span class="k">else</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">body</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>        <span class="n">query</span> <span class="o">=</span> <span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ISSUES_PATH</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>            <span class="n">issues</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>        <span class="c1"># クエリ文字列で簡易フィルタ（指定がなければ全件返す）</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>        <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>            <span class="n">issues</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>                <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">issues</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>                <span class="k">if</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>            <span class="p">]</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>        <span class="c1"># Continue が期待する形式: [{ &quot;name&quot;: ..., &quot;description&quot;: ..., &quot;content&quot;: ... }, ...]</span>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>        <span class="n">result</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>            <span class="p">{</span>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>                <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;status=</span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> owner=</span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s1">&#39;owner&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">(</span>
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a>                    <span class="sa">f</span><span class="s2">&quot;# </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> — </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>                    <span class="sa">f</span><span class="s2">&quot;- status: </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>                    <span class="sa">f</span><span class="s2">&quot;- owner: </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s1">&#39;owner&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a>                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>                <span class="p">),</span>
+</span><span id="__span-12-36"><a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a>            <span class="p">}</span>
+</span><span id="__span-12-37"><a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a>            <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">issues</span>
+</span><span id="__span-12-38"><a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>        <span class="p">]</span>
+</span><span id="__span-12-39"><a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>
+</span><span id="__span-12-40"><a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>        <span class="n">body_out</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+</span><span id="__span-12-41"><a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">send_response</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</span><span id="__span-12-42"><a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">send_header</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s2">&quot;application/json; charset=utf-8&quot;</span><span class="p">)</span>
+</span><span id="__span-12-43"><a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">send_header</span><span class="p">(</span><span class="s2">&quot;Content-Length&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">body_out</span><span class="p">)))</span>
+</span><span id="__span-12-44"><a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">end_headers</span><span class="p">()</span>
+</span><span id="__span-12-45"><a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">body_out</span><span class="p">)</span>
+</span><span id="__span-12-46"><a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a>
+</span><span id="__span-12-47"><a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a>
+</span><span id="__span-12-48"><a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="__span-12-49"><a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a>    <span class="c1"># 開発マシン上で待ち受け</span>
+</span><span id="__span-12-50"><a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a>    <span class="n">HTTPServer</span><span class="p">((</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="mi">8765</span><span class="p">),</span> <span class="n">IssueHandler</span><span class="p">)</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</span></code></pre></div>
+<p>別ターミナルでサーバを起動します。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python<span class="w"> </span>/tmp/continue-context-demo/server.py
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># =&gt; http://127.0.0.1:8765 で待ち受け開始</span>
+</span></code></pre></div>
+<p>簡単な疎通確認をしておきます。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:8765/<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;query&quot;: &quot;リトライ&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-c<span class="w"> </span><span class="m">200</span>
+</span></code></pre></div>
+<h4 id="3-configyaml">ステップ 3: <code>config.yaml</code> にカスタムコンテキストプロバイダを登録する<a class="headerlink" href="#3-configyaml" title="Permanent link">&para;</a></h4>
+<p><code>contextProviders</code> に、HTTP プロバイダのエントリを追加します。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">context</span><span class="p">:</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="c1"># 既存のプロバイダ（第 5 章で導入したもの）</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">code</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">diff</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">terminal</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">problems</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">folder</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">codebase</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">  </span><span class="c1"># 追加: 社内 Issue を取り込むカスタムプロバイダ</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">    </span><span class="nt">params</span><span class="p">:</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://127.0.0.1:8765/&quot;</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;issues&quot;</span><span class="w">           </span><span class="c1"># @issues で呼び出せるようにする</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">      </span><span class="nt">displayTitle</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;社内</span><span class="nv"> </span><span class="s">Issue&quot;</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;社内</span><span class="nv"> </span><span class="s">Issue</span><span class="nv"> </span><span class="s">トラッカーから関連</span><span class="nv"> </span><span class="s">Issue</span><span class="nv"> </span><span class="s">を取り込む&quot;</span>
+</span></code></pre></div>
+<p><code>config.yaml</code> を保存すると、Continue が新しいプロバイダを読み込みます。</p>
+<h4 id="4-chat">ステップ 4: Chat から呼び出す<a class="headerlink" href="#4-chat" title="Permanent link">&para;</a></h4>
+<p>Chat パネルを開き、入力欄で <code>@issues</code> と入力すると、登録したカスタムプロバイダが候補に現れます。クエリを添えて質問してみましょう。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>@issues リトライ
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>決済処理のリトライ実装を改善したいです。関連する社内 Issue を踏まえて、まず確認すべきポイントを 3 つ挙げてください。
+</span></code></pre></div>
+<p>サーバ側にリクエストが届き、<code>issues.json</code> の中から「リトライ」を含む Issue だけがコンテキストとして返ります。LLM はそれを踏まえて、社内文脈に即した助言を生成します。</p>
+<h4 id="5">ステップ 5: 終了処理<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<p>検証が終わったら、Python サーバ（<code>Ctrl+C</code>）を停止し、必要に応じてサンプルファイルを削除してください。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/continue-context-demo
+</span></code></pre></div>
+<h3 id="_17">カスタムプロバイダ運用時の留意点<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>エアギャップ環境で自作プロバイダを本番運用するときは、次の観点に注意してください。</p>
+<ul>
+<li><strong>アクセス制御</strong>: コンテキスト用 HTTP サーバは社内 LAN 限定でリッスンし、認証が必要な場合は社内標準の認証方式（社内 SSO、相互 TLS など）と組み合わせる</li>
+<li><strong>機密情報の選別</strong>: Issue や設計文書には、開発者本人がアクセスしてよい範囲を超える情報が含まれることがあります。プロバイダ側のフィルタで、利用者の権限に応じた絞り込みを行う</li>
+<li><strong>PII の混入回避</strong>: 個人情報・顧客情報を含むデータをそのままコンテキストに返さない。マスキング処理をプロバイダ側で施す</li>
+<li><strong>ログの設計</strong>: どの利用者がいつ何を取得したかをサーバ側で記録し、監査ログとして残せるようにする（第 13 章で扱う運用観点と連動）</li>
+<li><strong>データの更新</strong>: 社内 Issue トラッカーからのエクスポートを定期実行するスケジュールを決め、古いダンプを参照し続ける状態を避ける</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">プロバイダの粒度を分ける</p>
+<p><code>@issues</code> だけでなく、<code>@runbooks</code>（運用手順）、<code>@adr</code>（設計判断記録）、<code>@schema</code>（DB スキーマ）のように、用途ごとに別プロバイダとして登録する方が、利用者にとってわかりやすくなります。それぞれを別 HTTP エンドポイントとして実装し、<code>contextProviders</code> に並べて登録する形が運用しやすいです。</p>
+</div>
+<hr />
+<h2 id="_18">まとめ<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
+<ul>
+<li>LLM の出力品質は「どのモデルを使うか」と「どんなコンテキストを渡すか」の両輪で決まり、エアギャップ環境では後者の設計が特に効きます</li>
+<li><code>models</code> の各エントリに <code>roles</code> を明示し、Chat / Edit / Apply / Autocomplete / Embed / Rerank を用途ごとのモデルに振り分けると、レイテンシと品質のバランスが取れます。Autocomplete も <code>roles: [autocomplete]</code> で <code>models</code> リストに登録します</li>
+<li><code>@codebase</code> はローカルで完結するベクトル検索で、<code>.continueignore</code> とインデックス再構築の運用ルールを併せて決めることが実用化の鍵です</li>
+<li><code>@docs</code> のソースは必ず社内 HTTP サーバまたはローカルパスに限定し、<code>rootUrl</code> でクロール範囲を明示します。インデックス更新は明示的に促す運用が現実的です</li>
+<li>ローカル Embedding モデル（例: <code>nomic-embed-text</code>、<code>bge-m3</code>）を <code>roles: [embed]</code> で登録すると <code>@codebase</code> と <code>@docs</code> が機能します。Reranker は任意機能で、ノイズが気になった段階で追加します</li>
+<li>社内独自の情報源は、HTTP コンテキストプロバイダとして自作することで <code>@&lt;好きな名前&gt;</code> で参照できます。アクセス制御・機密情報の選別・監査ログを必ず併せて設計します</li>
+</ul>
+<hr />
+<h2 id="_19">次の章へ<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<p>次は <a href="11-customization.html">第 11 章 カスタマイズで開発フローに最適化する</a> で、社内コーディング規約を Rules として落とし込んだり、カスタムスラッシュコマンドで定型作業をワンクリック化したりする方法を扱います。本章で「社内の文脈」をモデルに渡す土台を整えた上で、次章では「社内の作法」をモデルに守らせるカスタマイズへと進みます。</p>
+<hr />
+<h2 id="_20">参考リンク<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.continue.dev/customize/deep-dives/codebase">Continue 公式ドキュメント — Codebase Context</a></li>
+<li><a href="https://docs.continue.dev/customize/context-providers#docs">Continue 公式ドキュメント — @docs Context Provider</a></li>
+<li><a href="https://docs.continue.dev/customize/context-providers">Continue 公式ドキュメント — Context Providers</a></li>
+<li><a href="https://docs.continue.dev/customize/model-roles/embeddings">Continue 公式ドキュメント — Embeddings Models</a></li>
+<li><a href="https://docs.continue.dev/customize/model-roles/reranker">Continue 公式ドキュメント — Reranking Models</a></li>
+<li><a href="https://huggingface.co/nomic-ai/nomic-embed-text-v1.5">Nomic Embed Text モデルカード（Hugging Face）</a></li>
+<li><a href="https://huggingface.co/BAAI/bge-m3">BGE-M3 モデルカード（Hugging Face）</a></li>
+<li><a href="https://huggingface.co/BAAI/bge-reranker-v2-m3">BGE Reranker モデルカード（Hugging Face）</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright (c) Internal Use Only
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

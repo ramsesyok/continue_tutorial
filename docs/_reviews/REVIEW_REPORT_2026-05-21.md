@@ -32,7 +32,7 @@ reviewer: agent
 | 重大度 | 件数 | 主な内容 |
 | --- | --- | --- |
 | High | 2 | config キー名の不統一（`api_base` vs `apiBase`）、VS Code バージョン要件の不一致 |
-| Medium | 7 | フロントマタータイトルの表記揺れ（5 ファイル）、Rules パスの誤記、埋め込みモデル設定スキーマの不一致、mcpServers スキーマの不一致、画像ファイルの欠落 |
+| Medium | 7 | <glossary:Frontmatter>タイトルの表記揺れ（5 ファイル）、Rules パスの誤記、埋め込みモデル設定スキーマの不一致、<glossary:mcpServers> スキーマの不一致、画像ファイルの欠落 |
 | Low | 1 | 「次の章へ」リンクテキストの表記揺れ（第 4 章） |
 
 ---
@@ -58,7 +58,7 @@ reviewer: agent
 | `docs/14-troubleshooting.md` | `apiBase`（キャメルケース） |
 
 - **問題**: `config.yaml` の設定キーはどちらか一方のみが正しい。読者がコードブロックをコピー＆ペーストした場合、誤った形式の記述は Continue に認識されず、接続エラーを引き起こす。
-- **推奨対応**: Continue の公式ドキュメント（`https://docs.continue.dev`）でキー名を確認し、正しい表記に全ファイルを統一する。Continue v0.8 以降は YAML 形式で `apiBase`（キャメルケース）が標準とされているため、`api_base` 側を `apiBase` に修正することを推奨する。修正の際は付録 A（config リファレンス）も必ず合わせて更新すること。
+- **推奨対応**: Continue の公式ドキュメント（`https://docs.continue.dev`）でキー名を確認し、正しい表記に全ファイルを統一する。Continue v0.8 以降は <glossary:YAML> 形式で `apiBase`（キャメルケース）が標準とされているため、`api_base` 側を `apiBase` に修正することを推奨する。修正の際は付録 A（config リファレンス）も必ず合わせて更新すること。
 
 ---
 
@@ -119,7 +119,7 @@ reviewer: agent
   - `docs/12-mcp-onprem.md`: フラット形式 `mcpServers: [{name: "x", command: "npx", args: [...]}]`
   - `docs/appendix/config-reference.md`: ネスト形式 `mcpServers: [{name: "x", transport: {type: "stdio", command: "node", args: [...]}}]`
 - **問題**: 同じ `mcpServers` の設定例が 2 章で異なる構造を持っており、どちらが正しいか読者が判断できない。
-- **推奨対応**: Continue の公式 MCP 設定ドキュメントを確認し、正しいスキーマに統一する。
+- **推奨対応**: Continue の公式 <glossary:MCP> 設定ドキュメントを確認し、正しいスキーマに統一する。
 
 ---
 
@@ -153,7 +153,7 @@ reviewer: agent
 | 「まとめ」セクションの存在（全章） | ✅ 全章に存在 |
 | 「次の章へ」セクションの存在（全章・最終章除く） | ✅ 全章に存在 |
 | ★重点章のハンズオンセクション（第 4・7・8・9・10・11 章） | ✅ 全章に存在 |
-| 第 4 章の監査証跡セクション（エアギャップ検証手順） | ✅ 存在 |
+| 第 4 章の監査証跡セクション（<glossary:エアギャップ>検証手順） | ✅ 存在 |
 | `ローカルLLM`（スペースなし）の混入 | ✅ 検出なし |
 | `エアーギャップ`（音引きあり）の混入 | ✅ 検出なし |
 | `VSCode`・`vscode`（本文中）の混入 | ✅ 検出なし（タグ・パス内は許容） |

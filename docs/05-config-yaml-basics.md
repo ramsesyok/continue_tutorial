@@ -14,10 +14,10 @@ tags:
 ## この章で学ぶこと
 
 - `config.yaml` の役割と、ファイルがどこに置かれているかを理解する
-- YAML の基本的な書き方（インデント・データ型・リスト）を把握する
+- <glossary:YAML> の基本的な書き方（インデント・データ型・リスト）を把握する
 - `config.yaml` のトップレベルキーの構成を俯瞰する
-- ロール（Chat 用・Autocomplete 用）ごとに異なるモデルを割り当てる考え方を学ぶ
-- Ollama・vLLM・LM Studio それぞれのエンドポイント記述例を確認する
+- ロール（<glossary:Chat> 用・<glossary:Autocomplete> 用）ごとに異なるモデルを割り当てる考え方を学ぶ
+- <glossary:Ollama>・<glossary:vLLM>・<glossary:LMStudio> それぞれの<glossary:エンドポイント>記述例を確認する
 
 ---
 
@@ -25,7 +25,7 @@ tags:
 
 Continue は、動作に関するほぼすべての設定を `config.yaml` という 1 つのファイルで管理しています。「どのモデルを使うか」「どのような補完を行うか」「どんなコンテキストを参照するか」——これらをすべて `config.yaml` に記述することで、チームメンバーと同一の設定を共有したり、プロジェクトごとに設定を切り替えたりすることができます。
 
-エアギャップ環境では外部サービスと自動連携することができないため、ローカル LLM への接続情報を `config.yaml` に正確に記述することが、Continue を正しく動かすための最重要ステップです。この章では、ファイルの場所と構造を理解し、実際にローカル LLM へ接続できる最小限の設定を書けるようになることを目標とします。
+<glossary:エアギャップ>環境では外部サービスと自動連携することができないため、ローカル <glossary:LLM> への接続情報を `config.yaml` に正確に記述することが、Continue を正しく動かすための最重要ステップです。この章では、ファイルの場所と構造を理解し、実際にローカル LLM へ接続できる最小限の設定を書けるようになることを目標とします。
 
 ---
 
@@ -137,12 +137,12 @@ models:
 | `name` | 設定ファイルの名前（必須） | 本章 |
 | `version` | 設定ファイルのバージョン（必須） | 本章 |
 | `schema` | スキーマバージョン（必須、値は `v1`） | 本章 |
-| `models` | Chat・Edit・Autocomplete・Embed など用途ごとのモデルの一覧（`roles:` で用途を指定） | 本章・第 6・7 章 |
+| `models` | Chat・<glossary:Edit>・Autocomplete・Embed など用途ごとのモデルの一覧（`roles:` で用途を指定） | 本章・第 6・7 章 |
 | `context` | `@file` や `@codebase` などのコンテキスト機能（各エントリは `provider:` キーを使う） | 第 6 章・第 10 章 |
 | `rules` | モデルへの共通指示（コーディング規約など） | 第 11 章 |
-| `prompts` | 独自に定義するカスタムプロンプト | 第 11 章 |
-| `docs` | ドキュメントサイトのインデックス設定 | 第 10 章 |
-| `mcpServers` | MCP サーバの接続設定 | 第 12 章 |
+| `prompts` | 独自に定義するカスタム<glossary:プロンプト> | 第 11 章 |
+| `docs` | ドキュメントサイトの<glossary:インデックス>設定 | 第 10 章 |
+| `mcpServers` | <glossary:MCPサーバ>の接続設定 | 第 12 章 |
 
 以下は、最小限の要素だけを記述した `config.yaml` の全体像です。実際の設定はこの雛形をベースに拡張していきます。
 
@@ -180,7 +180,7 @@ context:
 ```
 
 !!! note "本構成では使用しません"
-    Continue には `embeddingsProvider`（埋め込みモデル）や `reranker`（再ランキング）を指定するキーもありますが、クラウドサービス前提の機能が多く含まれます。エアギャップ環境でのローカル Embedding モデル活用については第 10 章で改めて扱います。
+    Continue には `embeddingsProvider`（埋め込みモデル）や `reranker`（再ランキング）を指定するキーもありますが、クラウドサービス前提の機能が多く含まれます。エアギャップ環境でのローカル <glossary:Embeddingモデル>活用については第 10 章で改めて扱います。
 
 ---
 
@@ -196,7 +196,7 @@ Chat では、コードの意味を理解し、設計方針を説明し、複数
 
 | 用途 | モデルの特性 | 例 |
 | --- | --- | --- |
-| Chat / Edit / Agent | 高精度・大パラメータ | Llama 3 70B、Qwen 2.5 72B など |
+| Chat / Edit / <glossary:Agent> | 高精度・大パラメータ | Llama 3 70B、Qwen 2.5 72B など |
 | Autocomplete | 低レイテンシ・小パラメータ | Qwen 2.5 Coder 1.5B、DeepSeek Coder 1.3B など |
 
 ### `models` キーと `roles` フィールド
@@ -271,7 +271,7 @@ models:
 
 ### vLLM を使う場合
 
-vLLM（ブイエルエルエム）は高スループットな LLM 推論エンジンです。OpenAI 互換の API を提供するため、Continue では `provider: openai` として設定し、エンドポイントを社内の vLLM サーバに向けます。
+vLLM（ブイエルエルエム）は高スループットな LLM <glossary:推論>エンジンです。OpenAI 互換の API を提供するため、Continue では `provider: openai` として設定し、エンドポイントを社内の vLLM サーバに向けます。
 
 ```yaml
 models:

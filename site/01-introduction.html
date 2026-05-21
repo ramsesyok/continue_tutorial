@@ -1,0 +1,1511 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="VS Code 拡張 Continue.dev をオンプレミス・エアギャップ環境のローカル LLM と 組み合わせて利用するための、ソフトウェア開発者向けチュートリアル。">
+      
+      
+        <meta name="author" content="Internal Documentation Team">
+      
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="02-prerequisites.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第1章 はじめに - Continue チュートリアル</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="index.html" title="Continue チュートリアル" class="md-header__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Continue チュートリアル
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第1章 はじめに
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ダークモードに切り替える"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切り替える" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="ライトモードに切り替える"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切り替える" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Continue チュートリアル" class="md-nav__button md-logo" aria-label="Continue チュートリアル" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Continue チュートリアル
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第1章 はじめに
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="01-introduction.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第1章 はじめに
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この章で学ぶこと
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continue とは何か
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Continue とは何か">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI コーディングアシスタントとしての位置付け
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        他のツールとの違い
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        なぜオンプレミス・エアギャップ環境で使うのか
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="なぜオンプレミス・エアギャップ環境で使うのか">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        セキュリティ要件とコンプライアンス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ローカル LLM との組み合わせがもたらすメリット
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        対象読者と前提知識
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="対象読者と前提知識">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        このチュートリアルを想定している読者
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        始める前に用意しておくもの
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        このチュートリアルを読み終えると
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        チュートリアル全体の構成
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        次の章へ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-prerequisites.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第2章 前提条件と環境確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-offline-install.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第3章 VS Code 拡張のオフラインインストール
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-telemetry-airgap-verification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第4章 テレメトリと外部通信の遮断確認
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-config-yaml-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第5章 config.yaml の基本構造
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-chat-basics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第6章 Chat 機能の基本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-autocomplete.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第7章 Autocomplete（タブ補完）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-edit.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第8章 Edit 機能でコードを書き換える
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="09-agent.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第9章 Agent 機能を理解する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="10-internal-models-context.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第10章 社内モデルとコンテキスト管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="11-customization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第11章 カスタマイズで開発フローに最適化する
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="12-mcp-onprem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第12章 MCP サーバの社内利用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="13-security-operations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第13章 セキュリティと運用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="14-troubleshooting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第14章 トラブルシューティング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    付録
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    付録
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/config-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.yaml リファレンス
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/shortcuts.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    キーボードショートカット
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="appendix/glossary.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用語集
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        この章で学ぶこと
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continue とは何か
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Continue とは何か">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI コーディングアシスタントとしての位置付け
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        他のツールとの違い
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        なぜオンプレミス・エアギャップ環境で使うのか
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="なぜオンプレミス・エアギャップ環境で使うのか">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        セキュリティ要件とコンプライアンス
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ローカル LLM との組み合わせがもたらすメリット
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        対象読者と前提知識
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="対象読者と前提知識">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        このチュートリアルを想定している読者
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        始める前に用意しておくもの
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        このチュートリアルを読み終えると
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        チュートリアル全体の構成
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        まとめ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        次の章へ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考リンク
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>第1章 はじめに</h1>
+
+<h2 id="_1">この章で学ぶこと<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Continue とは何か、どのような機能を持つ AI コーディングアシスタントかを理解する</li>
+<li>なぜオンプレミス・エアギャップ環境で Continue を使うことが有効なのかを理解する</li>
+<li>このチュートリアルの対象読者と、始める前に必要な前提条件を把握する</li>
+<li>読み終えたあとに何ができるようになるかを確認する</li>
+<li>チュートリアル全体の章構成を把握し、自分の目的に応じた読み方を選ぶ</li>
+</ul>
+<hr />
+<h2 id="continue">Continue とは何か<a class="headerlink" href="#continue" title="Permanent link">&para;</a></h2>
+<h3 id="ai">AI コーディングアシスタントとしての位置付け<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h3>
+<p>Continue（コンティニュー）は、VS Code に追加できる AI コーディングアシスタントの拡張機能です。コードの質問に答えたり、補完候補を提示したり、既存のコードを書き換えたりと、開発作業のさまざまな場面で AI を活用できます。</p>
+<p>Continue の大きな特徴は、<strong>接続する LLM（大規模言語モデル）を自由に差し替えられる</strong>点です。クラウド上の外部サービスだけでなく、社内ネットワーク内で動かすローカル LLM にも対応しています。本チュートリアルでは、この「ローカル LLM に接続する」構成を前提として説明します。</p>
+<p>Continue が提供する主な機能は次の 4 つです。</p>
+<ul>
+<li><strong>Chat</strong>（チャット）: AI に質問したり、コードの説明を求めたりする対話機能</li>
+<li><strong>Autocomplete</strong>（オートコンプリート）: 入力中のコードに対して続きを自動補完する機能</li>
+<li><strong>Edit</strong>（エディット）: 選択したコードを指示に従って書き換える機能</li>
+<li><strong>Agent</strong>（エージェント）: ファイルの作成・編集・コマンド実行などを AI が自律的に行う機能</li>
+</ul>
+<p>各機能の詳しい使い方は、第 6 章以降でそれぞれ丁寧に解説します。</p>
+<h3 id="_2">他のツールとの違い<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>GitHub Copilot や Amazon CodeWhisperer などのクラウド型 AI コーディングツールは、入力したコードをクラウド上のサーバへ送信して補完候補を生成します。便利な反面、<strong>コードが社外のサーバへ送出される</strong>という点で、機密性の高い開発環境では利用を制限されることがあります。</p>
+<p>Continue はこの問題を解消できます。接続先を社内のローカル LLM に設定すれば、コードはネットワークの外へ一切出ません。また、LLM の種類・バージョン・設定をチームで一元管理できるため、組織として AI 利用の品質と安全性を統制しやすくなります。</p>
+<div class="admonition note">
+<p class="admonition-title">ハルシネーションについて</p>
+<p>AI コーディングアシスタントは非常に便利な道具ですが、もっともらしく見えても誤った情報やコードを出力することがあります（これを「ハルシネーション」と呼びます）。AI の回答は必ず自分の目で確認し、鵜呑みにしないことが重要です。この点はチュートリアル全体を通して繰り返し強調します。</p>
+</div>
+<hr />
+<h2 id="_3">なぜオンプレミス・エアギャップ環境で使うのか<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">セキュリティ要件とコンプライアンス<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>金融・医療・防衛・製造など、多くの業界では情報セキュリティ規程や法令により、<strong>ソースコードや業務データをインターネット経由で外部に送信することが禁止または制限</strong>されています。こうした環境では、クラウド型のコーディングアシスタントをそのまま導入することが難しい場合があります。</p>
+<p>オンプレミス・エアギャップ環境（外部ネットワークから物理的・論理的に遮断された環境）で Continue を動かすと、コードや質問の内容が社外へ流出するリスクをゼロに近づけられます。監査やセキュリティレビューの際にも、「AI ツールを使っているが、データは社内に閉じている」と説明できる根拠を作りやすくなります。</p>
+<div class="admonition warning">
+<p class="admonition-title">外部通信の遮断確認は必須です</p>
+<p>ソフトウェアの設定だけでは外部通信を完全に保証できない場合があります。第 4 章では、テレメトリ（使用状況の送信）を含む外部通信の遮断設定と、実際に通信が発生していないことを確認する手順を詳しく説明します。セキュリティ要件の厳しい環境では、必ず第 4 章の手順を実施してください。</p>
+</div>
+<h3 id="llm">ローカル LLM との組み合わせがもたらすメリット<a class="headerlink" href="#llm" title="Permanent link">&para;</a></h3>
+<p>本チュートリアルでは、Continue を次の構成で利用します。</p>
+<ul>
+<li><strong>VS Code</strong>: 開発者が日常的に使う統合開発環境</li>
+<li><strong>Continue 拡張</strong>: VS Code に追加する AI コーディングアシスタント</li>
+<li><strong>ローカル LLM</strong>: 社内ネットワーク内で稼働する言語モデル（Ollama・vLLM・LM Studio など）</li>
+</ul>
+<p>この構成の主なメリットは次の通りです。</p>
+<ul>
+<li>コードや質問内容が社外に出ない</li>
+<li>インターネット接続が不要なため、完全エアギャップ環境でも利用できる</li>
+<li>使用する LLM の種類・バージョンをチームで固定・管理できる</li>
+<li>クラウドサービスの障害や仕様変更に左右されない</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">本チュートリアルの前提</p>
+<p>ローカル LLM のインストールおよび Continue からの接続設定（<code>config.yaml</code> の記述）は、すでに完了している前提で説明を進めます。まだ設定が済んでいない場合は、担当のシステム管理者または IT 部門にご確認ください。</p>
+</div>
+<hr />
+<h2 id="_5">対象読者と前提知識<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">このチュートリアルを想定している読者<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>本チュートリアルは、<strong>AI コーディングアシスタントを初めて使うソフトウェア開発者</strong>を主な読者として想定しています。具体的には、次のような方を念頭に置いています。</p>
+<ul>
+<li>VS Code を使ってコードを書いている</li>
+<li>GitHub Copilot や ChatGPT などの AI ツールをコーディングに使ったことがない、または使い始めたばかり</li>
+<li>社内のオンプレミス・エアギャップ環境で開発している</li>
+<li>AI ツールの安全な使い方に関心がある</li>
+</ul>
+<p>プログラミング言語の種類は問いません。Python・Java・TypeScript・Go など、どの言語を使っていても活用できます。</p>
+<h3 id="_7">始める前に用意しておくもの<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>本チュートリアルを進めるにあたり、次の条件が満たされていることを確認してください。</p>
+<ul>
+<li><strong>VS Code がインストールされている</strong>（バージョン 1.85 以上。詳細は <a href="02-prerequisites.html">第 2 章</a> で確認します）</li>
+<li><strong>Continue 拡張がインストールされている</strong>（オフラインでの導入手順は <a href="03-offline-install.html">第 3 章</a> で説明します）</li>
+<li><strong>ローカル LLM が社内ネットワーク内で稼働しており、Continue からの接続設定が完了している</strong></li>
+</ul>
+<p>上記の条件がまだ整っていない場合は、<a href="02-prerequisites.html">第 2 章</a> から順番に読み進めることをお勧めします。</p>
+<hr />
+<h2 id="_8">このチュートリアルを読み終えると<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>本チュートリアルを読み終えると、次のことができるようになります。</p>
+<ul>
+<li>Chat を使って、コードの書き方や設計の考え方を AI に質問できる</li>
+<li>Autocomplete を活用して、タイプ量を減らしながらコーディングできる</li>
+<li>Edit を使って、既存コードのリファクタリングやバグ修正を AI と協力して行える</li>
+<li>Agent に複数ステップの作業を依頼し、その結果を安全に確認しながら取り込める</li>
+<li><code>config.yaml</code> を編集して、チームの開発スタイルに合わせた Continue の設定ができる</li>
+<li>エアギャップ環境における外部通信の遮断設定と、その確認方法を説明できる</li>
+</ul>
+<p>いずれも、社内ネットワークの外へコードを送出することなく実現できます。</p>
+<hr />
+<h2 id="_9">チュートリアル全体の構成<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>本チュートリアルは 14 章と 3 つの付録で構成されています。各章の概要を以下に示します。章の区分（「導入」「基本」「重点」など）を参考に、自分の目的に応じた読み方を選んでください。</p>
+<table>
+<thead>
+<tr>
+<th>章</th>
+<th>タイトル</th>
+<th>概要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 1 章</td>
+<td>はじめに（本章）</td>
+<td>Continue の概要と本チュートリアルの全体像</td>
+</tr>
+<tr>
+<td>第 2 章</td>
+<td>前提条件と環境確認</td>
+<td>VS Code バージョン確認、ローカル LLM の疎通確認</td>
+</tr>
+<tr>
+<td>第 3 章</td>
+<td>VS Code 拡張のオフラインインストール</td>
+<td>VSIX ファイルによる Continue のインストール手順</td>
+</tr>
+<tr>
+<td>第 4 章 ★</td>
+<td>テレメトリと外部通信の遮断確認</td>
+<td>外部通信の無効化設定と確認方法</td>
+</tr>
+<tr>
+<td>第 5 章</td>
+<td>config.yaml の基本構造</td>
+<td>設定ファイルの場所・構文・モデル割り当て</td>
+</tr>
+<tr>
+<td>第 6 章</td>
+<td>Chat 機能の基本</td>
+<td>AI との対話でコードを調べる・説明させる</td>
+</tr>
+<tr>
+<td>第 7 章 ★</td>
+<td>Autocomplete を使いこなす</td>
+<td>タブ補完の仕組みとチューニング</td>
+</tr>
+<tr>
+<td>第 8 章 ★</td>
+<td>Edit 機能でコードを書き換える</td>
+<td>インラインでのコード書き換えとリファクタリング</td>
+</tr>
+<tr>
+<td>第 9 章 ★</td>
+<td>Agent 機能を理解する</td>
+<td>自律的なタスク実行と安全な使い方</td>
+</tr>
+<tr>
+<td>第 10 章 ★</td>
+<td>社内モデルとコンテキスト管理</td>
+<td><code>@codebase</code> / <code>@docs</code> の活用とローカル Embedding</td>
+</tr>
+<tr>
+<td>第 11 章 ★</td>
+<td>カスタマイズで開発フローに最適化する</td>
+<td>社内規約を Rules に落とし込む、スラッシュコマンド作成</td>
+</tr>
+<tr>
+<td>第 12 章</td>
+<td>MCP サーバの社内利用</td>
+<td>ローカル MCP サーバの設定と活用例</td>
+</tr>
+<tr>
+<td>第 13 章</td>
+<td>セキュリティと運用</td>
+<td>機密コード取り扱い、配布・更新の運用設計</td>
+</tr>
+<tr>
+<td>第 14 章</td>
+<td>トラブルシューティング</td>
+<td>よくある問題と切り分け手順</td>
+</tr>
+<tr>
+<td>付録 A</td>
+<td>config.yaml リファレンス</td>
+<td>設定項目の一覧と説明</td>
+</tr>
+<tr>
+<td>付録 B</td>
+<td>キーボードショートカット</td>
+<td>Continue でよく使うショートカット一覧</td>
+</tr>
+<tr>
+<td>付録 C</td>
+<td>用語集</td>
+<td>本チュートリアルで使う主な用語の定義</td>
+</tr>
+</tbody>
+</table>
+<p>★ マークのついた章は、セキュリティ・実用性の観点から特に重要な内容を扱います。</p>
+<div class="admonition tip">
+<p class="admonition-title">初めて読む方へ</p>
+<p>はじめて Continue を使う方は、第 1 章から順番に読み進めることをお勧めします。特に第 4 章（外部通信の遮断確認）はセキュリティ上の重要手順です。スキップしないようにしてください。</p>
+</div>
+<hr />
+<h2 id="_10">まとめ<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Continue は VS Code 用の AI コーディングアシスタント拡張で、Chat・Autocomplete・Edit・Agent の 4 機能を提供する</li>
+<li>接続先 LLM を自由に選べるため、社内のローカル LLM に接続することでコードを社外に送出せずに AI 支援開発ができる</li>
+<li>オンプレミス・エアギャップ環境での利用はセキュリティ・コンプライアンス上の要件を満たすうえで有効な選択肢となる</li>
+<li>本チュートリアルの対象は AI コーディング初心者の開発者で、VS Code・Continue・ローカル LLM の接続設定が完了していることを前提とする</li>
+<li>AI の回答は常に自分で検証することが重要であり、ハルシネーション（誤情報の生成）には注意が必要である</li>
+</ul>
+<h2 id="_11">次の章へ<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>次は <a href="02-prerequisites.html">第 2 章 前提条件と環境確認</a> で、VS Code のバージョン確認やローカル LLM への疎通確認など、チュートリアルを進める前に確認すべき環境条件を整理します。</p>
+<h2 id="_12">参考リンク<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.continue.dev/">Continue 公式サイト</a></li>
+<li><a href="https://docs.continue.dev/">Continue 公式ドキュメント</a></li>
+<li><a href="https://www.mkdocs.org/">MkDocs 公式サイト</a></li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a></li>
+<li><a href="https://github.com/foambubble/foam">Foam（VS Code 用ナレッジベース拡張）</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright (c) Internal Use Only
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
