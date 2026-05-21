@@ -1,5 +1,5 @@
 ---
-title: "第 8 章 Edit 機能でコードを書き換える"
+title: "第8章 Edit 機能でコードを書き換える"
 type: chapter
 tags:
   - continue

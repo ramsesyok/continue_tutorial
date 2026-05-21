@@ -1,5 +1,5 @@
 ---
-title: "第 2 章 前提条件と環境確認"
+title: "第2章 前提条件と環境確認"
 type: chapter
 tags:
   - continue

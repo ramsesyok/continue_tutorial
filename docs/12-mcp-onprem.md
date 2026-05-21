@@ -1,5 +1,5 @@
 ---
-title: "第 12 章 MCP サーバの社内利用"
+title: "第12章 MCP サーバの社内利用"
 type: chapter
 tags:
   - continue

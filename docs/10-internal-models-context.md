@@ -1,5 +1,5 @@
 ---
-title: "第 10 章 社内モデルとコンテキスト管理"
+title: "第10章 社内モデルとコンテキスト管理"
 type: chapter
 tags:
   - continue
@@ -74,8 +74,8 @@ models:
   - name: Chat（大型・高品質）
     provider: openai
     model: <your-large-chat-model>          # 例: qwen2.5-coder-32b
-    api_base: "http://<your-internal-llm-host>:<port>/v1"
-    api_key: "dummy"
+    apiBase: "http://<your-internal-llm-host>:<port>/v1"
+    apiKey: "dummy"
     roles:
       - chat
       - edit
@@ -84,31 +84,33 @@ models:
   - name: Apply（中型・高速）
     provider: openai
     model: <your-mid-model>                 # 例: qwen2.5-coder-7b
-    api_base: "http://<your-internal-llm-host>:<port>/v1"
-    api_key: "dummy"
+    apiBase: "http://<your-internal-llm-host>:<port>/v1"
+    apiKey: "dummy"
     roles:
       - apply
+
+  # --- Autocomplete 専用モデル（roles: [autocomplete] で指定）---
+  - name: Autocomplete（小型・低レイテンシ）
+    provider: ollama
+    model: <your-autocomplete-model>          # 例: qwen2.5-coder:1.5b
+    apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - autocomplete
 
   # --- Embedding 専用モデル（10.5 で詳細）---
   - name: Embeddings
     provider: ollama
     model: <your-embedding-model>           # 例: nomic-embed-text
-    api_base: "http://<your-internal-llm-host>:11434"
+    apiBase: "http://<your-internal-llm-host>:11434"
     roles:
       - embed
-
-tabAutocompleteModel:
-  name: Autocomplete（小型・低レイテンシ）
-  provider: ollama
-  model: <your-autocomplete-model>          # 例: qwen2.5-coder:1.5b
-  api_base: "http://<your-internal-llm-host>:11434"
 ```
 
 ポイントは次の 3 点です。
 
 1. **`models` の各エントリに `roles` を明示する** — 1 つのモデルを複数ロールで兼任させる場合は、リストで列挙します（例: `chat` と `edit`）。Embedding 専用モデルのように 1 ロール限定の場合は単独で書きます。
 2. **Apply ロールを意識的に分離する** — Chat や Edit の応答を実際のファイルに反映させる「Apply」ロールは、書き換え量が多くなる傾向があり、大型モデルだと適用に時間がかかります。中型モデルへ割り振ると体感が大きく改善します。
-3. **Autocomplete は引き続き `tabAutocompleteModel`** — Autocomplete だけは別キーで指定するのが Continue の慣例です。`models` リストには入れません。
+3. **Autocomplete も `models` リストで管理** — `roles: [autocomplete]` を指定したエントリを `models` リストに追加します。
 
 ### モデルサイズ・VRAM・同時実行数のバランス
 
@@ -134,8 +136,8 @@ models:
   - name: 日常用（軽量・高速）
     provider: openai
     model: <your-mid-chat-model>
-    api_base: "http://<your-internal-llm-host>:<port>/v1"
-    api_key: "dummy"
+    apiBase: "http://<your-internal-llm-host>:<port>/v1"
+    apiKey: "dummy"
     roles:
       - chat
       - edit
@@ -143,8 +145,8 @@ models:
   - name: 難しい質問用（大型・高品質）
     provider: openai
     model: <your-large-chat-model>
-    api_base: "http://<your-internal-llm-host>:<port>/v1"
-    api_key: "dummy"
+    apiBase: "http://<your-internal-llm-host>:<port>/v1"
+    apiKey: "dummy"
     roles:
       - chat
 ```
@@ -397,7 +399,7 @@ models:
   - name: Embeddings (nomic-embed-text)
     provider: ollama
     model: nomic-embed-text
-    api_base: "http://<your-internal-llm-host>:11434"
+    apiBase: "http://<your-internal-llm-host>:11434"
     roles:
       - embed
 ```
@@ -408,8 +410,8 @@ vLLM 上で Embedding モデルをホストしている場合は、OpenAI 互換
   - name: Embeddings (bge-m3 on vLLM)
     provider: openai
     model: <your-embedding-model>          # 例: bge-m3
-    api_base: "http://<your-internal-llm-host>:<port>/v1"
-    api_key: "dummy"
+    apiBase: "http://<your-internal-llm-host>:<port>/v1"
+    apiKey: "dummy"
     roles:
       - embed
 ```
@@ -450,8 +452,8 @@ models:
   - name: Reranker (bge-reranker)
     provider: openai
     model: <your-reranker-model>           # 例: bge-reranker-v2-m3
-    api_base: "http://<your-internal-llm-host>:<port>/v1"
-    api_key: "dummy"
+    apiBase: "http://<your-internal-llm-host>:<port>/v1"
+    apiKey: "dummy"
     roles:
       - rerank
 ```
@@ -514,7 +516,7 @@ models:
 
 ### コンテキストプロバイダの位置づけ
 
-`@file` `@codebase` `@docs` `@terminal` などは、すべて「コンテキストプロバイダ」の実装の 1 つです。`config.yaml` の `contextProviders` リストへの記述で有効化／無効化されます。カスタムコンテキストプロバイダは、ここに **自作のプロバイダ** を追加するイメージです。
+`@file` `@codebase` `@docs` `@terminal` などは、すべて「コンテキストプロバイダ」の実装の 1 つです。`config.yaml` の `context` リストへの記述で有効化／無効化されます。カスタムコンテキストプロバイダは、ここに **自作のプロバイダ** を追加するイメージです。
 
 実装方法はいくつかありますが、本節ではエアギャップ環境で扱いやすい **HTTP コンテキストプロバイダ** を例にします。これは Continue が指定の URL に HTTP リクエストを送り、返ってきた JSON をコンテキストとしてプロンプトへ添える仕組みです。社内 LAN 内に小さな HTTP サーバを立てれば、社内独自の情報源を `@<好きな名前>` から呼び出せます。
 
@@ -630,18 +632,18 @@ curl -s -X POST http://127.0.0.1:8765/ \
 `contextProviders` に、HTTP プロバイダのエントリを追加します。
 
 ```yaml
-contextProviders:
+context:
   # 既存のプロバイダ（第 5 章で導入したもの）
-  - name: code
-  - name: docs
-  - name: diff
-  - name: terminal
-  - name: problems
-  - name: folder
-  - name: codebase
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase
 
   # 追加: 社内 Issue を取り込むカスタムプロバイダ
-  - name: http
+  - provider: http
     params:
       url: "http://127.0.0.1:8765/"
       title: "issues"           # @issues で呼び出せるようにする
@@ -689,7 +691,7 @@ rm -rf /tmp/continue-context-demo
 ## まとめ
 
 - LLM の出力品質は「どのモデルを使うか」と「どんなコンテキストを渡すか」の両輪で決まり、エアギャップ環境では後者の設計が特に効きます
-- `models` の各エントリに `roles` を明示し、Chat / Edit / Apply / Autocomplete / Embed / Rerank を用途ごとのモデルに振り分けると、レイテンシと品質のバランスが取れます
+- `models` の各エントリに `roles` を明示し、Chat / Edit / Apply / Autocomplete / Embed / Rerank を用途ごとのモデルに振り分けると、レイテンシと品質のバランスが取れます。Autocomplete も `roles: [autocomplete]` で `models` リストに登録します
 - `@codebase` はローカルで完結するベクトル検索で、`.continueignore` とインデックス再構築の運用ルールを併せて決めることが実用化の鍵です
 - `@docs` のソースは必ず社内 HTTP サーバまたはローカルパスに限定し、`rootUrl` でクロール範囲を明示します。インデックス更新は明示的に促す運用が現実的です
 - ローカル Embedding モデル（例: `nomic-embed-text`、`bge-m3`）を `roles: [embed]` で登録すると `@codebase` と `@docs` が機能します。Reranker は任意機能で、ノイズが気になった段階で追加します

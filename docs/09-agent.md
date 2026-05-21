@@ -1,5 +1,5 @@
 ---
-title: "第 9 章 Agent 機能を理解する"
+title: "第9章 Agent 機能を理解する"
 type: chapter
 tags:
   - continue

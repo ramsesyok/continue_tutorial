@@ -7,12 +7,11 @@
 # - Foam 互換 (Frontmatter: title / type / tags) のドキュメント群を読み込む
 # =============================================================================
 
-site_name: Continue.dev オンプレミス・エアギャップ環境チュートリアル
+site_name: Continue チュートリアル
 site_description: >-
   VS Code 拡張 Continue.dev をオンプレミス・エアギャップ環境のローカル LLM と
   組み合わせて利用するための、ソフトウェア開発者向けチュートリアル。
 site_author: Internal Documentation Team
-
 # 社内公開先に合わせて書き換えてください（未設定でもローカルビルドは可能）
 # site_url: https://<your-internal-host>/continue-tutorial/
 
@@ -37,7 +36,6 @@ theme:
   # Google Fonts を取得しない（エアギャップ前提）
   font: false
   features:
-    - navigation.tabs
     - navigation.sections
     - navigation.expand
     - navigation.top
@@ -66,7 +64,7 @@ theme:
   # ファビコン・ロゴを差し替える場合は docs/images/ に配置して以下を有効化
   # logo: images/logo.svg
   # favicon: images/favicon.ico
-
+use_directory_urls: false
 # -----------------------------------------------------------------------------
 # Markdown 拡張
 # -----------------------------------------------------------------------------
@@ -125,7 +123,7 @@ plugins:
 # - エアギャップ前提のため analytics は設定しない
 # -----------------------------------------------------------------------------
 extra:
-  generator: false   # 「Made with Material for MkDocs」の表示を抑制
+  generator: false # 「Made with Material for MkDocs」の表示を抑制
   # social リンク等は社内利用前提のため省略
 
 # -----------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 ---
-title: "第 3 章 VS Code 拡張のオフラインインストール"
+title: "第3章 VS Code 拡張のオフラインインストール"
 type: chapter
 tags:
   - continue

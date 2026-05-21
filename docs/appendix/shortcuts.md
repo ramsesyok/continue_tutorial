@@ -1,5 +1,5 @@
 ---
-title: "付録 B キーボードショートカット"
+title: "付録B キーボードショートカット"
 type: appendix
 tags:
   - continue

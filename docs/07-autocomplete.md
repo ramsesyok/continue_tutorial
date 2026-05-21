@@ -1,5 +1,5 @@
 ---
-title: "第 7 章 Autocomplete（タブ補完）を使いこなす"
+title: "第7章 Autocomplete（タブ補完）を使いこなす"
 type: chapter
 tags:
   - continue
@@ -93,27 +93,31 @@ Autocomplete に適したモデルは、次の条件を満たすものです。
 
 ### エンドポイントの記述例
 
-`config.yaml` に `tabAutocompleteModel` セクションを追加することで、補完専用モデルを設定できます。以下に Ollama / vLLM / LM Studio それぞれの最小構成例を示します。
+`config.yaml` の `models` リストに `roles: [autocomplete]` を指定したエントリを追加することで、補完専用モデルを設定できます。以下に Ollama / vLLM / LM Studio それぞれの最小構成例を示します。
 
 **Ollama を使う場合**
 
 ```yaml
-tabAutocompleteModel:
-  title: Autocomplete（Ollama）
-  provider: ollama
-  model: starcoder2:3b
-  apiBase: http://<your-internal-llm-host>:11434
+models:
+  - name: Autocomplete（Ollama）
+    provider: ollama
+    model: starcoder2:3b
+    apiBase: http://<your-internal-llm-host>:11434
+    roles:
+      - autocomplete
 ```
 
 **vLLM を使う場合**
 
 ```yaml
-tabAutocompleteModel:
-  title: Autocomplete（vLLM）
-  provider: openai
-  model: <your-model-name>
-  apiBase: http://<your-internal-llm-host>:8000/v1
-  apiKey: dummy
+models:
+  - name: Autocomplete（vLLM）
+    provider: openai
+    model: <your-model-name>
+    apiBase: http://<your-internal-llm-host>:8000/v1
+    apiKey: dummy
+    roles:
+      - autocomplete
 ```
 
 !!! note "vLLM の apiKey について"
@@ -122,27 +126,33 @@ tabAutocompleteModel:
 **LM Studio を使う場合**
 
 ```yaml
-tabAutocompleteModel:
-  title: Autocomplete（LM Studio）
-  provider: lmstudio
-  model: <your-model-name>
-  apiBase: http://<your-internal-llm-host>:1234
+models:
+  - name: Autocomplete（LM Studio）
+    provider: lmstudio
+    model: <your-model-name>
+    apiBase: http://<your-internal-llm-host>:1234
+    roles:
+      - autocomplete
 ```
 
-Chat モデル（`models` セクション）と組み合わせた全体の `config.yaml` 構成イメージは次のとおりです。
+Chat モデルと組み合わせた全体の `config.yaml` 構成イメージは次のとおりです。
 
 ```yaml
 models:
-  - title: Chat モデル
+  - name: Chat モデル
     provider: ollama
     model: <your-chat-model-name>
     apiBase: http://<your-internal-llm-host>:11434
+    roles:
+      - chat
+      - edit
 
-tabAutocompleteModel:
-  title: 補完モデル
-  provider: ollama
-  model: starcoder2:3b
-  apiBase: http://<your-internal-llm-host>:11434
+  - name: 補完モデル
+    provider: ollama
+    model: starcoder2:3b
+    apiBase: http://<your-internal-llm-host>:11434
+    roles:
+      - autocomplete
 ```
 
 設定を保存すると、Continue が自動的に新しいモデル設定を読み込みます。VS Code の再起動は不要です。
@@ -204,9 +214,18 @@ def sum_of_squares(numbers):
 
 キー入力後、何ミリ秒待ってから補完リクエストを送るかを制御します。デフォルトは `300`（0.3 秒）です。値を大きくするとリクエスト頻度が下がり、サーバ負荷が減ります。
 
+`debounceDelay` などのオプションは、`models` リストの該当エントリ内の `autocompleteOptions:` フィールドに記述します。
+
 ```yaml
-tabAutocompleteOptions:
-  debounceDelay: 500   # 0.5 秒待ってからリクエスト
+models:
+  - name: 補完モデル
+    provider: ollama
+    model: starcoder2:3b
+    apiBase: http://<your-internal-llm-host>:11434
+    roles:
+      - autocomplete
+    autocompleteOptions:
+      debounceDelay: 500   # 0.5 秒待ってからリクエスト
 ```
 
 **`maxPromptTokens`**
@@ -214,8 +233,8 @@ tabAutocompleteOptions:
 LLM に送るプロンプト（Prefix + Suffix）の最大トークン数です。デフォルトは `1024` 程度です。値を下げると入力量が減り、推論が速くなりますが、補完の文脈が短くなって精度が落ちる場合があります。
 
 ```yaml
-tabAutocompleteOptions:
-  maxPromptTokens: 512
+    autocompleteOptions:
+      maxPromptTokens: 512
 ```
 
 ### 精度に影響する設定
@@ -225,8 +244,8 @@ tabAutocompleteOptions:
 出力のランダム性を制御します。`0` に近いほど決定論的（同じ入力には同じ出力）になり、補完の一貫性が上がります。補完用途では `0` 〜 `0.2` 程度が推奨されます。
 
 ```yaml
-tabAutocompleteOptions:
-  temperature: 0.0
+    autocompleteOptions:
+      temperature: 0.0
 ```
 
 **`maxSuffixPercentage`**
@@ -234,8 +253,8 @@ tabAutocompleteOptions:
 プロンプト全体のうち、Suffix（カーソル後のコード）に割り当てる割合の上限です。デフォルトは `0.25`（25%）です。ファイル末尾付近で補完する場合は Suffix が短くなるため、この値の影響は限定的です。
 
 ```yaml
-tabAutocompleteOptions:
-  maxSuffixPercentage: 0.25
+    autocompleteOptions:
+      maxSuffixPercentage: 0.25
 ```
 
 ### エアギャップ環境での最適化指針
@@ -250,16 +269,17 @@ tabAutocompleteOptions:
 以下は、上記の指針をまとめた設定例です。
 
 ```yaml
-tabAutocompleteModel:
-  title: 補完モデル
-  provider: ollama
-  model: starcoder2:3b
-  apiBase: http://<your-internal-llm-host>:11434
-
-tabAutocompleteOptions:
-  debounceDelay: 500
-  maxPromptTokens: 512
-  temperature: 0.0
+models:
+  - name: 補完モデル
+    provider: ollama
+    model: starcoder2:3b
+    apiBase: http://<your-internal-llm-host>:11434
+    roles:
+      - autocomplete
+    autocompleteOptions:
+      debounceDelay: 500
+      maxPromptTokens: 512
+      temperature: 0.0
 ```
 
 ---
@@ -310,11 +330,18 @@ Protobuf から生成された Java コードや、ツールが出力した JSON
 `config.yaml` で特定のファイルパターンを補完対象から除外できます。
 
 ```yaml
-tabAutocompleteOptions:
-  disableInFiles:
-    - "**/*.generated.*"
-    - "**/proto/**"
-    - "**/__generated__/**"
+models:
+  - name: 補完モデル
+    provider: ollama
+    model: starcoder2:3b
+    apiBase: http://<your-internal-llm-host>:11434
+    roles:
+      - autocomplete
+    autocompleteOptions:
+      disableInFiles:
+        - "**/*.generated.*"
+        - "**/proto/**"
+        - "**/__generated__/**"
 ```
 
 !!! note "補完を一時的に止めたいとき"
@@ -325,8 +352,8 @@ tabAutocompleteOptions:
 ## まとめ
 
 - Autocomplete は FIM 方式でカーソル前後のコードを推論し、Tab キーで確定するリアルタイム補完機能です
-- Chat とは役割・モデル・求められる速度がまったく異なるため、**補完には専用の小型モデルを別途設定する**ことが重要です
-- `config.yaml` の `tabAutocompleteModel` と `tabAutocompleteOptions` で、モデルの選択・レイテンシ・精度の細かなチューニングができます
+- Chat とは役割・モデル・求められる速度がまったく異なるため、**補完には `roles: [autocomplete]` で専用の小型モデルを設定する**ことが重要です
+- `config.yaml` の `models` リストに `roles: [autocomplete]` のエントリを追加し、`autocompleteOptions:` でレイテンシ・精度の細かなチューニングができます
 - コメント先行・型注釈・具体的な命名という習慣が、補完の精度を高める最大の近道です
 - 独自ドメインの複雑なコードや自動生成ファイルは補完の対象外とし、Chat と使い分けることで生産性が向上します
 
