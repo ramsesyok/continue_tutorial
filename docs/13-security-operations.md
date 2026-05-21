@@ -281,7 +281,7 @@ models:
 
 - Chat・Edit・Autocomplete・Agent の各機能が正常に動作するか
 - ローカル LLM エンドポイントへの接続が維持されているか
-- `allowAnonymousTelemetry: false` の設定が有効か（[第 4 章](04-telemetry-airgap-verification.md) の検証手順を参照）
+- テレメトリ無効化設定（`continue.telemetryEnabled: false`）が有効か（[第 4 章](04-telemetry-airgap-verification.md) の検証手順を参照）
 - 既存の `config.yaml` が引き続き正しく読み込まれるか
 
 **ステップ 2: 段階的な展開**

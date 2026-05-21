@@ -13,7 +13,7 @@ tags:
 
 ## このリファレンスの使い方
 
-本付録は、Continue の設定ファイル `config.yaml` に記述できる全キー・全オプションを網羅した辞書的リファレンスです。チュートリアル形式で最小構成を学ぶ [第 5 章](../05-config-yaml-basics.md) の補足として、手元に置いて引くことを想定しています。
+本付録は、Continue の設定ファイル `config.yaml` に記述できる全キー・全オプションを網羅した辞書的リファレンスです。チュートリアル形式で最小構成を学ぶ [第5章](../05-config-yaml-basics.md) の補足として、手元に置いて引くことを想定しています。
 
 各節には「詳細は第 N 章」という相互参照を記載しており、設定の背景や操作手順は対応する章を参照してください。エアギャップ環境では使用できない機能には「**本構成では使用しません**」と明示しています。
 
@@ -25,22 +25,23 @@ tags:
 
 | キー | 型 | 必須 | 概要 | 詳細 |
 | --- | --- | --- | --- | --- |
-| `models` | リスト | ✓ | Chat・Edit・Agent で使うモデルの一覧 | [models](#models) / 第 5・6 章 |
-| `tabAutocompleteModel` | オブジェクト | — | Autocomplete（タブ補完）専用モデル | [tabAutocompleteModel](#tabautocompletemodel) / 第 7 章 |
-| `tabAutocompleteOptions` | オブジェクト | — | Autocomplete の詳細チューニング | [tabAutocompleteOptions](#tabAutocompleteoptions) / 第 7 章 |
-| `contextProviders` | リスト | — | `@file` / `@codebase` などの参照機能 | [contextProviders](#contextproviders) / 第 6・10 章 |
-| `slashCommands` | リスト | — | `/edit` などのスラッシュコマンド | [slashCommands](#slashcommands) / 第 11 章 |
-| `customCommands` | リスト | — | ユーザー定義のカスタムコマンド | [customCommands](#customcommands) / 第 11 章 |
-| `rules` | リスト | — | モデルへの共通指示（コーディング規約など） | [rules](#rules) / 第 11 章 |
-| `models`（`roles: [embed]`） | リスト | — | ローカル Embedding モデルの設定（`models` リストに `roles: [embed]` で登録） | [models](#models) / 第 10 章 |
-| `mcpServers` | リスト | — | MCP サーバの接続設定 | [mcpServers](#mcpservers) / 第 12 章 |
-| `allowAnonymousTelemetry` | 真偽値 | — | テレメトリの送信可否（デフォルト: `true`） | [プライバシー・テレメトリ設定](#プライバシーテレメトリ設定) / 第 4 章 |
+| `name` | 文字列 | ✓ | 設定の名前 | — |
+| `version` | 文字列 | ✓ | 設定のバージョン（例: `1.0.0`） | — |
+| `schema` | 文字列 | ✓ | スキーマバージョン（`v1` 固定） | — |
+| `models` | リスト | ✓ | Chat・Edit・Agent・Autocomplete・Embedding で使うモデルの一覧（`roles:` フィールドで用途を指定） | [models](#models) / 第5・6・7・10章 |
+| `context` | リスト | — | `@file` / `@codebase` などの参照機能 | [context](#context) / 第6・10章 |
+| `rules` | リスト | — | モデルへの共通指示（コーディング規約など） | [rules](#rules) / 第11章 |
+| `prompts` | リスト | — | ユーザー定義のカスタムプロンプト（旧 `customCommands`） | [prompts](#prompts) / 第11章 |
+| `mcpServers` | リスト | — | MCP サーバの接続設定 | [mcpServers](#mcpservers) / 第12章 |
+
+!!! note "テレメトリ設定について"
+    旧バージョンの `allowAnonymousTelemetry:` キーは現在の `config.yaml` では使用しません。テレメトリの有効・無効は VS Code の設定（**継続 › テレメトリ**）または `settings.json` の `"continue.telemetryEnabled"` で制御してください（→ 詳細は [第4章](../04-telemetry-airgap-verification.md)）。
 
 ---
 
 ## models
 
-Chat・Edit・Agent で使うモデルを登録するリストです。複数のモデルを並べて登録でき、VS Code の Continue パネルのドロップダウンから切り替えられます。
+Chat・Edit・Agent・Autocomplete・Embedding で使うモデルをすべてこのリストに登録します。各エントリの `roles:` フィールドで用途を指定します。
 
 ### 共通フィールド一覧
 
@@ -50,11 +51,23 @@ Chat・Edit・Agent で使うモデルを登録するリストです。複数の
 | `provider` | 文字列 | ✓ | — | 接続するバックエンドの種別。`ollama` / `openai` / `lmstudio` など |
 | `model` | 文字列 | ✓ | — | バックエンドに登録されているモデル名。プロバイダ側の識別子と一致させます |
 | `apiBase` | 文字列 | — | プロバイダ依存 | LLM サーバのエンドポイント URL。プロバイダのデフォルトから変更する場合に指定します |
-| `api_key` | 文字列 | — | — | 認証トークン。社内サーバで認証が不要でも、プロバイダによっては任意の文字列が必要な場合があります |
-| `title` | 文字列 | — | `name` と同値 | スラッシュコマンド等での参照に使う短い識別子 |
+| `apiKey` | 文字列 | — | — | 認証トークン。社内サーバで認証が不要でも、プロバイダによっては任意の文字列が必要な場合があります |
+| `roles` | リスト | — | プロバイダ依存 | このモデルが担う役割。`chat`・`edit`・`autocomplete`・`embed`・`rerank` を指定できます |
+| `autocompleteOptions` | オブジェクト | — | — | `roles` に `autocomplete` を含む場合の補完チューニングオプション |
 | `contextLength` | 整数 | — | プロバイダ依存 | モデルが受け付ける最大コンテキスト長（トークン数）。指定しない場合はプロバイダのデフォルト値が適用されます |
-| `maxStopWords` | 整数 | — | プロバイダ依存 | 停止ワードの最大数 |
 | `promptTemplates` | オブジェクト | — | — | `chat` / `edit` などのプロンプトテンプレートを上書きする場合に指定します |
+
+### roles フィールド
+
+`roles:` に指定できる値は以下の通りです。
+
+| 値 | 用途 |
+| --- | --- |
+| `chat` | チャット・質問応答（メインの会話） |
+| `edit` | インラインエディット（コードの書き換え） |
+| `autocomplete` | タブ補完（Autocomplete） |
+| `embed` | ベクトル Embedding（`@codebase` / `@docs` 向け） |
+| `rerank` | 検索結果のリランキング |
 
 ### プロバイダ別設定
 
@@ -68,6 +81,9 @@ models:
     provider: ollama
     model: <your-model-name>         # 例: llama3、qwen2.5:7b
     apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - chat
+      - edit
 ```
 
 | 固有フィールド | 型 | 説明 |
@@ -84,16 +100,19 @@ models:
     provider: openai
     model: <your-model-name>
     apiBase: "http://<your-internal-llm-host>:<port>/v1"
-    api_key: "dummy"                 # 認証不要でもフィールドが必要な場合があります
+    apiKey: "dummy"                 # 認証不要でもフィールドが必要な場合があります
+    roles:
+      - chat
+      - edit
 ```
 
 | 固有フィールド | 型 | 説明 |
 | --- | --- | --- |
 | `apiBase` | 文字列 | OpenAI 互換サーバの URL。末尾 `/v1` まで含めて指定します |
-| `api_key` | 文字列 | API キー。認証不要な構成でも空白以外の文字列が必要な場合があります |
+| `apiKey` | 文字列 | API キー。認証不要な構成でも空白以外の文字列が必要な場合があります |
 
-!!! warning "vLLM の api_key"
-    vLLM を認証なしで運用している場合でも、`api_key` フィールドに `"dummy"` など任意の文字列を設定しないとエラーになる構成があります。社内サーバの設定に合わせて調整してください。
+!!! warning "vLLM の apiKey"
+    vLLM を認証なしで運用している場合でも、`apiKey` フィールドに `"dummy"` など任意の文字列を設定しないとエラーになる構成があります。社内サーバの設定に合わせて調整してください。
 
 #### lmstudio
 
@@ -104,9 +123,12 @@ models:
   - name: Llama 3（LM Studio）
     provider: lmstudio
     model: <your-model-name>
-    # api_base を省略すると http://localhost:1234 が使われます
+    # apiBase を省略すると http://localhost:1234 が使われます
     # 別ホストで動かす場合は明示してください
     apiBase: "http://<your-internal-llm-host>:1234"
+    roles:
+      - chat
+      - edit
 ```
 
 ### 複数モデルの登録と切り替え
@@ -119,41 +141,26 @@ models:
     provider: ollama
     model: llama3:70b
     apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - chat
+      - edit
 
   - name: Qwen 2.5 7B（軽量）
     provider: ollama
     model: qwen2.5:7b
     apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - chat
+      - edit
 ```
 
 ---
 
-## tabAutocompleteModel
+## Autocomplete モデルの設定（roles: [autocomplete]）
 
-Autocomplete（タブ補完）専用モデルを 1 つだけ指定します。`models` リストとは独立しており、レスポンス速度を優先した小型モデルを選ぶのが一般的です（→ 詳細は [第 7 章](../07-autocomplete.md)）。
+Autocomplete（タブ補完）専用モデルは、`models` リストにエントリを追加し、`roles` フィールドに `autocomplete` を指定して登録します。補完チューニングのオプションは同じエントリ内の `autocompleteOptions:` に記述します（→ 詳細は [第7章](../07-autocomplete.md)）。
 
-### フィールド一覧
-
-`models` の共通フィールドをすべて使用できます。加えて以下の Autocomplete 固有フィールドが利用可能です。
-
-| フィールド | 型 | デフォルト | 説明 |
-| --- | --- | --- | --- |
-| `name` | 文字列 | — | 表示名（必須） |
-| `provider` | 文字列 | — | プロバイダ識別子（必須） |
-| `model` | 文字列 | — | モデル名（必須） |
-| `apiBase` | 文字列 | プロバイダ依存 | エンドポイント URL |
-
-```yaml
-tabAutocompleteModel:
-  name: Qwen 2.5 Coder 1.5B（補完専用）
-  provider: ollama
-  model: qwen2.5-coder:1.5b
-  apiBase: "http://<your-internal-llm-host>:11434"
-```
-
-### tabAutocompleteOptions（詳細チューニング）
-
-補完品質・レイテンシを調整するオプションです。`tabAutocompleteOptions` キーをトップレベルに追加して設定します。
+### autocompleteOptions フィールド一覧
 
 | フィールド | 型 | デフォルト | 説明 |
 | --- | --- | --- | --- |
@@ -167,27 +174,34 @@ tabAutocompleteModel:
 | `disableInFiles` | リスト | `[]` | 補完を無効にするファイルのグロブパターン一覧（例: `["*.md", "*.txt"]`） |
 
 ```yaml
-tabAutocompleteOptions:
-  maxPromptTokens: 512       # 低速環境ではトークン数を減らしてレイテンシを改善
-  debounceDelay: 500
-  multilineCompletions: "auto"
-  disableInFiles:
-    - "*.md"
-    - "*.txt"
+models:
+  - name: 補完モデル（Qwen 2.5 Coder 1.5B）
+    provider: ollama
+    model: qwen2.5-coder:1.5b
+    apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - autocomplete
+    autocompleteOptions:
+      maxPromptTokens: 512       # 低速環境ではトークン数を減らしてレイテンシを改善
+      debounceDelay: 500
+      multilineCompletions: "auto"
+      disableInFiles:
+        - "*.md"
+        - "*.txt"
 ```
 
 !!! tip "レイテンシが気になる場合"
-    `debounceDelay` を増やす・`maxPromptTokens` を減らす・`multilineCompletions: "never"` にする、の 3 つがレイテンシ改善の基本アプローチです。詳細は [第 7 章](../07-autocomplete.md) を参照してください。
+    `debounceDelay` を増やす・`maxPromptTokens` を減らす・`multilineCompletions: "never"` にする、の 3 つがレイテンシ改善の基本アプローチです。詳細は [第7章](../07-autocomplete.md) を参照してください。
 
 ---
 
-## contextProviders
+## context
 
-`@file`・`@codebase` などの参照機能（コンテキストプロバイダ）を有効化するリストです（→ 詳細は [第 6 章](../06-chat-basics.md) / [第 10 章](../10-internal-models-context.md)）。
+`@file`・`@codebase` などの参照機能（コンテキストプロバイダ）を有効化するリストです（→ 詳細は [第6章](../06-chat-basics.md) / [第10章](../10-internal-models-context.md)）。各エントリには `name:` ではなく `provider:` キーを使用します。
 
 ### 組み込みコンテキストプロバイダ一覧
 
-| name | 呼び出し方 | 概要 | エアギャップ対応 |
+| provider | 呼び出し方 | 概要 | エアギャップ対応 |
 | --- | --- | --- | --- |
 | `code` | `@code` | 関数・クラス等のシンボルを検索して参照 | ✓ |
 | `codebase` | `@codebase` | コードベース全体をインデックスして参照 | ✓（ローカル Embedding 必須）|
@@ -206,22 +220,22 @@ tabAutocompleteOptions:
 
 #### codebase
 
-コードベース全体をベクトル検索で参照します。ローカル Embedding モデル（`embeddingsProvider`）の設定が必須です。
+コードベース全体をベクトル検索で参照します。`models` リストにローカル Embedding モデル（`roles: [embed]`）の設定が必須です。
 
 ```yaml
-contextProviders:
-  - name: codebase
+context:
+  - provider: codebase
 ```
 
-設定フィールドはなく、`name: codebase` を追加するだけで有効になります。インデックス構築時間はリポジトリの規模に依存します。
+設定フィールドはなく、`provider: codebase` を追加するだけで有効になります。インデックス構築時間はリポジトリの規模に依存します。
 
 #### docs
 
 ドキュメントサイトをクローリングしてインデックス化します。エアギャップ環境では、外部 URL はアクセスできないため、**社内で配信しているドキュメントサイトの URL のみ**指定してください。
 
 ```yaml
-contextProviders:
-  - name: docs
+context:
+  - provider: docs
 ```
 
 初回利用時に VS Code の Continue パネルから「Add Doc」でサイト URL を登録します。
@@ -232,8 +246,8 @@ contextProviders:
 #### folder
 
 ```yaml
-contextProviders:
-  - name: folder
+context:
+  - provider: folder
 ```
 
 チャット入力で `@folder` と入力すると、参照したいフォルダをインタラクティブに選択できます。
@@ -241,8 +255,8 @@ contextProviders:
 #### file
 
 ```yaml
-contextProviders:
-  - name: file
+context:
+  - provider: file
 ```
 
 `@file` と入力するとファイル名のオートコンプリートが起動します。
@@ -250,56 +264,17 @@ contextProviders:
 #### url
 
 ```yaml
-contextProviders:
-  - name: url
+context:
+  - provider: url
 ```
 
 `@url` に続けて URL を指定すると、そのページの内容が取得されてコンテキストに含まれます。エアギャップ環境では、ファイアウォール等で許可された社内 URL にのみ使用してください。
 
 ---
 
-## slashCommands
+## prompts
 
-`/edit`・`/comment` などのスラッシュコマンドを有効化するリストです（→ 詳細は [第 11 章](../11-customization.md)）。
-
-### 組み込みスラッシュコマンド一覧
-
-| name | 動作概要 |
-| --- | --- |
-| `edit` | 選択中のコードを指示に従って書き換えます |
-| `comment` | 選択中のコードにコメントを追加します |
-| `share` | 現在の会話をマークダウンとしてエクスポートします |
-| `cmd` | 自然言語からシェルコマンドを生成します |
-| `commit` | Git の変更をもとにコミットメッセージを生成します |
-
-```yaml
-slashCommands:
-  - name: edit
-    description: "選択範囲のコードを編集する"
-  - name: comment
-    description: "コードにコメントを追加する"
-  - name: share
-    description: "会話をマークダウンとしてエクスポートする"
-  - name: cmd
-    description: "シェルコマンドを生成する"
-  - name: commit
-    description: "コミットメッセージを生成する"
-```
-
-### カスタムスラッシュコマンドのフィールド
-
-`slashCommands` リストには、組み込みコマンド以外にカスタムコマンドも追加できます。
-
-| フィールド | 型 | 必須 | 説明 |
-| --- | --- | --- | --- |
-| `name` | 文字列 | ✓ | コマンド名。`/` に続けて入力する識別子（例: `refactor` → `/refactor`） |
-| `description` | 文字列 | ✓ | コマンド一覧に表示される説明文 |
-
----
-
-## customCommands
-
-`slashCommands` の組み込みコマンドとは異なり、プロンプト本文を直接 `config.yaml` に記述して独自コマンドを定義します（→ 詳細は [第 11 章](../11-customization.md)）。
+`/` コマンドからプロンプト本文を直接 `config.yaml` に記述して独自コマンドを定義します（旧称: `customCommands`、→ 詳細は [第11章](../11-customization.md)）。
 
 ### フィールド一覧
 
@@ -310,7 +285,7 @@ slashCommands:
 | `prompt` | 文字列 | ✓ | モデルに送信するプロンプト本文。`{{{ input }}}` で追加の入力を受け取れます |
 
 ```yaml
-customCommands:
+prompts:
   - name: review
     description: "コードをセキュリティ観点でレビューする"
     prompt: >-
@@ -320,40 +295,35 @@ customCommands:
       {{{ input }}}
 ```
 
+!!! note "旧 slashCommands について"
+    旧バージョンの `slashCommands:` キーは現在の `config.yaml` では使用しません（`/edit`・`/comment` などの組み込みコマンドは引き続き UI から使用できます）。カスタムコマンドを定義する場合は `prompts:` を使用してください。
+
 ---
 
 ## rules
 
-モデルへの共通指示を記述するリストです。すべての会話・編集・エージェント操作に自動的に付与されます。社内コーディング規約や回答フォーマットの指定に活用してください（→ 詳細は [第 11 章](../11-customization.md)）。
+モデルへの共通指示を記述するリストです。すべての会話・編集・エージェント操作に自動的に付与されます。社内コーディング規約や回答フォーマットの指定に活用してください（→ 詳細は [第11章](../11-customization.md)）。
 
-### フィールド一覧
+### フォーマット
 
-| フィールド | 型 | 必須 | 説明 |
-| --- | --- | --- | --- |
-| `name` | 文字列 | ✓ | ルールの識別名 |
-| `rule` | 文字列 | ✓ | モデルに渡す指示の本文 |
-| `globs` | リスト | — | このルールを適用するファイルのグロブパターン。省略すると全ファイルに適用されます |
+`rules:` には文字列、またはファイル参照（`uses: file://...`）を指定します。
 
 ```yaml
 rules:
-  - name: 日本語で回答する
-    rule: "回答は必ず日本語で行ってください。コードのコメントも日本語で記述してください。"
-
-  - name: Python スタイルガイド
-    rule: >-
-      Python コードを書く際は以下の規約に従ってください：
-      - 型ヒントを必ず付与する
-      - docstring は Google スタイルで記述する
-      - 1 行は 100 文字以内に収める
-    globs:
-      - "**/*.py"
+  - "回答は必ず日本語で行ってください。コードのコメントも日本語で記述してください。"
+  - uses: "file://./.continue/rules/python-style.md"
 ```
+
+ルールをファイルに分離して管理する場合は、プロジェクトフォルダ内の `.continue/rules/` ディレクトリに `.md` ファイルを置き、`uses: file://...` で参照します。
+
+!!! tip "ルールファイルの管理"
+    `.continue/rules/` ディレクトリ（プロジェクトルートのフォルダ内）にルールファイルを置くと、プロジェクトメンバー間で共有しやすくなります。チームのコーディング規約をファイルとして管理することで、バージョン管理の対象にもなります。
 
 ---
 
 ## Embedding モデルの設定（roles: [embed]）
 
-`@codebase` や `@docs` 機能でコードベースをベクトル検索するために使うローカル Embedding モデルは、`models` リストにエントリを追加し、`roles` フィールドに `embed` を指定して登録します（→ 詳細は [第 10 章](../10-internal-models-context.md)）。
+`@codebase` や `@docs` 機能でコードベースをベクトル検索するために使うローカル Embedding モデルは、`models` リストにエントリを追加し、`roles` フィールドに `embed` を指定して登録します（→ 詳細は [第10章](../10-internal-models-context.md)）。
 
 ### フィールド一覧
 
@@ -387,7 +357,7 @@ models:
     provider: openai
     model: <your-embedding-model-name>
     apiBase: "http://<your-internal-llm-host>:<port>/v1"
-    api_key: "dummy"
+    apiKey: "dummy"
     roles:
       - embed
 ```
@@ -399,7 +369,7 @@ models:
 
 ## mcpServers
 
-MCP（Model Context Protocol）サーバへの接続を設定するリストです（→ 詳細は [第 12 章](../12-mcp-onprem.md)）。ローカルまたは社内で動作する MCP サーバのみ接続してください。
+MCP（Model Context Protocol）サーバへの接続を設定するリストです（→ 詳細は [第12章](../12-mcp-onprem.md)）。ローカルまたは社内で動作する MCP サーバのみ接続してください。
 
 ### フィールド一覧
 
@@ -437,27 +407,6 @@ mcpServers:
 
 ---
 
-## プライバシー・テレメトリ設定
-
-セキュリティ・監査に関わる設定キーをまとめます（→ 詳細は [第 4 章](../04-telemetry-airgap-verification.md) / [第 13 章](../13-security-operations.md)）。
-
-### allowAnonymousTelemetry
-
-Continue が匿名の使用統計を外部サーバへ送信するかどうかを制御します。エアギャップ環境では `false` に設定することを推奨します。
-
-| フィールド | 型 | デフォルト | 説明 |
-| --- | --- | --- | --- |
-| `allowAnonymousTelemetry` | 真偽値 | `true` | `false` に設定するとテレメトリ送信を無効化します |
-
-```yaml
-allowAnonymousTelemetry: false
-```
-
-!!! warning "監査要件がある場合"
-    テレメトリを無効化しても、ネットワークレベルで外部通信を完全に遮断できているかは別途確認が必要です。パケットキャプチャやプロキシログを用いた検証手順については [第 4 章](../04-telemetry-airgap-verification.md) を参照してください。
-
----
-
 ## 完全な config.yaml 設定例
 
 ### 最小構成（Chat + Autocomplete のみ）
@@ -465,35 +414,35 @@ allowAnonymousTelemetry: false
 Ollama でモデルを 1 つずつ用意している場合の最小限の設定です。
 
 ```yaml
-# ~/.continue/config.yaml  ——  最小構成
+# .continue/config.yaml  ——  最小構成
 
-allowAnonymousTelemetry: false
+name: my-continue-config
+version: 1.0.0
+schema: v1
 
 models:
   - name: My Chat Model
     provider: ollama
     model: <your-model-name>
     apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - chat
+      - edit
 
-tabAutocompleteModel:
-  name: My Autocomplete Model
-  provider: ollama
-  model: <your-autocomplete-model-name>
-  apiBase: "http://<your-internal-llm-host>:11434"
+  - name: My Autocomplete Model
+    provider: ollama
+    model: <your-autocomplete-model-name>
+    apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - autocomplete
 
-contextProviders:
-  - name: code
-  - name: diff
-  - name: terminal
-  - name: problems
-  - name: folder
-  - name: file
-
-slashCommands:
-  - name: edit
-    description: "選択範囲のコードを編集する"
-  - name: comment
-    description: "コードにコメントを追加する"
+context:
+  - provider: code
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: file
 ```
 
 ### フル構成（全機能有効テンプレート）
@@ -501,23 +450,45 @@ slashCommands:
 すべての主要機能を有効にした完全テンプレートです。プレースホルダを実際の値に置き換えて使用してください。
 
 ```yaml
-# ~/.continue/config.yaml  ——  フル構成テンプレート
+# .continue/config.yaml  ——  フル構成テンプレート
 
-allowAnonymousTelemetry: false
+name: my-continue-config
+version: 1.0.0
+schema: v1
 
 # ─────────────────────────────────
-# モデル設定（Chat / Edit / Agent）
+# モデル設定（Chat / Edit / Agent / Autocomplete / Embedding）
 # ─────────────────────────────────
 models:
   - name: Large Model（高精度）
     provider: ollama
     model: <your-large-model-name>
     apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - chat
+      - edit
 
   - name: Small Model（軽量）
     provider: ollama
     model: <your-small-model-name>
     apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - chat
+      - edit
+
+  # ── Autocomplete ──
+  - name: Autocomplete Model
+    provider: ollama
+    model: <your-autocomplete-model-name>
+    apiBase: "http://<your-internal-llm-host>:11434"
+    roles:
+      - autocomplete
+    autocompleteOptions:
+      maxPromptTokens: 1024
+      debounceDelay: 350
+      multilineCompletions: "auto"
+      disableInFiles:
+        - "*.md"
 
   # ── Embedding（@codebase / @docs 向け）──
   - name: Embeddings
@@ -528,56 +499,25 @@ models:
       - embed
 
 # ─────────────────────────────────
-# Autocomplete 設定
-# ─────────────────────────────────
-tabAutocompleteModel:
-  name: Autocomplete Model
-  provider: ollama
-  model: <your-autocomplete-model-name>
-  apiBase: "http://<your-internal-llm-host>:11434"
-
-tabAutocompleteOptions:
-  maxPromptTokens: 1024
-  debounceDelay: 350
-  multilineCompletions: "auto"
-  disableInFiles:
-    - "*.md"
-
-# ─────────────────────────────────
 # コンテキストプロバイダ
 # ─────────────────────────────────
-contextProviders:
-  - name: code
-  - name: codebase
-  - name: docs
-  - name: diff
-  - name: terminal
-  - name: problems
-  - name: folder
-  - name: file
-  - name: open
-  - name: search
-  - name: tree
+context:
+  - provider: code
+  - provider: codebase
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: file
+  - provider: open
+  - provider: search
+  - provider: tree
 
 # ─────────────────────────────────
-# スラッシュコマンド
+# カスタムプロンプト（旧 customCommands）
 # ─────────────────────────────────
-slashCommands:
-  - name: edit
-    description: "選択範囲のコードを編集する"
-  - name: comment
-    description: "コードにコメントを追加する"
-  - name: share
-    description: "会話をマークダウンとしてエクスポートする"
-  - name: cmd
-    description: "シェルコマンドを生成する"
-  - name: commit
-    description: "コミットメッセージを生成する"
-
-# ─────────────────────────────────
-# カスタムコマンド
-# ─────────────────────────────────
-customCommands:
+prompts:
   - name: review
     description: "コードをセキュリティ観点でレビューする"
     prompt: >-
@@ -590,8 +530,7 @@ customCommands:
 # ルール（共通指示）
 # ─────────────────────────────────
 rules:
-  - name: 日本語で回答する
-    rule: "回答は必ず日本語で行ってください。"
+  - "回答は必ず日本語で行ってください。"
 
 # ─────────────────────────────────
 # MCP サーバ
@@ -613,8 +552,8 @@ mcpServers:
 - [Continue 公式ドキュメント — Context Providers](https://docs.continue.dev/reference/context-providers)
 - [Continue 公式ドキュメント — Model Providers](https://docs.continue.dev/reference/model-providers/ollama)
 - [YAML 公式仕様 1.2.2](https://yaml.org/spec/1.2.2/)
-- [第 5 章 config.yaml の基本構造](../05-config-yaml-basics.md)
-- [第 7 章 Autocomplete（タブ補完）を使いこなす](../07-autocomplete.md)
-- [第 10 章 社内モデルとコンテキスト管理](../10-internal-models-context.md)
-- [第 11 章 カスタマイズで開発フローに最適化する](../11-customization.md)
-- [第 12 章 MCP サーバの社内利用](../12-mcp-onprem.md)
+- [第5章 config.yaml の基本構造](../05-config-yaml-basics.md)
+- [第7章 Autocomplete（タブ補完）を使いこなす](../07-autocomplete.md)
+- [第10章 社内モデルとコンテキスト管理](../10-internal-models-context.md)
+- [第11章 カスタマイズで開発フローに最適化する](../11-customization.md)
+- [第12章 MCP サーバの社内利用](../12-mcp-onprem.md)
